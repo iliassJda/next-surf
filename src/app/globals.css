@@ -1,0 +1,26 @@
+:root {
+  --botom: #83bfca;
+  --top: #0b314d;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom, var(--botom), var(--top));
+  min-height: 100svh;
+}
+
+body {
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
