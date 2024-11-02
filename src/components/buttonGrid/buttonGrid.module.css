@@ -1,0 +1,13 @@
+.buttonStyles{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    flex: 1 1;
+  }
+
+.continent{
+    margin-right: 10px;
+
+}

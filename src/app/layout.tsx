@@ -1,5 +1,5 @@
 import "./globals.css";
-import Navbar from "@/components/navbar/navbar";
+import NavbarBoot from "@/components/navbar/navbar";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -25,9 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
-
+      
       <body>
-        <Navbar />
+        {/*Because of the navbar being in the layout file, it should be present throughout the whole app, since it is in the root layout*/}
+        <NavbarBoot />
         {children}
       </body>
     </html>
