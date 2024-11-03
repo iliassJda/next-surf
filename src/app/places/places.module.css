@@ -1,0 +1,65 @@
+
+  .img_places {
+    width: 100%;
+    margin: 15px;
+    border-radius: 15px;
+  }
+  
+  .container {
+    min-height: 350px;
+    min-width: 70%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 0%;
+    border-radius: 40px;
+    background-color: hsla(0, 0%, 16%, 0.5);
+    z-index: 2;
+  }
+  
+  .section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    font-family: "Kaushan Script";
+  }
+  .left_section {
+    width: 35%;
+  }
+  .right_section {
+    width: 55%;
+    padding: 10px;
+  }
+  .review {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid white;
+  }
+  .star {
+    margin-bottom: 15px;
+  }
+  .button {
+    padding: 6px;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+  }
+  .button:hover {
+    background-color: white;
+    color: hsla(0, 0%, 16%, 0.822) !important;
+  }
+  
+  .button:hover i {
+    color: hsla(0, 0%, 16%, 0.822) !important;
+  }
+  
+  .scrollable {
+    width: 60%;
+    max-height: 400px;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
