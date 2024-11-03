@@ -4,8 +4,10 @@ import Forum from "@/components/login/forum/forum";
 export default function Login() {
   return (
     <>
-      <div className={styles.greyContainer}>
-        <Forum />
+      <div className={styles.page}>
+        <div className={styles.greyContainer}>
+          <Forum />
+        </div>
       </div>
     </>
   );

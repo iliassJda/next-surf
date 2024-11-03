@@ -28,7 +28,7 @@ export default function RootLayout({
 
       <body>
         <Navbar />
-        {children}
+        <div className="centerPage">{children}</div>
       </body>
     </html>
   );

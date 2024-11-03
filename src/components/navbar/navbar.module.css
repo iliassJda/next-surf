@@ -1,4 +1,5 @@
 .navContainer {
   height: 70px;
+  width: 100%;
   border: solid orange 2px;
 }
