@@ -1,21 +1,13 @@
 import styles from "./page.module.css";
-import BootstrapCarousel from "@/components/carousel/bootstrapCarousel";
-import ContinentPicker from "@/components/buttonGrid/buttonGrid";
+import ContinentChanger from "@/components/contintsComp/main";
 
 export default function Home() {
-  const message = { text: "Hello world!" };
   return (
     <div>
       <main>
           <div className={styles.carousel}>
-           <BootstrapCarousel/>
+            <ContinentChanger/>
           </div>
-          <div>
-           <ContinentPicker/>
-          </div>
-
-          
-  
       </main>
     </div>
   );

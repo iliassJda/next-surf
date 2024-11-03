@@ -1,6 +1,5 @@
 import styles from "./buttonGrid.module.css";
-import MUIButton from "@/components/materialUIButtons/button1";
-import BaseButtonPlainCss from "../materialUIButtons/button2";
+import Button2 from "../materialUIButtons/button2";
 
 
 export default function ContinentPicker() {
@@ -9,22 +8,22 @@ export default function ContinentPicker() {
         <main>
             <div className={styles.buttonStyles}>
               <div className={styles.continent}>
-              <BaseButtonPlainCss title="Asia"/>
+              <Button2 title="Asia"/>
               </div>
               <div className={styles.continent}>
-              <BaseButtonPlainCss title="Europe"/>
+              <Button2 title="Europe"/>
               </div>
               <div className={styles.continent}>
-              <BaseButtonPlainCss title="North-America"/>
+              <Button2 title="North-America"/>
               </div>
               <div className={styles.continent}>
-              <BaseButtonPlainCss title="South-America"/>
+              <Button2 title="South-America"/>
               </div>
               <div className={styles.continent}>
-              <BaseButtonPlainCss title="Oceania"/>
+              <Button2 title="Oceania"/>
               </div>
               <div className={styles.continent}>
-              <BaseButtonPlainCss title="Africa"/>
+              <Button2 title="Africa"/>
               </div>
             </div>
         </main>

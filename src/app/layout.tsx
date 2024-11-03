@@ -25,7 +25,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
-      
       <body>
         {/*Because of the navbar being in the layout file, it should be present throughout the whole app, since it is in the root layout*/}
         <NavbarBoot />
