@@ -1,5 +1,5 @@
 import "./globals.css";
-import Navbar from "@/components/navbar/navbar";
+import NavbarBoot from "@/components/navbar/navbar";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -25,10 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
-
       <body>
-        <Navbar />
-        <div className="centerPage">{children}</div>
+        <NavbarBoot />
+        <div>{children}</div>
+
       </body>
     </html>
   );

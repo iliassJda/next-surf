@@ -34,6 +34,9 @@
   grid-row-start: 2;
 }
 
+
+
+
 .main ol {
   font-family: var(--font-geist-mono);
   padding-left: 0;
@@ -104,6 +107,15 @@ a.secondary {
 .footer img {
   flex-shrink: 0;
 }
+
+
+.carousel{
+  margin-top: 2%;
+  border: 2px solid green;
+}
+
+
+
 
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
