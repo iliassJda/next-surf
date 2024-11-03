@@ -19,7 +19,10 @@ export default function ContinentChanger() {
           </div>
           <div className={styles.buttonStyles}>
               <div className={styles.continent} >
-                <Button2 title="Asia" onClick={() => handleCLick(0)}/>
+                <Button2 
+                  title="Asia"
+                  onClick={() => handleCLick(0)}
+                 />
               </div>
               <div className={styles.continent}>
                 <Button2 title="Europe" onClick={() => handleCLick(1)}/>

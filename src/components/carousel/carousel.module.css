@@ -4,12 +4,17 @@
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    height:max-content;
+    height: max-content;
     
     
   }
 
 
   .carouselItem{
+    border: 2px solid red;
     height: 40rem;
+  }
+
+  .carousel{
+    height: 100%;
   }
