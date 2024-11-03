@@ -19,6 +19,11 @@
 .DS_Store
 *.pem
 
+pnpm-lock.yaml
+package-lock.json
+
+#env for database stuff
+.env*
 # debug
 npm-debug.log*
 yarn-debug.log*

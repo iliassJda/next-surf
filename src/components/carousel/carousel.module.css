@@ -1,0 +1,21 @@
+
+.img {
+  margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 83%;
+    border-radius: 20px;
+    height: 730px;
+    
+    
+  }
+
+
+  .carouselItem{
+    height: 50rem;
+  }
+
+  .carousel{
+    height: 100%;
+  }

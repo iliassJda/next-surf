@@ -6,10 +6,10 @@ body {
 
 .page {
   /* border: solid purple 2px; */
-  padding-top: 3rem;
-  /* display: flex;
+  padding-top: 10rem;
+  display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
 }
 
 .greyContainer {
