@@ -27,7 +27,7 @@ export default function RootLayout({
       {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
       <body>
         <NavbarBoot />
-        <div className="centerPage">{children}</div>
+        <div>{children}</div>
       </body>
     </html>
   );
