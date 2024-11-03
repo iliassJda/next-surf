@@ -1,9 +1,20 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import prisma from "@/lib/db";
 
-export default function Home() {
+export default async function Home() {
+  const images = await prisma.image.findMany();
   return (
-    <div>This is the home page</div>
+    <>
+      <div>This is the home page</div>
+      <img src="src/app/john.png" alt="TEST" />
+      {images.map((image) => (
+        <li key={image.id}>
+          {image.name}
+          {/* <img src={image.url} alt="" /> */}
+        </li>
+      ))}
+    </>
     // <div className={styles.page}>
     //   <main className={styles.main}>
     //     <Image
