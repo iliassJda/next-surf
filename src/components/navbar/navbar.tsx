@@ -6,7 +6,7 @@ import { useState } from "react";
 import { kaushan } from "../fonts";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const userName = "John Pork";
 
   return (
@@ -42,13 +42,19 @@ export default function Navbar() {
               &nbsp; {userName}
               <ul className={styles.dropdown}>
                 <li>
-                  <a href="#">My Profile</a>
+                  <a className={styles.icon} href="#">
+                    My Profile
+                  </a>
                 </li>
                 <li>
-                  <a href="#">Settings</a>
+                  <a className={styles.icon} href="#">
+                    Settings
+                  </a>
                 </li>
                 <li>
-                  <a href="#">Log Out</a>
+                  <a className={styles.icon} href="#">
+                    Log Out
+                  </a>
                 </li>
               </ul>
             </div>
