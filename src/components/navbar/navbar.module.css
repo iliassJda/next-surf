@@ -36,6 +36,10 @@
   color: black;
 }
 
+.icon{
+  color: white;
+  text-decoration: none;
+}
 .icon a:hover {
   color: #83bfca;
   cursor: pointer;
@@ -62,12 +66,13 @@
   border: 1px solid gray;
   border-radius: 5px;
   min-width: 150px;
-  z-index: 1;
+  z-index: 3;
 }
 
-.user-container:hover .dropdown {
+.user_container:hover .dropdown {
   display: block;
 }
+
 
 .dropdown li {
   padding: 10px;
