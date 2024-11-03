@@ -11,7 +11,7 @@ import pork from "../../../public/johnPork.jpg"
 import pork2 from "../../../public/images.jpg"
 import prisma from "@/lib/db";
 
-export default async function BootstrapCarousel({imageIndex} : {imageIndex: number}){
+export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
     const {bootstrap} = items;
     const [index, setIndex] = useState(0);
     const imagePaths = [shunshine, pork, pork2, shunshine, pork, pork2]
