@@ -9,8 +9,9 @@ import Image from "next/image";
 import shunshine from "../../../public/sunshine.jpg"
 import pork from "../../../public/johnPork.jpg"
 import pork2 from "../../../public/images.jpg"
+import prisma from "@/lib/db";
 
-export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
+export default async function BootstrapCarousel({imageIndex} : {imageIndex: number}){
     const {bootstrap} = items;
     const [index, setIndex] = useState(0);
     const imagePaths = [shunshine, pork, pork2, shunshine, pork, pork2]
@@ -18,6 +19,7 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
     const handleSelect = (selectedIndex: number, e: Record<string, unknown> | null) => {
         setIndex(selectedIndex);
     };
+
 
     return (
         <div className={styles.carousel}>
