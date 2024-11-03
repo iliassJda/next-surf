@@ -1,18 +1,19 @@
 
 .img {
+  margin-top: 10px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
-    height: max-content;
+    width: 83%;
+    border-radius: 20px;
+    height: 730px;
     
     
   }
 
 
   .carouselItem{
-    border: 2px solid red;
-    height: 40rem;
+    height: 50rem;
   }
 
   .carousel{
