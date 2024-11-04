@@ -9,12 +9,18 @@ import Image from "next/image";
 import shunshine from "../../../public/sunshine.jpg"
 import pork from "../../../public/johnPork.jpg"
 import pork2 from "../../../public/images.jpg"
+import chadSurf from "../../../public/chadSurf.jpg"
+import sunSurf from "../../../public/sunSurf.jpg"
+import porkSurf from "../../../public/PorkSurf.jpg"
+import spot1 from "../../../public/spot1.jpg"
+import spot2 from "../../../public/spot2jpg.jpg"
+import spot3 from "../../../public/spot5.jpg"
 import prisma from "@/lib/db";
 
 export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
     const {bootstrap} = items;
     const [index, setIndex] = useState(0);
-    const imagePaths = [shunshine, pork, pork2, shunshine, pork, pork2]
+    const imagePaths = [chadSurf, sunSurf, porkSurf, spot1, spot2, spot3]
 
     const handleSelect = (selectedIndex: number, e: Record<string, unknown> | null) => {
         setIndex(selectedIndex);
