@@ -7,11 +7,10 @@ export default async function Home() {
   return (
     <>
       <div>This is the home page</div>
-      <img src="src/app/john.png" alt="TEST" />
       {images.map((image) => (
         <li key={image.id}>
           {image.name}
-          {/* <img src={image.url} alt="" /> */}
+          <img src={image.url} alt="" />
         </li>
       ))}
     </>
