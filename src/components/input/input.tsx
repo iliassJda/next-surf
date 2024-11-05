@@ -1,4 +1,4 @@
-import styles from "@/components/login/input/input.module.css";
+import styles from "./input.module.css";
 
 export default function Input(probs: any) {
   return (

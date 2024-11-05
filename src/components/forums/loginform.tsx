@@ -1,8 +1,8 @@
 import Input from "../input/input";
 import LoginButton from "@/components/button/letsurf/letssurf";
-import styles from "@/components/login/forum/forum.module.css";
+import styles from "./forum.module.css";
 
-export default function Forum() {
+export default function LoginForum() {
   return (
     <form action="" className={styles.myForm}>
       <div className={styles.inputContainer}>
