@@ -41,12 +41,6 @@ importers:
       bootstrap-icons:
         specifier: ^1.11.3
         version: 1.11.3
-      cloudinary:
-        specifier: ^2.5.1
-        version: 2.5.1
-      formidable:
-        specifier: ^3.5.2
-        version: 3.5.2
       next:
         specifier: 15.0.2
         version: 15.0.2(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)
