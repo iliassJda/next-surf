@@ -3,7 +3,7 @@ import styles from "./selection.module.css";
 
 export default function CountrySelection() {
   return (
-    <select name="Nationality" id="nationality" className={styles.test}>
+    <select name="Nationality" id="nationality" className={styles.rounded}>
       <option value="select">Select a Country</option>
       {items.countries.map((country) => (
         <option key={country.code} value={country.name}>

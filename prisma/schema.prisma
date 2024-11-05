@@ -14,8 +14,10 @@ datasource db {
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  name  String?
-  posts Post[]
+  password String
+  firstname  String 
+  lastname String 
+  nationality String
 }
 
 model Post {
@@ -23,6 +25,5 @@ model Post {
   title     String
   content   String?
   published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
 }

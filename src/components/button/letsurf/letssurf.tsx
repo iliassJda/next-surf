@@ -1,10 +1,10 @@
 import { kaushan } from "@/components/fonts";
 import styles from "./letssurf.module.css";
 
-export default function Button(probs: any) {
+export default function Button({ title }: { title: string }) {
   return (
     <button className={`${styles.loginButton} ${kaushan}`} type="submit">
-      {probs.title}
+      {title}
     </button>
   );
 }
