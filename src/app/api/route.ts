@@ -6,16 +6,29 @@ export async function POST(req: NextResponse) {
 
   const { email, password, firstname, lastname, nationality } = data;
 
-  console.log(
-    `${email}, ${password}, ${firstname}, ${lastname}, ${nationality}`
-  );
+  const existingUser = await prisma.user.findUnique({ where: { email } });
+
+  if (existingUser) {
+    console.log(`User ${existingUser.id} already exists`);
+    return NextResponse.json(
+      {
+        error: `${existingUser.email} is already registered`,
+      },
+      {
+        status: 409,
+      }
+    );
+  }
 
   if (!email || !password) {
-    return NextResponse.json({ Error: "Email and password are required" });
+    return NextResponse.json(
+      { error: "Email and password are required" },
+      { status: 400 }
+    );
   }
 
   try {
-    const newUser = prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         email,
         password,
@@ -24,16 +37,23 @@ export async function POST(req: NextResponse) {
         nationality,
       },
     });
-
-    return NextResponse.json({
-      message: "user created!",
-      userId: (await newUser).id,
-    });
+    console.log(
+      `${email}, ${password}, ${firstname}, ${lastname}, ${nationality}`
+    );
+    return NextResponse.json(
+      {
+        message: `User created! Welcome ${firstname}`,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.log("error");
-    return NextResponse.json({
-      error: "unexpected error",
-    });
+    return NextResponse.json(
+      {
+        error: "Unexpected error",
+      },
+      { status: 500 }
+    );
   }
 }
 

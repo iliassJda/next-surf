@@ -6,8 +6,33 @@ import LoginButton from "../button/letsurf/letssurf";
 import inputStyles from "../input/input.module.css";
 import CountrySelection from "../selection/selection";
 
+import {
+  Id,
+  toast,
+  ToastContainer,
+  ToastContent,
+  ToastOptions,
+} from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
+type ToastType = "success" | "error" | "info" | "warning" | "default";
+
+const showToast = (type: ToastType, content: ToastContent) => {
+  switch (type) {
+    case "success":
+      return toast.success(content, {
+        position: "bottom-right",
+      });
+    case "error":
+      return toast.error(content, {
+        position: "bottom-right",
+      });
+  }
+};
 
 export default function RegisterForum() {
   const [email, setEmail] = useState("");
@@ -15,6 +40,10 @@ export default function RegisterForum() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [nationality, setNationality] = useState("");
+
+  const router = useRouter();
+
+  // const [tst, setToast] = useState("");
 
   const handleRegister = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -34,10 +63,20 @@ export default function RegisterForum() {
     });
 
     // const data = await response.json();
-    console.log(response.ok);
+    // console.log("test response");
+    // console.log(response);
+    const data = await response.json();
+
     if (response.ok) {
-      console.log("respone is OK");
+      // setToast(toast.success());
+      console.log(data.message);
+      showToast("success", `${data.message}`);
+
+      // console.log("respone is OK");
       // router.push("/");
+    } else {
+      console.log(data.error);
+      showToast("error", `${data.error}`);
     }
   };
 
@@ -50,34 +89,15 @@ export default function RegisterForum() {
           isRequired={true}
           handler={setEmail}
         />
-        {/* <input
-          type="email"
-          placeholder="EMAIL"
-          required
-          onChange={(event) => setEmail(event.target.value)}
-          className={inputStyles.input}
-        /> */}
       </div>
 
       <div className={styles.inputContainer}>
-        {/* <input
-          type="password"
-          placeholder="PASSWORD"
-          required
-          onChange={(event) => setPassword(event.target.value)}
-          className={inputStyles.input}
-        /> */}
         <Input
           type="password"
           placeholder="PASSWORD"
           isRequired={true}
           handler={setPassword}
         />
-        {/* <Input
-          type="password"
-          placeholder="CONFIRM PASSWORD"
-          isRequired={true}
-        /> */}
       </div>
 
       <div className={styles.inputContainer}>
@@ -89,23 +109,9 @@ export default function RegisterForum() {
               isRequired={true}
               handler={setFirstName}
             />
-            {/* <input
-              type="text"
-              placeholder="FIRST NAME"
-              required
-              onChange={(event) => setFirstName(event.target.value)}
-              className={inputStyles.input}
-            /> */}
           </div>
 
           <div className={styles.nameDiv}>
-            {/* <input
-              type="text"
-              placeholder="LAST NAME"
-              required
-              onChange={(event) => setLastName(event.target.value)}
-              className={inputStyles.input}
-            /> */}
             <Input
               type="text"
               placeholder="LAST NAME"
