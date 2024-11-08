@@ -1,12 +1,29 @@
 import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
 export async function POST(req: NextResponse) {
   const data = await req.json();
 
-  const { email, password, firstname, lastname, nationality } = data;
+  const {
+    email,
+    password,
+    firstname,
+    lastname,
+    nationality,
+  }: {
+    email: string;
+    password: string;
+    firstname: string;
+    lastname: string;
+    nationality: string;
+  } = data;
 
   const existingUser = await prisma.user.findUnique({ where: { email } });
+
+  const hashedpassword = await bcrypt.hash(password, 5);
+
+  console.log(`test ${hashedpassword}`);
 
   if (existingUser) {
     console.log(`User ${existingUser.id} already exists`);
@@ -31,12 +48,13 @@ export async function POST(req: NextResponse) {
     const newUser = await prisma.user.create({
       data: {
         email,
-        password,
+        password: hashedpassword,
         firstname,
         lastname,
         nationality,
       },
     });
+
     console.log(
       `${email}, ${password}, ${firstname}, ${lastname}, ${nationality}`
     );
@@ -63,43 +81,3 @@ export async function GET() {
 
   return NextResponse.json(posts);
 }
-
-// export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-//   console.log("yesss");
-//   if (req.method !== "POST") {
-//     return res.status(405).json({ message: "Method not allowed" });
-//   }
-
-//   const { email, password, firstname, lastname, nationality } = req.body;
-
-//   if (!email || !password) {
-//     return res.status(400).json({ message: "Email and password are required" });
-//   }
-
-//   if (!nationality) {
-//     return res.status(400).json({ message: "Please select a Nationality" });
-//   }
-
-//   const existingUser = await prisma.user.findUnique({ where: { email } });
-//   if (existingUser) {
-//     return res.status(409).json({ message: "Email already registered" });
-//   }
-
-//   try {
-//     const newUser = await prisma.user.create({
-//       data: {
-//         email,
-//         password,
-//         firstname,
-//         lastname,
-//         nationality,
-//       },
-//     });
-
-//     return res
-//       .status(201)
-//       .json({ message: "User created", userId: newUser.id });
-//   } catch (error) {
-//     return res.status(500).json({ message: "Error creating user" });
-//   }
-// }

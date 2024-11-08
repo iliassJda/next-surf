@@ -73,7 +73,7 @@ export default function RegisterForum() {
       showToast("success", `${data.message}`);
 
       // console.log("respone is OK");
-      // router.push("/");
+      router.push("/login");
     } else {
       console.log(data.error);
       showToast("error", `${data.error}`);
