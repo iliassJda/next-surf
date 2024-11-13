@@ -3,28 +3,26 @@
 import Input from "../input/input";
 import LoginButton from "@/components/button/letsurf/loginButton";
 import styles from "./forum.module.css";
-import inputStyles from "../input/input.module.css";
 import { login } from "@/action/user";
 
+import { showToast } from "../toast/toast";
+
 export default function LoginForum() {
+  const handleSubmit = async (formData: FormData) => {
+    const res = await login(formData);
+
+    if (res.status == "success") {
+      showToast("success", res.message);
+    } else {
+      showToast("error", res.message);
+    }
+  };
 
   return (
-    <form action={login} className={styles.myForm}>
+    <form action={handleSubmit} className={styles.myForm}>
       <div className={styles.inputContainer}>
-        <input
-          type="email"
-          name="email"
-          placeholder="EMAIL"
-          className={inputStyles.input}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="PASSWORD"
-          className={inputStyles.input}
-        />
-        {/* <Input type="email" placeholder="EMAIL" /> */}
-        {/* <Input type="password" placeholder="PASSWORD" /> */}
+        <Input type="email" placeholder="EMAIL" isRequired={true} />
+        <Input type="password" placeholder="PASSWORD" isRequired={true} />
       </div>
       <LoginButton title="Let's Surf" />
     </form>

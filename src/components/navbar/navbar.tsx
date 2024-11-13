@@ -1,11 +1,9 @@
 import styles from "./navbar.module.css";
 
 import SignOutButton from "../button/letsurf/signoutButton";
-// import { useSession } from "next-auth/react";
 import { auth } from "@/lib/auth";
 
 export default async function Navbar() {
-  // const { data: session } = useSession;
   const session = await auth();
 
   return (

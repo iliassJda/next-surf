@@ -5,12 +5,10 @@ export default function Input({
   type,
   placeholder,
   isRequired,
-  handler,
 }: {
   type: string;
   placeholder: string;
   isRequired: boolean;
-  handler: Dispatch<SetStateAction<string>>;
 }) {
   function require() {
     if (isRequired) {
@@ -21,7 +19,6 @@ export default function Input({
           name={type}
           placeholder={placeholder}
           required
-          onChange={(event) => handler(event.target.value)}
         />
       );
     } else {

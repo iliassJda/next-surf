@@ -1,19 +1,11 @@
+"use client";
+
 import { kaushan } from "@/components/fonts";
 import styles from "./letssurf.module.css";
 
-export default function Button({
-  title,
-}: // notification,
-{
-  title: string;
-  // notification: any;
-}) {
+export default function Button({ title }: { title: string }) {
   return (
-    <button
-      className={`${styles.loginButton} ${kaushan}`}
-      type="submit"
-      // onClick={notification}
-    >
+    <button className={`${styles.loginButton} ${kaushan}`} type="submit">
       {title}
     </button>
   );

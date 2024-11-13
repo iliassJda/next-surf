@@ -2,38 +2,8 @@
 
 import prisma from "@/lib/db";
 import bcrypt from "bcrypt";
-import { redirect } from 'next/navigation'
-
-
-import { showToast } from "@/components/toast/toast";
-import { error } from "console";
-import { CredentialsSignin } from "next-auth";
+import { redirect } from "next/navigation";
 import { signIn } from "@/lib/auth";
-// import {
-//   Id,
-//   toast,
-//   ToastContainer,
-//   ToastContent,
-//   ToastOptions,
-// } from "react-toastify";
-
-// import "react-toastify/dist/ReactToastify.css";
-
-// type ToastType = "success" | "error" | "info" | "warning" | "default";
-
-// const showToast = (type: ToastType, content: ToastContent) => {
-//   switch (type) {
-//     case "success":
-//       return toast.success(content, {
-//         position: "bottom-right",
-//       });
-//     case "error":
-//       return toast.error(content, {
-//         position: "bottom-right",
-//       });
-//   }
-// };
-
 
 const register = async (formData: FormData) => {
   const firstname = formData.get("firstname") as string;
@@ -42,13 +12,11 @@ const register = async (formData: FormData) => {
   const password = formData.get("password") as string;
   const nationality = formData.get("nationality") as string;
 
-  console.log(
-    `data: ${email}, ${password}, ${firstname}, ${lastname}, ${nationality}`
-  );
-
   if (!firstname || !lastname || !email || !password) {
-    // showToast("error", "Please fill all fields");
-    throw new Error("Please fill all fields");
+    return {
+      status: "error",
+      message: "Please fill all the fields.",
+    };
   }
 
   const existinguser = await prisma.user.findUnique({
@@ -58,13 +26,13 @@ const register = async (formData: FormData) => {
   });
 
   if (existinguser) {
-    // showToast("error", `User ${existinguser.email} already exists`);
-    throw new Error("User already exist!");
+    return {
+      status: "error",
+      message: `User ${firstname} with ${email} already exists!`,
+    };
   }
 
   const hashedpassword = await bcrypt.hash(password, 5);
-
-  
 
   await prisma.user.create({
     data: {
@@ -76,31 +44,45 @@ const register = async (formData: FormData) => {
     },
   });
 
-  console.log("SUCCESFULL")
-  redirect("/login")
-  // showToast("success", `User created, welcome ${firstname}`);
+  redirect("/login");
 };
-
 
 const login = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  try {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
 
-    console.log("im here first")
-
-    await signIn("credentials", formData);
-
-    
-
-  } catch(error) {
-    return new Error("Unexpected Error")
+  if (!user) {
+    return {
+      status: "error",
+      message: "User does not exist. Please register first!",
+    };
   }
 
-  // redirect("/");
+  const valid = await bcrypt.compare(password, user.password);
 
-  // console.log(`email: ${email}, password: ${password}`)
-}
+  if (!valid) {
+    return {
+      status: "error",
+      message: "Password is not valid",
+    };
+  }
+
+  await signIn("credentials", {
+    redirectTo: "/",
+    email,
+    password,
+  });
+
+  return {
+    status: "success",
+    message: "Successfully logged in!",
+  };
+};
 
 export { register, login };
