@@ -1,5 +1,6 @@
 import "./globals.css";
 import NavbarBoot from "@/components/navbar/navbar";
+// import SessionWrapper from "@/components/SessionWrapper";
 import { ToastContainer } from "react-toastify";
 
 // const geistSans = localFont({
@@ -24,13 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // <SessionWrapper>
     <html lang="en">
-      {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
       <body>
         <NavbarBoot />
         {children}
         <ToastContainer />
       </body>
     </html>
+    // </SessionWrapper>
   );
 }

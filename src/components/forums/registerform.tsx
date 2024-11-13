@@ -2,37 +2,41 @@
 
 import Input from "../input/input";
 import styles from "./forum.module.css";
-import LoginButton from "../button/letsurf/letssurf";
+import RegisterButton from "../button/letsurf/registerButton";
 import inputStyles from "../input/input.module.css";
 import CountrySelection from "../selection/selection";
 
-import {
-  Id,
-  toast,
-  ToastContainer,
-  ToastContent,
-  ToastOptions,
-} from "react-toastify";
+import { register } from "@/action/user";
+
+import { showToast } from "../toast/toast";
+
+// import {
+//   Id,
+//   toast,
+//   ToastContainer,
+//   ToastContent,
+//   ToastOptions,
+// } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-type ToastType = "success" | "error" | "info" | "warning" | "default";
+// type ToastType = "success" | "error" | "info" | "warning" | "default";
 
-const showToast = (type: ToastType, content: ToastContent) => {
-  switch (type) {
-    case "success":
-      return toast.success(content, {
-        position: "bottom-right",
-      });
-    case "error":
-      return toast.error(content, {
-        position: "bottom-right",
-      });
-  }
-};
+// const showToast = (type: ToastType, content: ToastContent) => {
+//   switch (type) {
+//     case "success":
+//       return toast.success(content, {
+//         position: "bottom-right",
+//       });
+//     case "error":
+//       return toast.error(content, {
+//         position: "bottom-right",
+//       });
+//   }
+// };
 
 export default function RegisterForum() {
   const [email, setEmail] = useState("");
@@ -81,7 +85,8 @@ export default function RegisterForum() {
   };
 
   return (
-    <form onSubmit={handleRegister} className={styles.myForm}>
+    // <form onSubmit={handleRegister} className={styles.myForm}>
+    <form action={register} className={styles.myForm}>
       <div className={styles.inputContainer}>
         <Input
           type="email"
@@ -126,7 +131,7 @@ export default function RegisterForum() {
         <CountrySelection handler={setNationality} />
       </div>
 
-      <LoginButton title="Let's Surf" />
+      <RegisterButton title="Let's Surf" />
     </form>
   );
 }

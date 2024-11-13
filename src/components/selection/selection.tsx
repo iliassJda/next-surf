@@ -9,7 +9,7 @@ export default function CountrySelection({
 }) {
   return (
     <select
-      name="Nationality"
+      name="nationality"
       id="nationality"
       className={styles.rounded}
       onChange={(event) => handler(event.target.value)}

@@ -18,6 +18,7 @@ export default function Input({
         <input
           className={styles.input}
           type={type}
+          name={type}
           placeholder={placeholder}
           required
           onChange={(event) => handler(event.target.value)}
