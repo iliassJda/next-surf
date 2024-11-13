@@ -12,7 +12,7 @@ export default async function Navbar() {
     <div className={styles.navContainer}>
       {session ? (
         <div>
-          <h1>logged in</h1>
+          <h1>YO {session.user?.email}</h1>
           <SignOutButton title="Log Out" />
         </div>
       ) : (

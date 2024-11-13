@@ -4,15 +4,12 @@ import Input from "../input/input";
 import LoginButton from "@/components/button/letsurf/loginButton";
 import styles from "./forum.module.css";
 import inputStyles from "../input/input.module.css";
-import { signIn } from "next-auth/react";
+import { login } from "@/action/user";
 
 export default function LoginForum() {
-  const credentialsAction = () => {
-    signIn("credentials");
-  };
 
   return (
-    <form action={credentialsAction} className={styles.myForm}>
+    <form action={login} className={styles.myForm}>
       <div className={styles.inputContainer}>
         <input
           type="email"

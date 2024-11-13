@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Id,
   toast,

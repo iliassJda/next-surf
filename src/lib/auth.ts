@@ -17,6 +17,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const email = (credentials.email as string) || undefined;
         const password = (credentials.password as string) || undefined;
 
+        console.log(`email: ${email}, password: ${password}`)
+
         if (!email || !password) {
           throw new CredentialsSignin("Please provide both email and password");
         }
@@ -44,7 +46,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
         };
 
-        console.log(`data: ${userData}`);
+        // console.log(`data: ${userData.}`);
 
         return userData;
       },
@@ -52,6 +54,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
 
   pages: {
-    // signIn: "/login",
+    signIn: "/login",
   },
 });

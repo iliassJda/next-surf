@@ -109,7 +109,7 @@ export default function RegisterForum() {
         <div className={styles.names}>
           <div className={styles.nameDiv}>
             <Input
-              type="text"
+              type="firstname"
               placeholder="FIRST NAME"
               isRequired={true}
               handler={setFirstName}
@@ -118,7 +118,7 @@ export default function RegisterForum() {
 
           <div className={styles.nameDiv}>
             <Input
-              type="text"
+              type="lastname"
               placeholder="LAST NAME"
               isRequired={true}
               handler={setLastName}
