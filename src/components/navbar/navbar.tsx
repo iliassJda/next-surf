@@ -13,7 +13,11 @@ export default function Navbar() {
     <header className={kaushan.className}>
       <div id={styles.top_bar}></div>
       <div id={styles.main_bar}>
-        <div id={styles.logo_div}>Let's Surf</div>
+        <div id={styles.logo_div}>
+          <a className={styles.icon} href="./">
+            Let's Surf
+          </a>
+        </div>
         <div id={styles.search_div}>
           <input
             type="text"
@@ -57,7 +61,7 @@ export default function Navbar() {
                 &nbsp; {userName}
                 <ul className={styles.dropdown}>
                   <li>
-                    <a className={styles.icon} href="#">
+                    <a className={styles.icon} href="./account">
                       My Profile
                     </a>
                   </li>
