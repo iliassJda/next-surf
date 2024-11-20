@@ -1,15 +1,19 @@
-import Input from "../login/input/input";
-import LoginButton from "@/components/button/letsurf/letssurf";
-import styles from "@/components/login/forum/forum.module.css";
+import Input from "./input";
+import LoginButton from "./button";
+import styles from "@/app/account/account.module.css";
 
-export default function Forum() {
+export default function Form(probs: any) {
   return (
     <form action="" className={styles.myForm}>
-      <div className={styles.inputContainer}>
-        <Input type="email" placeholder="EMAIL" />
-        <Input type="password" placeholder="PASSWORD" />
-      </div>
-      <LoginButton title="Let's Surf" />
+      <Input type="text" placeholder="Name" />
+      <br></br>
+      <Input type="text" placeholder="Surname" />
+      <br></br>
+      <Input type="email" placeholder="name.surname@mail.com" />
+      <br></br>
+      <Input type="password" />
+      <br></br>
+      <LoginButton value="Update" />
     </form>
   );
 }

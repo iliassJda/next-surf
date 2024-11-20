@@ -1,5 +1,7 @@
 import "./globals.css";
 import NavbarBoot from "@/components/navbar/navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",

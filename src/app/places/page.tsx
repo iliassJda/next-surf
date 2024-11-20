@@ -1,6 +1,4 @@
 import styles from "@/app/places/places.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import Image from "next/image";
 import PlacesImg from "../../../public/images/surf.jpg";
 

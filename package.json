@@ -22,7 +22,8 @@
     "npx": "^10.2.2",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-bootstrap": "^2.10.5",
-    "react-dom": "19.0.0-rc-02c0e824-20241028"
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
+    "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@types/node": "^20",
