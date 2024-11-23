@@ -12,15 +12,9 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// 3. Prisma Schema Example
-// schema.prisma
-// model User {
-//   id        Int      @id @default(autoincrement())
-//   name      String
-//   profileImage String?
-// }
 
-// 4. Image Upload Function
+
+// Image Upload Function
 async function uploadImageToCloudinary(file: string | Buffer) {
   try {
     // Upload file to Cloudinary
