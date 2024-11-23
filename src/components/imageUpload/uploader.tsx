@@ -4,11 +4,17 @@ import {useRef, useState} from "react";
 import Button2 from "@/components/materialUIButtons/button2";
 import Style from "./upload.module.css"
 import {showToast} from "@/components/toast/toast";
+import { useSession } from "next-auth/react"
 
 
 export default function Home() {
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { data: session, status } = useSession();
+    const user = session?.user
+    const userID = user?.id as string;
+    const userMail = user?.email as string;
+
 
     return (
         <div>
@@ -18,23 +24,27 @@ export default function Home() {
                 accept="image/*"
                 ref={fileInputRef}
                 onChange={async (e) => {
+
                     const file = e.target.files?.[0] as File;
+
                     const data = new FormData();
-                    data.set("file", file);
+                    data.append("file", file);
+                    data.append("user", userMail);
+
                     try {
                         const uploadRequest = await fetch("/api/pinata", {
                             method: "POST",
                             body: data,
                         })
                         showToast("success", "Image Uploaded Successfully");
+
                     } catch (e) {
-                        console.log(e);
                     }
 
                 }}
             />
 
-            <Button2 title="upload"
+            <Button2 title="Upload"
                      disabled={uploading}
                      onClick={()=> {
                          fileInputRef.current?.click();
