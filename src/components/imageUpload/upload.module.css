@@ -1,0 +1,10 @@
+.input{
+    border: 0; /* Comment: Removes any border */
+    clip: rect(0 0 0 0); /* Comment: Clips the element to be invisible */
+    height: 1px; /* Comment: Sets the height of the element to 1 pixel */
+    margin: -1px; /* Comment: Offsets the element by -1 pixel to hide it from view */
+    overflow: hidden; /* Comment: Hides any overflowing content */
+    padding: 0; /* Comment: Removes padding */
+    position: absolute; /* Comment: Positions the element absolutely */
+    width: 1px;
+}

@@ -1,47 +1,45 @@
-"use client";
 
-import { useState } from "react";
+
+import {useRef, useState} from "react";
+import Button2 from "@/components/materialUIButtons/button2";
+import Style from "./upload.module.css"
+import {showToast} from "@/components/toast/toast";
+
 
 export default function Home() {
-    const [file, setFile] = useState<File>();
-    const [url, setUrl] = useState("");
     const [uploading, setUploading] = useState(false);
-
-    const uploadFile = async () => {
-        try {
-            if (!file) {
-                alert("No file selected");
-                return;
-            }
-
-            setUploading(true);
-            const data = new FormData();
-            data.set("file", file);
-            const uploadRequest = await fetch("/api/pinata", {
-                method: "POST",
-                body: data,
-            });
-            setUploading(false);
-            const signedUrl = await uploadRequest.json();
-            setUrl(signedUrl);
-            setUploading(false);
-        } catch (e) {
-            console.log(e);
-            setUploading(false);
-            alert("Trouble uploading file");
-        }
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFile(e.target?.files?.[0]);
-    };
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     return (
         <div>
-            <input type="file" onChange={handleChange} />
-            <button type="button" disabled={uploading} onClick={uploadFile} >
-                {uploading ? "Uploading..." : "Upload"}
-            </button>
+            <input
+                className={Style.input}
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={async (e) => {
+                    const file = e.target.files?.[0] as File;
+                    const data = new FormData();
+                    data.set("file", file);
+                    try {
+                        const uploadRequest = await fetch("/api/pinata", {
+                            method: "POST",
+                            body: data,
+                        })
+                        showToast("success", "Image Uploaded Successfully");
+                    } catch (e) {
+                        console.log(e);
+                    }
+
+                }}
+            />
+
+            <Button2 title="upload"
+                     disabled={uploading}
+                     onClick={()=> {
+                         fileInputRef.current?.click();
+                    }} >
+            </Button2>
         </div>
     );
 }

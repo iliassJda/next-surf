@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { pinata } from "@/utils/pinataConfig"
 import { PrismaClient } from '@prisma/client';
-
-
+import { auth } from "@/lib/auth";
+import {Session} from "node:inspector";
+import {showToast} from "@/components/toast/toast";
+import { useSession } from "next-auth/react"
 
 async function imageUpload(req: NextRequest) {
     try {
@@ -11,11 +13,14 @@ async function imageUpload(req: NextRequest) {
         const uploadData = await pinata.upload.file(file)
 
 
+
         const url = await pinata.gateways.createSignedURL({
             cid: uploadData.cid,
-            expires: 2600,
+            expires: Infinity,
         });
-        return url;
+
+        return url
+
     } catch (e) {
         console.log(e);
         return NextResponse.json(
@@ -28,16 +33,18 @@ async function imageUpload(req: NextRequest) {
 
 
 
-async function savePrisma(imageUrl: string, userID: number){
+async function savePrisma(imageUrl: string){
     const prisma = new PrismaClient();
+    const session = await auth();
+    const user = session?.user?.id as string
+    console.log(user)
     try {
         const updatedUser = await prisma.post.create({
             data: {
                 title: imageUrl,
-                content: imageUrl,
+                content : imageUrl,
                 published: true,
-                authorId: userID,
-
+                userID: "user"
             }
         });
     }
@@ -52,17 +59,25 @@ async function savePrisma(imageUrl: string, userID: number){
     }
 }
 export async function POST(request: NextRequest) {
-    try {
-        const imageUrl = await imageUpload(request) as String
+    const { data: session, status } = useSession();
 
-        // @ts-ignore
-        await savePrisma(imageUrl, 10)
+    if(status === "authenticated") {
+        try {
+            const imageUrl = await imageUpload(request) as String
 
-    } catch (e) {
-        console.log(e);
-        return NextResponse.json(
-            {error: "post request failed"},
-            {status: 500}
-        );
+
+            // @ts-ignore
+            await savePrisma(imageUrl, 10)
+            return NextResponse.json(imageUrl, {status: 200});
+        } catch (e) {
+            console.log(e);
+            return NextResponse.json(
+                {error: "post request failed"},
+                {status: 500}
+            );
+        }
+    }
+    else{
+        showToast("error", "you must be logged in to upload media");
     }
 }
