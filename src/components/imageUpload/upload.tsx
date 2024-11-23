@@ -1,5 +1,17 @@
-'use client'
+"use client"
+import { CldUploadButton } from 'next-cloudinary';
 
+export default function uploadCloudinary() {
+    return(
+        <div>
+            <CldUploadButton uploadPreset="<Upload Preset>" />
+        </div>
+    )
+}
+
+
+
+/*
 import React, { useState, useRef } from 'react';
 import Button2 from "@/components/materialUIButtons/button2"
 
@@ -8,10 +20,7 @@ interface ImageUploadProps {
     onUploadSuccess?: (imageUrl: string) => void;
 }
 
-const ImageUploadButton: React.FC<ImageUploadProps> = ({
-                                                           userId,
-                                                           onUploadSuccess
-                                                       }) => {
+const ImageUploadButton: React.FC<ImageUploadProps> = ({userId, onUploadSuccess}) => {
     const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,7 +49,7 @@ const ImageUploadButton: React.FC<ImageUploadProps> = ({
         try {
             setIsUploading(true);
 
-            const response = await fetch('/api/cloudinary', {
+            const response = await fetch('../../api/cloudinary', {
                 method: 'POST',
                 body: formData
             });
@@ -89,3 +98,5 @@ const ImageUploadButton: React.FC<ImageUploadProps> = ({
 };
 
 export default ImageUploadButton;
+
+*/

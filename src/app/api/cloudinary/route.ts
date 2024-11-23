@@ -1,50 +1,24 @@
+"use server"
+
 // 1. Install required dependencies
 // npm install cloudinary @prisma/client
 // npm install -D @types/cloudinary
+import upload from "@/components/imageUpload/upload";
+
 const cloudinary = require("cloudinary").v2;
 import { PrismaClient } from '@prisma/client'
+import uploadImage from "@/lib/cloudinaryImageUpload";
 
 
 // 2. Configure Cloudinary (typically in .env file)
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 
 
-// Image Upload Function
-async function uploadImageToCloudinary(file: string | Buffer) {
-  try {
-    // Upload file to Cloudinary
-    const uploadResult: boolean = await new Promise(() => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          folder: 'webtech',
-          allowed_formats: ['jpg', 'png', 'webp', 'jpeg'],
-          transformation: [
-            { width: 500, height: 500, crop: 'limit' }
-          ]
-        },
-      );
-
-      // If file is a Buffer, pipe it directly
-      // If it's a string (file path), read and pipe
-      if (file instanceof Buffer) {
-        uploadStream.end(file);
-      } else {
-        const fs = require('fs');
-        fs.createReadStream(file).pipe(uploadStream);
-      }
-    });
-
-    return uploadResult.secure_url;
-  } catch (error) {
-    console.error('Cloudinary Upload Error:', error);
-    throw new Error('Image upload failed');
-  }
-}
 
 // 5. Complete Upload and Save to Database Function
 async function handleImageUploadAndSave(
@@ -55,7 +29,7 @@ async function handleImageUploadAndSave(
 
   try {
     // Upload image to Cloudinary
-    const imageUrl = await uploadImageToCloudinary(file);
+    const imageUrl = await uploadImage(file);
 
     // Save URL to database
     const addPost = await prisma.post.create({
@@ -92,5 +66,15 @@ export async function POST(req: Request) {
     return Response.json({ success: false, error: "error" }, { status: 500 });
   }
 }
+
+
+export async function GET() {
+  const data = await fetch('https://api.vercel.app/blog')
+  const posts = await data.json()
+
+  return Response.json(posts)
+}
+
+
 
 export default handleImageUploadAndSave;
