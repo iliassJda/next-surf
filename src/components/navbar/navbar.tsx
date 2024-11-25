@@ -7,6 +7,7 @@ import { kaushan } from "../fonts";
 
 import SignOutButton from "../button/letsurf/signoutButton";
 import { auth } from "@/lib/auth";
+import Image from "next/image";
 
 export default async function Navbar() {
   const session = await auth();
@@ -15,7 +16,8 @@ export default async function Navbar() {
     <div className={styles.navContainer}>
       {session ? (
         <div>
-          <h1>YO {session.user?.email}</h1>
+          <h1>YO {session.user?.email} </h1>
+          <Image src={session.user?.image as string} alt={"pp"} width={100} height={100}></Image>
           <SignOutButton title="Log Out" />
         </div>
       ) : (

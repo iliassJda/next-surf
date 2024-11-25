@@ -73,11 +73,14 @@ const login = async (formData: FormData) => {
     };
   }
 
+  /*
   await signIn("credentials", {
     redirectTo: "/",
     email,
     password,
   });
+  */
+  await signIn("facebook")
 
   return {
     status: "success",

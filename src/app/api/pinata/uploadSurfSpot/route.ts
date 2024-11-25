@@ -34,7 +34,7 @@ async function imageUpload(req: NextRequest, file: File) {
 
 
 
-async function savePrisma(imageUrl: string, userID: string){
+async function saveToPrisma(imageUrl: string, userID: string){
     const prisma = new PrismaClient();
     try {
         const updatedUser = await prisma.post.create({
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
         const imageUrl = await imageUpload(request, file) as String;
 
             // @ts-ignore
-        await savePrisma(imageUrl, userID);
+        await saveToPrisma(imageUrl, userID);
 
         return NextResponse.json(imageUrl, {status: 200});
     } catch (e) {

@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/api/pinata/getProfilePicture/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/pinata/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/pinata/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/action/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/pinata/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/pinata/uploadSurfSpot/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/imageUpload/uploader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/imageUpload/uploader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navbar/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/auth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +59,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/api/pinata/uploadSurfSpot" />
       <recent name="$PROJECT_DIR$/src/app/api" />
     </key>
   </component>
@@ -97,7 +105,11 @@
       <workItem from="1732366489414" duration="12815000" />
       <workItem from="1732382914597" duration="358000" />
       <workItem from="1732383342395" duration="921000" />
-      <workItem from="1732388262455" duration="6513000" />
+      <workItem from="1732388262455" duration="6576000" />
+      <workItem from="1732470369567" duration="1450000" />
+      <workItem from="1732522150406" duration="3123000" />
+      <workItem from="1732525291008" duration="10485000" />
+      <workItem from="1732545687066" duration="4586000" />
     </task>
     <servers />
   </component>

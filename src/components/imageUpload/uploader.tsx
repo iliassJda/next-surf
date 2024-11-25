@@ -7,8 +7,7 @@ import {showToast} from "@/components/toast/toast";
 import { useSession } from "next-auth/react"
 
 
-export default function Home() {
-    const [uploading, setUploading] = useState(false);
+export default function PlaceUploader() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { data: session, status } = useSession();
     const user = session?.user
@@ -32,20 +31,20 @@ export default function Home() {
                     data.append("user", userMail);
 
                     try {
-                        const uploadRequest = await fetch("/api/pinata", {
+                        const uploadRequest = await fetch("/api/pinata/uploadSurfSpot", {
                             method: "POST",
                             body: data,
                         })
                         showToast("success", "Image Uploaded Successfully");
 
                     } catch (e) {
+                        showToast("error", "Image didn't upload successfully");
                     }
 
                 }}
             />
 
             <Button2 title="Upload"
-                     disabled={uploading}
                      onClick={()=> {
                          fileInputRef.current?.click();
                     }} >

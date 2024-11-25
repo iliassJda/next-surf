@@ -5,7 +5,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./page.module.css";
 import ContinentChanger from "@/components/contintsComp/main";
-import Uploader from "@/components/imageUpload/uploader";
+import PlaceUploader from "@/components/imageUpload/uploader";
+import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture"
 
 export default function Home() {
   // @ts-ignore
@@ -13,7 +14,7 @@ export default function Home() {
     <div>
       <main>
           <div className={styles.carousel}>
-              <Uploader/>
+              <ShowProfilePicture/>
           </div>
       </main>
     </div>
