@@ -1,21 +1,87 @@
 import styles from "./navbar.module.css";
-
+import { kaushan } from "../fonts";
 import SignOutButton from "../button/letsurf/signoutButton";
+import userImg from "../../../public/johnPork.jpg";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import Image from "next/image";
 import { auth } from "@/lib/auth";
 
 export default async function Navbar() {
   const session = await auth();
 
   return (
-    <div className={styles.navContainer}>
-      {session ? (
-        <div>
-          <h1>YO {session.user?.email}</h1>
-          <SignOutButton title="Log Out" />
+    <header className={kaushan.className}>
+      <div id={styles.top_bar}></div>
+      <div id={styles.main_bar}>
+        <div id={styles.logo_div}>
+          <a className={styles.icon} href="./">
+            Let's Surf
+          </a>
         </div>
-      ) : (
-        <h1>NOT LOGGED IN</h1>
-      )}
-    </div>
+        <div id={styles.search_div}>
+          <input
+            type="text"
+            id={styles.search_bar}
+            placeholder="Search a place to surf"
+          />
+          <div className={styles.icon}>
+            <a>
+              <i className="bi bi-search p-2"></i>
+            </a>
+          </div>
+        </div>
+        <div className={styles.space}>
+          {session ? (
+            <>
+              <div className={styles.icon}>
+                <a className={styles.icon} href="login">
+                  <i className="bi bi-person-fill"> Log In </i>
+                </a>
+              </div>
+              &nbsp; &nbsp;
+              <div>|</div>
+              &nbsp;&nbsp;
+              <div className={styles.icon}>
+                <a className={styles.icon} href="register">
+                  <i className="bi bi-person-plus-fill"> Sign Up </i>
+                </a>
+              </div>
+            </>
+          ) : (
+            <div className={styles.user_menu}>
+              <div className={styles.user_container}>
+                <Image
+                  src={userImg}
+                  alt="User"
+                  id={styles.user_image}
+                  width={25}
+                  height={25}
+                  style={{ borderRadius: "50%", objectFit: "cover" }}
+                />
+                &nbsp; {session.user?.email}
+                <ul className={styles.dropdown}>
+                  <li>
+                    <a className={styles.icon} href="./account">
+                      My Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a className={styles.icon} href="#">
+                      Settings
+                    </a>
+                  </li>
+                  <li>
+                    <a className={styles.icon} href="#">
+                      Log Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
   );
 }

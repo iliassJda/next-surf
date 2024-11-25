@@ -1,5 +1,88 @@
-.navContainer {
-  height: 70px;
-  width: 100%;
-  border: solid orange 2px;
+
+#top_bar {
+  padding: 10px;
+}
+
+#main_bar {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
+  position: relative;
+}
+
+#logo_div {
+  font-family: "Kaushan Script";
+  font-size: 30px;
+  padding-left: 40px;
+}
+
+#search_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+#search_bar {
+  padding: 20px 10px;
+  border: none;
+  border-radius: 10px;
+  width: 450px;
+  height: 20px;
+  color: black;
+  border-color: transparent;
+  outline: none;
+}
+
+.icon{
+  color: white;
+  text-decoration: none;
+}
+.icon a:hover {
+  color: #83bfca;
+  cursor: pointer;
+}
+
+.user_menu {
+  position: relative;
+}
+
+.user_container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: black;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid gray;
+  border-radius: 5px;
+  min-width: 150px;
+  z-index: 3;
+}
+
+.user_container:hover .dropdown {
+  display: block;
+}
+
+
+.dropdown li {
+  padding: 10px;
+  border-bottom: 1px solid gray;
+}
+
+.dropdown li:hover {
+  background-color: #3c3959;
+}
+
+.space {
+  padding-right: 30px;
+  display: flex;
 }

@@ -1,5 +1,6 @@
 import "./globals.css";
 import NavbarBoot from "@/components/navbar/navbar";
+
 // import SessionWrapper from "@/components/SessionWrapper";
 import { ToastContainer } from "react-toastify";
 
