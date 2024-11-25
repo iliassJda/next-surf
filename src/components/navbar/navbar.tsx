@@ -59,7 +59,6 @@ export default async function Navbar() {
                   height={25}
                   style={{ borderRadius: "50%", objectFit: "cover" }}
                 />
-                &nbsp; {session.user?.email}
                 <ul className={styles.dropdown}>
                   <li>
                     <a className={styles.icon} href="./account">
