@@ -73,14 +73,13 @@ const login = async (formData: FormData) => {
     };
   }
 
-  /*
   await signIn("credentials", {
     redirectTo: "/",
     email,
     password,
   });
-  */
-  await signIn("google")
+
+
 
   return {
     status: "success",

@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <main>
           <div className={styles.carousel}>
-            <ShowProfilePicture/>
+            <ContinentChanger/>
           </div>
       </main>
     </div>
