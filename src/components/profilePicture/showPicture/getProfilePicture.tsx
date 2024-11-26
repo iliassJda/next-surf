@@ -16,29 +16,34 @@ export default function ShowProfilePicture() {
     const [imageURL, setImageURL] = useState<string>("/images/defaultProfile.png"); // Default image
     const [isLoading, setIsLoading] = useState(true);
 
-    async function getProfilePicture() {
-        if (status === "authenticated") {
-
-            try {
-                const getProfilePictureRequest = await fetch(`/api/pinata/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
-                    method: "GET",
-                });
-                console.log(getProfilePictureRequest);
-                const url = await getProfilePictureRequest.json();
-                console.log(url);
-                if (url !== "none") {
-                    setImageURL(url);
-                }
-            } catch (error) {
-                console.log("failed to get profilePicture");
-            }
-        }
-        setIsLoading(false);
-    }
-
     useEffect(() => {
-        getProfilePicture();
-    }, [status, userMail]); // Re-run when session status or email changes
+        // Create an async function inside useEffect
+        const fetchProfilePicture = async () => {
+            if (status === "authenticated") {
+                try {
+                    const getProfilePictureRequest = await fetch(`/api/pinata/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
+                        method: "GET",
+                    });
+                    console.log(getProfilePictureRequest);
+                    const url = await getProfilePictureRequest.json();
+                    console.log(url);
+                    if (url !== "none") {
+                        setImageURL(url);
+                    }
+                } catch (error) {
+                    console.log("failed to get profilePicture");
+                } finally {
+                    setIsLoading(false);
+                }
+            } else {
+                // If not authenticated, stop loading
+                setIsLoading(false);
+            }
+        };
+
+        // Call the async function
+        fetchProfilePicture();
+    }, [status, userMail]); // Dependencies remain the same
 
     if (isLoading) {
         return <div>Loading...</div>;
