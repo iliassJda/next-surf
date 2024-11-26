@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="" />
+    <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,7 +119,7 @@
       <workItem from="1732525291008" duration="10485000" />
       <workItem from="1732545687066" duration="5205000" />
       <workItem from="1732554043968" duration="1047000" />
-      <workItem from="1732577204328" duration="1701000" />
+      <workItem from="1732577204328" duration="2058000" />
     </task>
     <servers />
   </component>

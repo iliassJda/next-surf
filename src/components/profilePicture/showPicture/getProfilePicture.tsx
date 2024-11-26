@@ -14,7 +14,7 @@ export default function ShowProfilePicture() {
     const user = session?.user;
     const userID = user?.id as string;
     const userMail = user?.email as string;
-    const [imageURL, setImageURL] = useState<string>("https://gray-tough-goldfish-319.mypinata.cloud/files/bafybeigc5swlehulghkvbbmbsaz7jd4gfktwyxavlhblwuz4l54msi5gdu?X-Algorithm=PINATA1&X-Date=1732533655&X-Expires=30&X-Method=GET&X-Signature=23f057a98acd4a098a6b2f9369a594efadcdbf6b3b6bf5483e5f6cf0f5e0bf27"); // Default image
+    const [imageURL, setImageURL] = useState<string>("https://gray-tough-goldfish-319.mypinata.cloud/files/bafkreifxzs5giwmv56f3diut6v3olpmuhf4parwsev4auyvzt7py2fa7la?X-Algorithm=PINATA1&X-Date=1732579235&X-Expires=30&X-Method=GET&X-Signature=791e65dc4f54f3287c04d4de5aefbb1279dfb942e49ec7b53dadd9ce16195f8f"); // Default image
     const [isLoading, setIsLoading] = useState(true);
 
     async function getProfilePicture() {
@@ -55,7 +55,7 @@ export default function ShowProfilePicture() {
                 alt="profile picture"
                 src={imageURL}
                 onError={() => {
-                    setImageURL("https://gray-tough-goldfish-319.mypinata.cloud/files/bafybeigc5swlehulghkvbbmbsaz7jd4gfktwyxavlhblwuz4l54msi5gdu?X-Algorithm=PINATA1&X-Date=1732533655&X-Expires=30&X-Method=GET&X-Signature=23f057a98acd4a098a6b2f9369a594efadcdbf6b3b6bf5483e5f6cf0f5e0bf27"); // Fallback image on error
+                    setImageURL("https://gray-tough-goldfish-319.mypinata.cloud/files/bafkreifxzs5giwmv56f3diut6v3olpmuhf4parwsev4auyvzt7py2fa7la?X-Algorithm=PINATA1&X-Date=1732579235&X-Expires=30&X-Method=GET&X-Signature=791e65dc4f54f3287c04d4de5aefbb1279dfb942e49ec7b53dadd9ce16195f8f"); // Fallback image on error
 
                 }}
             />

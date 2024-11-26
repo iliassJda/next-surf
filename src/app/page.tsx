@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <main>
           <div className={styles.carousel}>
-            <PlaceUploader/>
+            <ShowProfilePicture/>
           </div>
       </main>
     </div>
