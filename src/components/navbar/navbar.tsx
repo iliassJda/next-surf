@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
-import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture"
+import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture";
 
 export default async function Navbar() {
   const session = await auth();
@@ -34,49 +34,43 @@ export default async function Navbar() {
         </div>
         <div className={styles.space}>
           {session ? (
-
-              <div className={styles.user_menu}>
-                <div className={styles.user_container}>
-                  <ShowProfilePicture/>
-                  <ul className={styles.dropdown}>
-                    <li>
-                      <a className={styles.icon} href="./account">
-                        My Profile
-                      </a>
-                    </li>
-                    <li>
-                      <a className={styles.icon} href="#">
-                        Settings
-                      </a>
-                    </li>
-                    <li>
-                      <a className={styles.icon} href="#">
-                        Log Out
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+            <div className={styles.user_menu}>
+              {session.user?.name}
+              <div className={styles.user_container}>
+                <ShowProfilePicture />
+                <ul className={styles.dropdown}>
+                  <li>
+                    <a className={styles.icon} href="./account">
+                      My Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a className={styles.icon} href="#">
+                      Settings
+                    </a>
+                  </li>
+                  <li>
+                    <SignOutButton title="Sign Out" />
+                  </li>
+                </ul>
               </div>
-
+            </div>
           ) : (
-              <>
-                <div className={styles.icon}>
-                  <a className={styles.icon} href="login">
-                    <i className="bi bi-person-fill"> Log In </i>
-                  </a>
-                </div>
-                &nbsp; &nbsp;
-                <div>|</div>
-                &nbsp;&nbsp;
-                <div className={styles.icon}>
-                  <a className={styles.icon} href="register">
-                    <i className="bi bi-person-plus-fill"> Sign Up </i>
-                  </a>
-                </div>
-              </>
-
-
-
+            <>
+              <div className={styles.icon}>
+                <a className={styles.icon} href="login">
+                  <i className="bi bi-person-fill"> Log In </i>
+                </a>
+              </div>
+              &nbsp; &nbsp;
+              <div>|</div>
+              &nbsp;&nbsp;
+              <div className={styles.icon}>
+                <a className={styles.icon} href="register">
+                  <i className="bi bi-person-plus-fill"> Sign Up </i>
+                </a>
+              </div>
+            </>
           )}
         </div>
       </div>

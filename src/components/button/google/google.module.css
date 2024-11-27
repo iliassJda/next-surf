@@ -1,23 +1,24 @@
 .googleBtn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    background-color: #ffffff;
-    border: 1px solid #dfdfdf;
-    border-radius: 4px;
-    color: #333333;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  color: #333333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  border-radius: 10px;
 }
 
 .googleBtn img {
-    width: 30px;
-    margin-right: 10px;
+  width: 30px;
+  margin-right: 10px;
 }
 
 .googleBtn:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
