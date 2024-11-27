@@ -18,23 +18,28 @@ export default function ShowProfilePicture() {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             if (status === "authenticated") {
-
-                try {
-                    const getProfilePictureRequest = await fetch(`/api/uploadCare/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
-                        method: "GET",
-                    });
-                    console.log(getProfilePictureRequest);
-                    const url = await getProfilePictureRequest.json();
-                    console.log(url);
-                    if (url !== "none") {
-                        setImageURL(url);
-                    }
-                } catch (error) {
-                    console.log("failed to get profile");
-                } finally {
-                    setIsLoading(false);
+                if(user?.image){
+                    setImageURL(user?.image);
                 }
-            } else {
+                else {
+                    try {
+                        const getProfilePictureRequest = await fetch(`/api/uploadCare/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
+                            method: "GET",
+                        });
+                        console.log(getProfilePictureRequest);
+                        const url = await getProfilePictureRequest.json();
+                        console.log(url);
+                        if (url !== "none") {
+                            setImageURL(url);
+                        }
+                    } catch (error) {
+                        console.log("failed to get profile");
+                    } finally {
+                        setIsLoading(false);
+                    }
+                }
+            }
+                else {
                 // If not authenticated, stop loading
                 setIsLoading(false);
             }
@@ -50,8 +55,8 @@ export default function ShowProfilePicture() {
     return (
         <div>
             <Image className={Styles.Image}
-                width={80}
-                height={80}
+                width={60}
+                height={60}
                 alt="profile picture"
                 src={imageURL}
                 onError={() => {

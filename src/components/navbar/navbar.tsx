@@ -56,7 +56,6 @@ export default async function Navbar() {
                     </li>
                   </ul>
                 </div>
-              </div>
             </div>
           ) : (
             <>
