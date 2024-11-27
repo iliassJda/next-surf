@@ -57,26 +57,23 @@ export default async function Navbar() {
                   </ul>
                 </div>
               </div>
-
+            </div>
           ) : (
-              <>
-                <div className={styles.icon}>
-                  <a className={styles.icon} href="login">
-                    <i className="bi bi-person-fill"> Log In </i>
-                  </a>
-                </div>
-                &nbsp; &nbsp;
-                <div>|</div>
-                &nbsp;&nbsp;
-                <div className={styles.icon}>
-                  <a className={styles.icon} href="register">
-                    <i className="bi bi-person-plus-fill"> Sign Up </i>
-                  </a>
-                </div>
-              </>
-
-
-
+            <>
+              <div className={styles.icon}>
+                <a className={styles.icon} href="login">
+                  <i className="bi bi-person-fill"> Log In </i>
+                </a>
+              </div>
+              &nbsp; &nbsp;
+              <div>|</div>
+              &nbsp;&nbsp;
+              <div className={styles.icon}>
+                <a className={styles.icon} href="register">
+                  <i className="bi bi-person-plus-fill"> Sign Up </i>
+                </a>
+              </div>
+            </>
           )}
         </div>
       </div>
