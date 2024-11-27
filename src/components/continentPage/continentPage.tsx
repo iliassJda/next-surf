@@ -20,7 +20,7 @@ const ContinentPage = () => {
 
   return (
     <div>
-      <h1>{continent} 2</h1>
+      <h1>{continent}</h1>
       <ul>
         {countries.map((country) => (
           <li key={country.country}>{country.country}</li>
