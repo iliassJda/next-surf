@@ -2,24 +2,23 @@
 
 import { useRef, useState, useEffect } from "react";
 import Button2 from "@/components/materialUIButtons/button2";
-import Style from "./upload.module.css"
 import { showToast } from "@/components/toast/toast";
 import { useSession } from "next-auth/react"
 import Image from "next/image";
 import Bron from "/images/defaultProfile.png"
+import Styles from "@/components/profilePicture/showPicture/uploader.module.css"
 export default function ShowProfilePicture() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { data: session, status } = useSession();
     const user = session?.user;
-    const userID = user?.id as string;
     const userMail = user?.email as string;
     const [imageURL, setImageURL] = useState<string>("/images/defaultProfile.png"); // Default image
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Create an async function inside useEffect
         const fetchProfilePicture = async () => {
             if (status === "authenticated") {
+
                 try {
                     const getProfilePictureRequest = await fetch(`/api/uploadCare/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
                         method: "GET",
@@ -41,9 +40,8 @@ export default function ShowProfilePicture() {
             }
         };
 
-        // Call the async function
        void fetchProfilePicture();
-    }, [status, userMail]); // Dependencies remain the same
+    }, [status, userMail]);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -51,13 +49,13 @@ export default function ShowProfilePicture() {
 
     return (
         <div>
-            <Image
-                width={30}
-                height={30}
+            <Image className={Styles.Image}
+                width={80}
+                height={80}
                 alt="profile picture"
                 src={imageURL}
                 onError={() => {
-                    setImageURL("/images/defaultProfile.png"); // Fallback image on error
+                    setImageURL("/images/defaultProfile.png"); // Fallback image when url can't be found.
 
                 }}
             />
