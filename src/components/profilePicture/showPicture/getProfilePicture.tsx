@@ -21,7 +21,7 @@ export default function ShowProfilePicture() {
         const fetchProfilePicture = async () => {
             if (status === "authenticated") {
                 try {
-                    const getProfilePictureRequest = await fetch(`/api/pinata/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
+                    const getProfilePictureRequest = await fetch(`/api/uploadCare/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
                         method: "GET",
                     });
                     console.log(getProfilePictureRequest);
@@ -31,7 +31,7 @@ export default function ShowProfilePicture() {
                         setImageURL(url);
                     }
                 } catch (error) {
-                    console.log("failed to get profilePicture");
+                    console.log("failed to get profile");
                 } finally {
                     setIsLoading(false);
                 }
@@ -42,7 +42,7 @@ export default function ShowProfilePicture() {
         };
 
         // Call the async function
-        fetchProfilePicture();
+       void fetchProfilePicture();
     }, [status, userMail]); // Dependencies remain the same
 
     if (isLoading) {

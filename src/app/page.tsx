@@ -1,14 +1,13 @@
 import styles from "./page.module.css";
 import ContinentChanger from "@/components/contintsComp/main";
-import PlaceUploader from "@/components/imageUpload/uploader";
-import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture";
+import Uploader from "@/components/uploadCareUpload/profilePictureUpload/uploader";
 
 export default function Home() {
   return (
     <div>
       <main>
           <div className={styles.carousel}>
-            <ContinentChanger/>
+            <Uploader/>
           </div>
       </main>
     </div>

@@ -17,7 +17,7 @@ model User {
   firstname         String
   lastname          String
   nationality       String
-  profilePictureURL String @default("none")
+  profilePictureCID String @default("none")
 }
 
 model Post {

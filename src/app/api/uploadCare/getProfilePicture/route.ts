@@ -5,9 +5,7 @@ import prisma from "@/lib/db";
 
 
 
-
-async function getProfilePictureCidFromPrisma(userEmail: string){
-    const prisma = new PrismaClient();
+async function getProfilePictureURLFromPrisma(userEmail: string){
     const existingUser = await prisma.user.findUnique({
         where: {
             email: userEmail,
@@ -15,20 +13,20 @@ async function getProfilePictureCidFromPrisma(userEmail: string){
     });
     try {
         // @ts-ignore
-        return existingUser.profilePictureURL;
+        return existingUser.profilePictureCID;
 
     }
     catch (error){
         return NextResponse.json(
-            {error: "prisma create failed"},
+            {error: "prisma can't find CID"},
             {status: 500}
         );
-    } finally {
-        await prisma.$disconnect();
     }
 }
+
+
+
 export async function GET(request: NextRequest) {
-    console.log("eigenlijk hier");
     const { searchParams } = new URL(request.url);
     const userEmail = searchParams.get("email");
 
@@ -39,11 +37,10 @@ export async function GET(request: NextRequest) {
         );
     }
 
-
     try {
         // @ts-ignore
 
-        let userProfilePictureURL = getProfilePictureCidFromPrisma(userEmail)
+        let userProfilePictureURL = await getProfilePictureURLFromPrisma(userEmail)
 
         return NextResponse.json(userProfilePictureURL, {status: 200});
     } catch (e) {

@@ -7,7 +7,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
 import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture"
-
+import Button from "@/components/button/letsurf/signoutButton"
 export default async function Navbar() {
   const session = await auth();
 
@@ -51,7 +51,7 @@ export default async function Navbar() {
                     </li>
                     <li>
                       <a className={styles.icon} href="#">
-                        Log Out
+                        <Button title="log out"/>
                       </a>
                     </li>
                   </ul>

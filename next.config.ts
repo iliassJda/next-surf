@@ -16,6 +16,13 @@ const nextConfig: NextConfig = {
                 port: '',
                 pathname: '/**', // This will match any path that starts with /files/
             },
+
+            {
+                protocol: 'https',
+                hostname: "ucarecdn.com",
+                port: '',
+                pathname: '/**', // This will match any path that starts with /files/
+            },
             // You can add more patterns as needed:
             // {
             //   protocol: 'https',
