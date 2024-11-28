@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +53,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "featureIntegration",
+    "git-widget-placeholder": "profilePicture",
     "last_opened_file_path": "/Users/mathiashuygen/Documents/GitHub/next-surf/public/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -131,6 +130,7 @@
       <workItem from="1732614232019" duration="764000" />
       <workItem from="1732615054687" duration="4312000" />
       <workItem from="1732631954776" duration="24299000" />
+      <workItem from="1732784928871" duration="4775000" />
     </task>
     <servers />
   </component>
