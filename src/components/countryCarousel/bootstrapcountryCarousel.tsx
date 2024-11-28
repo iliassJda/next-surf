@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {items} from "../../../public/items.json"
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,30 +11,71 @@ import pork from "../../../public/johnPork.jpg"
 import pork2 from "../../../public/images.jpg"
 import prisma from "@/lib/db";
 
-export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
-    const {bootstrap} = items;
-    const [index, setIndex] = useState(0);
-    const imagePaths = [shunshine, pork, pork2, shunshine, pork, pork2]
+interface ResponsiveCarouselProps {
+  images: string[]; 
+  height?: number;
+  width?: number; 
+  className?: string;
+}
 
-    const handleSelect = (selectedIndex: number, e: Record<string, unknown> | null) => {
-        setIndex(selectedIndex);
-    };
+export default function ResponsiveCarousel({ 
+  images, 
+  height = 300, 
+  width = 2040,
+  className 
+}: ResponsiveCarouselProps) {
+  const [startIndex, setStartIndex] = useState(0);
 
+  const handleNext = () => {
+    setStartIndex(prev => (prev + 1) % images.length);
+  };
 
-    return (
-        <div className={styles.carousel}>
-            <Carousel 
-                activeIndex={index} 
-                onSelect={handleSelect}
-                className={styles.carouselItem}
-                
-            >
-                {bootstrap.map((item) => (
-                    <Carousel.Item key={item.id} className={styles.carouselItem}>  
-                        <Image src= {imagePaths[imageIndex]} alt="" height={300} width={2040} className={styles.img} />
-                </Carousel.Item>
-                ))}
-            </Carousel>
-        </div>
+  const handlePrev = () => {
+    setStartIndex(prev => 
+      prev === 0 ? images.length - 1 : prev - 1
     );
+  };
+
+  const getVisibleImages = () => {
+    return [
+      images[(startIndex) % images.length],
+      images[(startIndex + 1) % images.length],
+      images[(startIndex + 2) % images.length]
+    ];
+  };
+
+  const visibleImages = getVisibleImages();
+
+  return (
+    <div className="Main">
+      <div className="carousel">
+        <button 
+          onClick={handlePrev} 
+          className="btn"
+        >
+          Previous
+        </button>
+        {visibleImages.map((imagePath, index) => (
+          <a href={`/login${startIndex+index+1}`}>
+          <img 
+            key={index}
+            src={imagePath} 
+            alt={`Carousel image ${startIndex + index + 1}`} 
+            className="img" 
+            style={{ 
+              height: `${height}px`, 
+              width: `${width / 3}px` 
+            }}
+          />
+        </a>
+        ))}
+        <button 
+          onClick={handleNext} 
+          className="btn"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
 }
