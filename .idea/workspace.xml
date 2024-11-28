@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/map/map.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/map.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/map/mapbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/mapbox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/upload.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/upload.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploader.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

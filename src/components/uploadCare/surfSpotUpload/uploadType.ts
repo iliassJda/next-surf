@@ -19,8 +19,8 @@ export async function externalUploader(country: string, city:string, longitude: 
         const data = new FormData();
         data.append("country", country);
         data.append("city", city);
-        data.append("longitude", longitude); //will be cast to a string.
-        data.append("latitude", latitude); //will be cast to a string.
+        data.append("longitude", longitude as unknown as string); //will be cast to a string.
+        data.append("latitude", latitude as unknown as string); //will be cast to a string.
         data.append("surfSpotURL", fileUrl);
         data.append("userEmail", userEmail);
 
