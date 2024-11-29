@@ -3,6 +3,7 @@ import React from 'react'; // Add this import
 import { notFound, useParams } from 'next/navigation';
 import data from '../../../public/temporary.json';
 import ResponsiveCarousel from '../countryCarousel/bootstrapcountryCarousel';
+import GetSpots from '../getSpots/getSpots';
 
 
 
@@ -25,8 +26,6 @@ const ContinentPage = () => {
   const images = [
     '/sunshine.jpg',
     '/johnPork.jpg',
-    '/images.jpg',
-    '/AI/image1.jpg'
   ];
 
   return (
@@ -34,16 +33,7 @@ const ContinentPage = () => {
       <h1>{continent}</h1>
       <ul>
         {countries.map((country) => (
-          <React.Fragment key={country.country}>
-            <li>{country.country}
-
-              <ResponsiveCarousel
-                images={images}
-                height={60}
-                width={408}
-              />
-            </li>
-          </React.Fragment>
+          <GetSpots countryName = {country.country}/>
         ))}
       </ul>
     </div>
