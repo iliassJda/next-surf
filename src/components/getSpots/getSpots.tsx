@@ -16,18 +16,18 @@ export default function ShowProfilePicture() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchProfilePicture = async () => {
+        const fetchSurfSpot = async () => {
             if (status === "authenticated") {
                 if(user?.image){
                     setImageURL(user?.image);
                 }
                 else {
                     try {
-                        const getProfilePictureRequest = await fetch(`/api/uploadCare/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
+                        const getSurfSpotsRequest = await fetch(`/api/surfSpots?country=${encodeURIComponent(countryName)}`, {
                             method: "GET",
                         });
-                        console.log(getProfilePictureRequest);
-                        const url = await getProfilePictureRequest.json();
+                        console.log(getSurfSpotsRequest);
+                        const url = await getSurfSpotsRequest.json();
                         console.log(url);
                         if (url !== "none") {
                             setImageURL(url);
