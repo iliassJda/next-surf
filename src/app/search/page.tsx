@@ -28,7 +28,7 @@ export default function Search() {
     return null;
   }
 
-  console.log("Search Params", data.posts);
+  // console.log("Search Params", data.posts);
   return (
     <div>
       {!isLoading && (
