@@ -4,6 +4,7 @@
 }
 
 #main_bar {
+  padding-top: 10px;
   display: flex;
   align-items: center;
   padding-bottom: 10px;
@@ -11,11 +12,7 @@
   position: relative;
 }
 
-#logo_div {
-  font-family: "Kaushan Script";
-  font-size: 30px;
-  padding-left: 40px;
-}
+
 
 #search_div {
   display: flex;
@@ -35,54 +32,11 @@
   outline: none;
 }
 
-.icon{
-  color: white;
-  text-decoration: none;
-}
-.icon a:hover {
-  color: #83bfca;
-  cursor: pointer;
-}
-
-.user_menu {
-  position: relative;
-}
-
-.user_container {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background-color: black;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border: 1px solid gray;
-  border-radius: 5px;
-  min-width: 150px;
-  z-index: 3;
-}
-
-.user_container:hover .dropdown {
-  display: block;
-}
 
 
-.dropdown li {
-  padding: 10px;
-  border-bottom: 1px solid gray;
-}
 
-.dropdown li:hover {
-  background-color: #3c3959;
-}
 
-.space {
-  padding-right: 30px;
-  display: flex;
-}
+
+
+
+

@@ -18,12 +18,16 @@ model User {
   lastname          String
   nationality       String
   profilePictureCID String @default("none")
+  posts SurfSpot[]
 }
 
-model Post {
+model SurfSpot {
   id        Int     @id @default(autoincrement())
   title     String
   content   String?
+  latitude  Float
+  longitude Float
   published Boolean @default(false)
-  userID    String
+  userID    User @relation(fields: [userId], references: [id])
+  userId  Int
 }

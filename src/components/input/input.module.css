@@ -6,3 +6,23 @@
   height: 2rem;
   margin-bottom: 2rem;
 }
+
+#search_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+#search_bar {
+  padding: 20px 10px;
+  border: none;
+  border-radius: 10px;
+  width: 450px;
+  height: 20px;
+  color: black;
+  border-color: transparent;
+  outline: none;
+}
+
+

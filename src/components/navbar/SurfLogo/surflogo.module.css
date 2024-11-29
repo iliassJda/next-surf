@@ -1,0 +1,15 @@
+#logo_div {
+    font-family: "Kaushan Script";
+    font-size: 30px;
+    padding-left: 40px;
+}
+
+.icon{
+    color: white;
+    text-decoration: none;
+}
+
+.icon a:hover {
+    color: #83bfca;
+    cursor: pointer;
+}

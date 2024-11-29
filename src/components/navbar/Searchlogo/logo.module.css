@@ -1,0 +1,9 @@
+.icon{
+    color: white;
+    text-decoration: none;
+}
+
+.icon a:hover {
+    color: #83bfca;
+    cursor: pointer;
+}
