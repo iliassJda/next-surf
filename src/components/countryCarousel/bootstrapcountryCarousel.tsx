@@ -56,9 +56,10 @@ export default function ResponsiveCarousel({
           Previous
         </button>
         {visibleImages.map((imagePath, index) => (
-          <a href={`/login${startIndex+index+1}`}>
+          <a 
+              key={index}
+            href={`/login${startIndex+index+1}`}>
           <img 
-            key={index}
             src={imagePath} 
             alt={`Carousel image ${startIndex + index + 1}`} 
             className="img" 
