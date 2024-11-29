@@ -4,71 +4,39 @@ import React, {useRef, useState} from 'react';
 import { uploadFile } from '@uploadcare/upload-client';
 import {showToast} from "@/components/toast/toast";
 import { useSession } from "next-auth/react"
-import Style from "@/components/uploadCare/profilePictureUpload/upload.module.css";
+import Style from "@/components/uploadCare/surfSpotUpload/upload.module.css";
 import Button2 from "@/components/materialUIButtons/button2";
+import {externalUploader} from "@/components/uploadCare/surfSpotUpload/uploadType";
 
 
-export default function SurfSpotUploader() {
+export default function SurfSpotUploader({title} : {title: string}) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const { data: session, status } = useSession();
     const user = session?.user
     const userEmail = user?.email as string;
+    const [file, setFile] = useState<string | null>(null);
 
 
     return (
-        <div>
+        <div className={Style.container}>
             <input
                 className={Style.input}
                 type="file"
                 accept="image/*"
                 ref={fileInputRef}
                 onChange= {async (event) => {
-
-                    const file = event.target.files?.[0];
-                    if (!file) return;
-
-                    setUploading(true);
-                    setError(null);
-
-                    try {
-                        // Upload the file to Uploadcare
-                        const uploadedFile = await uploadFile(
-                            file,
-                            {
-                                publicKey: process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
-                            }
-                        );
-
-                        // Construct the file URL
-                        const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
-
-                        const data = new FormData();
-                        data.append("surfSpotURL", fileUrl);
-                        data.append("userEmail", userEmail);
-
-                        const uploadRequest = await fetch("/api/uploadCare/uploadSurfSpot", {
-                            method: "POST",
-                            body: data,
-                        })
-
-                        showToast("success", "Image Uploaded Successfully");
-                        console.log(fileUrl);
-
-                    } catch (err) {
-                        // Handle upload errors
-                        setError(err instanceof Error ? err.message : 'Upload failed');
-                    } finally {
-                        setUploading(false);
-                    }}}
+                    await externalUploader(event, userEmail)
+                }}
             />
 
-            <Button2 title="Upload"
+            <Button2 title={title}
                      onClick={() => {
                          fileInputRef.current?.click();
                      }}>
             </Button2>
+
         </div>
     );
 };

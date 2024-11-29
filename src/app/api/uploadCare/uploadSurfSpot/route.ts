@@ -22,21 +22,28 @@ async function saveToPrisma(imageUrl: string, userID: string){
 }
 export async function POST(request: NextRequest) {
     const data = await request.formData();
+    const country = data.get("country") as string;
+    const city = data.get("city") as string;
+    const longitude = parseFloat(data.get("longitude") as string);
+    const latitude = parseFloat(data.get("latitude") as string);
     const file = data.get("surfSpotURL") as string;
     const userEmail = data.get("userEmail") as string;
 
+    console.log(country);
+    console.log(latitude);
+
+
 
     try {
-        const imageUrl = await saveToPrisma(file, userEmail);
 
+        await saveToPrisma(file, userEmail);
 
-        // @ts-ignore
-        await saveToPrisma(imageUrl, userID);
-
-        return NextResponse.json(imageUrl, {status: 200});
+        return NextResponse.json({postMessage: "succeeded"}, {status: 200});
     } catch (e) {
+        console.error(e);
         return NextResponse.json(
             {error: "post request failed"},
+
             {status: 500}
         );
     }

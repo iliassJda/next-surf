@@ -8,3 +8,10 @@
     position: absolute;
     width: 1px;
 }
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
