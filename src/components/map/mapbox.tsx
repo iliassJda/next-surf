@@ -115,7 +115,7 @@ export default function Map() {
                 const [longitude, latitude] = firstResult.center;
                 setLongLat([longitude, latitude]);
 
-                map.current.flyTo({ center: [longitude, latitude], zoom: 15 });
+                map.current.flyTo({ center: [longitude, latitude], zoom: 13 });
             }
         }
 
@@ -169,13 +169,33 @@ export default function Map() {
                                      fileInputRef.current?.click();
                                  }}>
                         </Button2>
+                        <InputGroup className="mb-3">
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter title (e.g., Pipeline)"
+                            />
+
+                        </InputGroup>
 
 
                         <Button2 title={"upload"}
                                  onClick={async() => {
-                                     const [longitude, latitude] = longLat;
-                                     await externalUploader(country as string, city as string, longitude, latitude, file, userEmail)
-                                 }}>
+                                     if(city && country) {
+                                         const [longitude, latitude] = longLat;
+                                         await externalUploader(country as string, city as string, longitude, latitude, file, userEmail)
+                                     }
+                                     else {
+                                         showToast("error", "please provide a location")
+                                     }
+                                 }}
+                                 style={{
+                                     position: 'absolute',
+                                     bottom: 0,
+                                     right: 0,
+                                     marginRight: '10px',
+                                     marginBottom: '10px',
+                                 }}
+                                 >
                         </Button2>
 
                     </div>
