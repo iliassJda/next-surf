@@ -1,60 +1,51 @@
-"use client"
+"use client";
 
-import { useRef, useState, useEffect } from "react";
-import Button2 from "@/components/materialUIButtons/button2";
-import { showToast } from "@/components/toast/toast";
-import { useSession } from "next-auth/react"
-import Image from "next/image";
-import Bron from "/images/defaultProfile.png"
-import Styles from "@/components/profilePicture/showPicture/uploader.module.css"
-export default function ShowProfilePicture() {
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const { data: session, status } = useSession();
-    const user = session?.user;
-    const userMail = user?.email as string;
-    const [imageURL, setImageURL] = useState<string>("/images/defaultProfile.png"); // Default image
-    const [isLoading, setIsLoading] = useState(true);
+import React,{useEffect, useState } from "react";
+import ResponsiveCarousel from '../countryCarousel/bootstrapcountryCarousel';
+
+export default function ShowProfilePicture({ countryName }: { countryName: string }) {
+    const [surfSpotImages, setSurfSpotImages] = useState<string[]>([]); // Array to hold image URLs
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const fetchSurfSpot = async () => {
-            if (status === "authenticated") {
-                if(user?.image){
-                    setImageURL(user?.image);
+        const fetchSurfSpots = async () => {
+            try {
+                const response = await fetch(`/api/surfSpots?country=${encodeURIComponent(countryName.toLowerCase())}`);
+                const data = await response.json();
+                console.log(data);
+
+                if (Array.isArray(data) && data.length > 0) {
+                    setSurfSpotImages(data); // Assume API returns an array of image URLs
+                } else {
+                    console.log("No surf spots found.");
                 }
-                else {
-                    try {
-                        const getSurfSpotsRequest = await fetch(`/api/surfSpots?country=${encodeURIComponent(countryName)}`, {
-                            method: "GET",
-                        });
-                        console.log(getSurfSpotsRequest);
-                        const url = await getSurfSpotsRequest.json();
-                        console.log(url);
-                        if (url !== "none") {
-                            setImageURL(url);
-                        }
-                    } catch (error) {
-                        console.log("failed to get profile");
-                    } finally {
-                        setIsLoading(false);
-                    }
-                }
+            } catch (error) {
+                console.error("Failed to fetch surf spots:", error);
+            } finally {
+                setIsLoading(false); // Set loading to false after fetch attempt
             }
         };
-       void fetchProfilePicture();
-    }, [status, userMail]);
 
-    return (
-        <div>
-            <Image className={Styles.Image}
-                width={60}
+        void fetchSurfSpots();
+    }, [countryName]);
+
+    // if (isLoading) {
+    //     return <p>Loading images...</p>; // Loading state
+    // }
+
+    if (surfSpotImages.length === 0) {
+        return null; // No images state
+    }
+
+    return (  
+        <React.Fragment key={countryName}>
+            <li>{countryName}
+              <ResponsiveCarousel
+                images={surfSpotImages}
                 height={60}
-                alt="profile picture"
-                src={imageURL}
-                onError={() => {
-                    setImageURL("/images/defaultProfile.png"); // Fallback image when url can't be found.
-
-                }}
-            />
-        </div>
+                width={408}
+              />
+            </li>
+        </React.Fragment>
     );
 }
