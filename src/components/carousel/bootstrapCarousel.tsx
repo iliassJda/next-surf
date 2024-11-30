@@ -24,17 +24,14 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
             try {
                 const spots = await getMostPopularSpots(4)
                 const imageUrls = spots.map((spot: { imageURL: string }) => spot.imageURL);
-                console.log(imageUrls);
                 setImages(imageUrls);
                 setLoaded(true);
 
             } catch (err) {
-                //console.log(err);
+                console.log(err);
             }
         };
-
         getImages();
-
     }, []);
 
     return (
