@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <main>
           <div className={styles.carousel}>
-            <Uploader/>
+            <ContinentChanger/>
           </div>
       </main>
     </div>
