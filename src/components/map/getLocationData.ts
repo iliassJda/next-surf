@@ -45,3 +45,12 @@ export async function getLocationData(longitude: number | undefined, latitude: n
         return {continent: "", country: "location not found", city: "" };
     }
 }
+
+
+
+export function submittedCountry(placeName: string){
+    const placeIsCountry = countryContinents.items.countries.find(
+        (item: { country: string; }) => item.country.toLowerCase() === placeName.toLowerCase()
+    );
+    return placeIsCountry;
+};

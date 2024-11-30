@@ -12,7 +12,7 @@ import Style from "@/components/uploadCare/surfSpotUpload/upload.module.css";
 import {showToast} from "@/components/toast/toast";
 import {externalUploader} from "@/components/uploadCare/surfSpotUpload/uploadType";
 import {useSession} from "next-auth/react";
-import {getLocationData} from "@/components/map/getLocationData";
+import {getLocationData, submittedCountry} from "@/components/map/getLocationData";
 
 
 
@@ -164,11 +164,20 @@ export default function Map() {
         try{
             const mapResponse = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json?access_token=${mapboxgl.accessToken}`)
             const data = await mapResponse.json();
+            let placeZoom;
+            const locationIsCountry = submittedCountry(location)
+            if(locationIsCountry){
+                placeZoom = 4
+            }
+            else{
+                placeZoom = 13
+            }
+
             if(data && data.features.length > 0){
                 const firstResult = data.features[0];
                 const [longitude, latitude] = firstResult.center;
 
-                map.current.flyTo({ center: [longitude, latitude], zoom: 13 });
+                map.current.flyTo({ center: [longitude, latitude], zoom: placeZoom });
             }
         }
 
