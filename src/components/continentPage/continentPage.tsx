@@ -26,6 +26,20 @@ const ContinentPage = () => {
       <h1>{filteredContinent}</h1>
       <GetSpots continent = {filteredContinent}/>
     </div>
+  //   <ul>
+  //   {countriesSpots.map((countrySpots) => (
+  //     <React.Fragment key={countrySpots[0].country}>
+  //       <li>
+  //         {countrySpots[0].country}
+  //         <ResponsiveCarousel
+  //           images={countrySpots.map((s) => s.imageURL)}
+  //           height={60}
+  //           width={408}
+  //         />
+  //       </li>
+  //     </React.Fragment>
+  //   ))}
+  // </ul>
   );
 };
 
