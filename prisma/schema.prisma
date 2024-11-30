@@ -30,6 +30,7 @@ model SurfSpot {
   latitude  Float   @unique
   longitude Float   @unique
   published Boolean @default(false)
+  rating    Int     @default(0)
   userID    User    @relation(fields: [userId], references: [id])
   userId    Int
 }

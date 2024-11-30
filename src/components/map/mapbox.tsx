@@ -125,6 +125,7 @@ export default function Map() {
                 setLongitude(event.lngLat.lng);
 
                 const locationData = await getLocationData(event.lngLat.lng, event.lngLat.lat, mapboxgl.accessToken);
+
                 setContinent(locationData.continent);
                 setCountry(locationData.country);
                 setCity(locationData.city);

@@ -5,10 +5,25 @@
     flex-direction: row;
     justify-content: center;
     flex: 1 1;
-  }
+}
 
 .continent{
     margin-right: 10px;
     margin-top: 10px;
 
+}
+
+
+@media screen and (max-width: 480px){
+    .buttonStyles{
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .continent{
+        margin-right: 0px;
+        margin-top: 5px;
+
+    }
 }
