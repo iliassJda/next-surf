@@ -24,6 +24,7 @@ export default function Map() {
     const [markers, setMarkers] = useState<mapboxgl.Marker[]>([]);
     const [center, setCenter] = useState<[number, number]>([0, 0]);
     const [location, setLocation] = useState("")
+    const [continent, setContinent] = useState<string>();
     const [country, setCountry] = useState<string>();
     const [city, setCity] = useState<string>();
     const [title, setTitle] = useState<string>();
@@ -38,8 +39,7 @@ export default function Map() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { data: session, status } = useSession();
     const user = session?.user
-    const userID = session?.user?.id
-    const userEmail = session?.user?.email
+    const userEmail = user?.email
 
 
 
@@ -96,8 +96,10 @@ export default function Map() {
                 setLongitude(event.lngLat.lng);
 
                 const locationData = await getLocationData(event.lngLat.lng, event.lngLat.lat, mapboxgl.accessToken);
+                setContinent(locationData.continent);
                 setCountry(locationData.country);
                 setCity(locationData.city);
+
                 setLocation(locationData.country + locationData.city)
 
                 const popup = new mapboxgl.Popup({offset: 25})
@@ -239,10 +241,8 @@ export default function Map() {
                         <Button2 title={"upload"}
                                  onClick={async() => {
                                      if(city && country && title) {
-                                         console.log(longitude)
-                                         console.log(latitude)
-                                         console.log(userEmail)
-                                         await externalUploader(country as string, city as string, title as string, longitude, latitude, file, userEmail);
+                                         console.log(continent)
+                                         await externalUploader(continent as string, country as string, city as string, title as string, longitude, latitude, file, userEmail);
                                      }
                                      else {
                                          showToast("error", "please provide a valid location and a title")

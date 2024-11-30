@@ -1,7 +1,7 @@
 import {uploadFile} from "@uploadcare/upload-client";
 import {showToast} from "@/components/toast/toast";
 
-export async function externalUploader(country: string, city: string, title: string, longitude: number | undefined, latitude: number | undefined, file: File | null, userEmail: string | undefined): Promise<void> {
+export async function externalUploader(continent: string, country: string, city: string, title: string, longitude: number | undefined, latitude: number | undefined, file: File | null, userEmail: string | null | undefined): Promise<void> {
     if (!file) return;
 
     try {
@@ -17,6 +17,7 @@ export async function externalUploader(country: string, city: string, title: str
         const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
 
         const data = new FormData();
+        data.append("continent", continent);
         data.append("country", country);
         data.append("city", city);
         data.append("title", title);

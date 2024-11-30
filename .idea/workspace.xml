@@ -7,9 +7,10 @@
     <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/action/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/user.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/map/getLocationData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/getLocationData.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/map/mapbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/mapbox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +57,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Rebasing map",
+    "git-widget-placeholder": "featureIntegration",
     "last_opened_file_path": "/Users/mathiashuygen/Documents/GitHub/next-surf/public/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -74,11 +75,11 @@
       <recent name="$PROJECT_DIR$/public/images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/src/components/map" />
       <recent name="$PROJECT_DIR$/src/components/uploadCareUpload/profilePictureUpload" />
       <recent name="$PROJECT_DIR$/src/components/uploadCareUpload" />
       <recent name="$PROJECT_DIR$/src/app/api/uploadCare/uploadProfilePicture" />
-      <recent name="$PROJECT_DIR$/src/app/api/uploadCare/getProfilePicture" />
     </key>
   </component>
   <component name="RunManager">
