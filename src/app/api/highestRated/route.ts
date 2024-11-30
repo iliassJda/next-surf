@@ -17,6 +17,7 @@ async function GetTopSpots(amount: number) {
             select: {
                 imageURL: true,
                 title: true,
+                country: true,
             }
         });
 

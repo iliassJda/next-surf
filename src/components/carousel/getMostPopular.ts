@@ -8,6 +8,7 @@ export async function getMostPopularSpots(amount: number){
     });
     const spots = await getSpotsResponse.json();
     const mostPopular = spots.topTenSurfSpots;
+    console.log(mostPopular);
 
     return mostPopular;
 
