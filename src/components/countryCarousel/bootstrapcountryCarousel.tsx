@@ -71,7 +71,7 @@ export default function ResponsiveCarousel({
           >
             Previous
           </button>
-          {visibleImages.map((imagePath, index) => (
+          {visibleImages.map((Obj, index) => (
             <Link
             key={index}
             href={`/${Obj.title}`}>
