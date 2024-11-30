@@ -42,6 +42,7 @@ export default function Map() {
     const userEmail = session?.user?.email
 
 
+
     useEffect(() => {
         if (!mapContainerRef.current) return;
 

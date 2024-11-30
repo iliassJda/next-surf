@@ -46,7 +46,6 @@ export async function POST(request: NextRequest) {
     const userEmail = data.get("userEmail") as string;
 
     const userID = await getUserID(userEmail);
-    console.log(userID);
 
 
 
