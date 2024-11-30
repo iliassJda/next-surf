@@ -1,6 +1,10 @@
-.icon{
+.icon {
     color: white;
     text-decoration: none;
+}
+
+.icon * {
+    color: white;
 }
 
 .icon a:hover {

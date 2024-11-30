@@ -1,12 +1,22 @@
+"use client";
+
 import styles from "@/app/account/account.module.css";
+import ConstForm from "@/components/account/constform";
 import Form from "@/components/account/form";
+import LoginButton from "@/components/account/button";
 import Image from "next/image";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import PlacesImg from "../../../public/johnPork.jpg";
 
 export default function Account(probs: any) {
+  const [showForm, setShowForm] = useState(false); // State for toggling the modal
+
+  const handleFormSubmit = (e: { preventDefault: () => void }) => {
+    setShowForm(false); // Hide the modal after submission
+  };
   return (
     <>
       <div className={styles.container}>
@@ -21,10 +31,14 @@ export default function Account(probs: any) {
             <p className="py-1 px-2">Name : </p>
             <p className="py-1 px-2">Surname : </p>
             <p className="py-1 px-2">Email : </p>
-            <p className="py-1 px-2">Password : </p>
+            <p className="py-1 px-2">Nationality : </p>
           </div>
           <div className={`${styles.right_section} mt-3`}>
-            <Form />
+            <ConstForm />
+            <LoginButton
+              value="Edit your Personal Information"
+              onClick={() => setShowForm(true)}
+            />
           </div>
         </div>
         <div className={`${styles.section} py-4 px-5`}>
@@ -68,6 +82,15 @@ export default function Account(probs: any) {
             <a>Posto X</a>
           </div>
         </div>
+        {/* Modal for Adding a Review */}
+        {showForm && (
+          <div className={styles.overlay}>
+            <div className={styles.new_review}>
+              <h4>Edit your personal Information</h4>
+              <Form />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
