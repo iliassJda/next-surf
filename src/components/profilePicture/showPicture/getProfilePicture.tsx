@@ -26,9 +26,7 @@ export default function ShowProfilePicture() {
                         const getProfilePictureRequest = await fetch(`/api/uploadCare/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
                             method: "GET",
                         });
-                        console.log(getProfilePictureRequest);
                         const url = await getProfilePictureRequest.json();
-                        console.log(url);
                         if (url !== "none") {
                             setImageURL(url);
                         }

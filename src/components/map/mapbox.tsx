@@ -13,6 +13,7 @@ import {showToast} from "@/components/toast/toast";
 import {externalUploader} from "@/components/uploadCare/surfSpotUpload/uploadType";
 import {useSession} from "next-auth/react";
 import {getLocationData, submittedCountry} from "@/components/map/getLocationData";
+import {getExistingSurfSpots} from "@/components/map/getExistingSpots";
 
 
 
@@ -61,6 +62,7 @@ export default function Map() {
         // Set the Mapbox access token
         mapboxgl.accessToken = accessToken;
 
+
         // Initialize the map
         // @ts-ignore
         map.current = new mapboxgl.Map({
@@ -77,6 +79,32 @@ export default function Map() {
             }
         });
 
+
+        map.current.on('load', async() => {
+            const spots = await getExistingSurfSpots();
+
+            spots.forEach((spot: { longitude: number; latitude:  number; country: any; title: string; }) => {
+                const newMarker = new mapboxgl.Marker({
+                color: "#0B314D",
+                draggable: false
+            })
+                const popup = new mapboxgl.Popup({offset: 25})
+                    .setHTML(`
+                              <div>
+                                <h3>Surf Spot</h3>
+                                <p>Longitude: ${spot.longitude.toFixed(4)}</p>
+                                <p>Latitude: ${spot.latitude.toFixed(4)}</p>
+                                <p>Country: ${spot.country}</p>
+                                <p>Title: ${spot.title}</p>
+                              </div>
+                            `);
+                const lngLat = [spot.longitude, spot.latitude];
+                newMarker.setPopup(popup);
+                newMarker.setLngLat(lngLat).addTo(map.current);
+                })
+
+        })
+
         // @ts-ignore
         map.current.on('click', async (event) =>{
             const features = map.current.queryRenderedFeatures(event.point);
@@ -87,8 +115,9 @@ export default function Map() {
                     markerRef.current.remove();
                 }
                 const {lng, lat} = event.lngLat;
+
                 const newMarker = new mapboxgl.Marker({
-                    color: "#0B314D",
+                    color: "#3285a8",
                     draggable: true
                 });
 
