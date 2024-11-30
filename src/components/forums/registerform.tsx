@@ -2,6 +2,7 @@
 
 import Input from "../input/input";
 import styles from "./forum.module.css";
+import selectionstyles from "../selection/selection.module.css";
 import RegisterButton from "../button/letsurf/registerButton";
 import CountrySelection from "../selection/selection";
 
@@ -47,7 +48,7 @@ export default function RegisterForum() {
       </div>
 
       <div className={styles.inputContainer}>
-        <CountrySelection />
+        <CountrySelection className={selectionstyles.rounded}/>
       </div>
 
       <RegisterButton title="Let's Surf" />
