@@ -10,33 +10,39 @@ import GetSpots from '../getSpots/getSpots';
 
 const ContinentPage = () => {
   const params = useParams();
-  const continent = params?.continentName;
+  const continent = params?.continentName as string;
   const filteredContinents = data.items.continent.filter(
-    (c) => c.toLowerCase() !== continent.toLowerCase()
+    (c) => c.toLowerCase() === continent.toLowerCase()
   );
  
-  if (filteredContinents.length === data.items.continent.length) {
+  
+  if (filteredContinents === undefined) {
     notFound();
   }
   
-  const countries = data.items.countries.filter(
-    (c) => c.continent.toLowerCase() === continent.toLowerCase()
-  );
+  const filteredContinent = filteredContinents[0] 
 
-  const images = [
-    '/sunshine.jpg',
-    '/johnPork.jpg',
-  ];
+  console.log(filteredContinent)
 
   return (
     <div>
       <h1>{continent}</h1>
-      <ul>
-        {countries.map((country) => (
-          <GetSpots countryName = {country.country}/>
-        ))}
-      </ul>
+      <GetSpots continent = {filteredContinent}/>
     </div>
+  //   <ul>
+  //   {countriesSpots.map((countrySpots) => (
+  //     <React.Fragment key={countrySpots[0].country}>
+  //       <li>
+  //         {countrySpots[0].country}
+  //         <ResponsiveCarousel
+  //           images={countrySpots.map((s) => s.imageURL)}
+  //           height={60}
+  //           width={408}
+  //         />
+  //       </li>
+  //     </React.Fragment>
+  //   ))}
+  // </ul>
   );
 };
 

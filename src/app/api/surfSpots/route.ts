@@ -4,15 +4,24 @@ import { PrismaClient } from '@prisma/client';
 import prisma from "@/lib/db";
 
 
+type SurfSpot = {
+    title: string;
+    country: string;
+    imageURL: string;
+    id: number;
+  };
+  
 
-async function getSurfSpotsFromPrisma(countryName: string){
+async function getSurfSpotsFromPrisma(continentname: string): Promise<SurfSpot[]>{
     const allSpots = await prisma.surfSpot.findMany({
         where: {
-            country: countryName,
+            continent: continentname,
         },
         select: {
             title: true,
+            country:true,
             imageURL: true,
+            id:true,
         },
     });
     try {
@@ -31,9 +40,9 @@ async function getSurfSpotsFromPrisma(countryName: string){
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
-    const country = searchParams.get("country");
+    const continentname = searchParams.get("continentName");
 
-    if (!country) {
+    if (!continentname) {
         return NextResponse.json(
             { error: "Email parameter is required" },
             { status: 400 }
@@ -43,7 +52,7 @@ export async function GET(request: NextRequest) {
     try {
         // @ts-ignore
 
-        let userProfilePictureURL = await getSurfSpotsFromPrisma(country)
+        let userProfilePictureURL = await getSurfSpotsFromPrisma(continentname)
 
         return NextResponse.json(userProfilePictureURL, {status: 200});
     } catch (e) {
