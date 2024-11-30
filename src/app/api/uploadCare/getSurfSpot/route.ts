@@ -3,7 +3,7 @@ import prisma from "@/lib/db";
 
 
 
-async function getProfilePictureURLFromPrisma(userEmail: string){
+async function getSurfSpotPrisma(userEmail: string){
     const existingUser = await prisma.user.findUnique({
         where: {
             email: userEmail,
