@@ -48,7 +48,7 @@ export default function ResponsiveCarousel({
               key={index}
               href={`/${Obj.title}`}>
               <img
-                src={Obj.content}
+                src={Obj.imageURL}
                 alt={`Carousel image ${startIndex + index + 1}`}
                 className ="img"
                 style={{
@@ -72,19 +72,19 @@ export default function ResponsiveCarousel({
             Previous
           </button>
           {visibleImages.map((imagePath, index) => (
-            <a
-              key={index}
-              href={`/login${startIndex + index + 1}`}>
-              <img
-                src={imagePath}
-                alt={`Carousel image ${startIndex + index + 1}`}
-                className="img"
-                style={{
-                  height: `${height}px`,
-                  width: `${width / 3}px`
-                }}
-              />
-            </a>
+            <Link
+            key={index}
+            href={`/${Obj.title}`}>
+            <img
+              src={Obj.imageURL}
+              alt={`Carousel image ${startIndex + index + 1}`}
+              className ="img"
+              style={{
+                height: `${height}px`,
+                width: `${width / 3}px`
+              }}
+            />
+          </Link>
           ))}
           <button
             onClick={handleNext}
