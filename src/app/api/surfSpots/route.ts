@@ -6,13 +6,13 @@ import prisma from "@/lib/db";
 
 
 async function getSurfSpotsFromPrisma(countryName: string){
-    const allSpots = await prisma.post.findMany({
+    const allSpots = await prisma.surfSpot.findMany({
         where: {
-            userID: countryName,
+            country: countryName,
         },
         select: {
             title: true,
-            content: true,
+            imageURL: true,
         },
     });
     try {
