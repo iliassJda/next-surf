@@ -8,7 +8,7 @@ import {type NextRequest, NextResponse} from "next/server";
 
 async function saveToPrisma(continent: string, country: string, city: string, title: string, pictureURL: string, longitude: number, latitude: number, userID: number): Promise<void> {
     try {
-        await prisma.surfSpot.create({
+        const surfSpot = await prisma.surfSpot.create({
             data: {
                 title: title,
                 country: country,
@@ -20,6 +20,27 @@ async function saveToPrisma(continent: string, country: string, city: string, ti
                 userId: userID,
             }
 
+        })
+
+        await prisma.user.update({
+            where: {
+                id: userID,
+            },
+            data: {
+                posts: {
+                    create: {
+                        title: title,
+                        country: country,
+                        continent: continent,
+                        imageURL: pictureURL,
+                        latitude: latitude,
+                        longitude: longitude,
+                        published: true,
+                    }
+
+
+                }
+            }
         })
     }
     catch (error) {

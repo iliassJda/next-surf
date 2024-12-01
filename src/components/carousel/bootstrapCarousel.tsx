@@ -49,7 +49,7 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
                     <Carousel activeIndex={index} onSelect={handleSelect} className={styles.carouselItem}>
                         {images.map((imageURL, idx) => (
                             <Carousel.Item key={idx} className={styles.carouselItem}>
-                                <Link href={"/asia"}>
+                                <Link href={'/places/title'}>
                                 <div className={styles.imageContainer}>
                                     <Image
                                         src={imageURL}
