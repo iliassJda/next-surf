@@ -7,6 +7,7 @@ import styles from "../carousel/carousel.module.css";
 import Image from "next/image";
 import {getMostPopularSpots} from "@/components/carousel/getMostPopular";
 import {Skeleton} from "@mui/material";
+import Link from "next/link";
 
 export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
     const [index, setIndex] = useState(0);
@@ -38,7 +39,7 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
                 console.log(err);
             }
         };
-        getImages();
+        void getImages();
     }, []);
 
     return (
@@ -48,6 +49,7 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
                     <Carousel activeIndex={index} onSelect={handleSelect} className={styles.carouselItem}>
                         {images.map((imageURL, idx) => (
                             <Carousel.Item key={idx} className={styles.carouselItem}>
+                                <Link href={'/places/title'}>
                                 <div className={styles.imageContainer}>
                                     <Image
                                         src={imageURL}
@@ -61,6 +63,7 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
                                         <p className={styles.paragraphCountry}>{countries[index]}</p>
                                     </div>
                                 </div>
+                                </Link>
                             </Carousel.Item>
                         ))}
                     </Carousel>
