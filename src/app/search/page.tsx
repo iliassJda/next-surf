@@ -37,7 +37,7 @@ export default function Search() {
             <div key={post.id}>
               <h2>{post.title}</h2>
               <img
-                src={post.content}
+                src={post.imageURL}
                 alt="Surf image"
                 width={400}
                 height={200}
