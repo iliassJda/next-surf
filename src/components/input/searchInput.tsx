@@ -36,7 +36,6 @@ export default function SearchBar() {
 
   return (
     <div id={styles.search_div}>
-      {/* <form onChange={onSearch}> */}
       <input
         // value={query}
         value={inputValue}
@@ -46,7 +45,6 @@ export default function SearchBar() {
         id={styles.search_bar}
         placeholder="Search a place to surf"
       />
-      {/* </form> */}
       <SearchLogo />
     </div>
   );
