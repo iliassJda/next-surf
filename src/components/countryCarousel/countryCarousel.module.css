@@ -1,30 +1,44 @@
-.flexContainer {
+.Images {
   display: flex;
+  align-items: left;
   justify-content: center;
-  align-items: center;
-  gap: 10px; /* Add some spacing between images */
+  width: 100%; /* Take full width of parent container */
+  max-width: 100%; /* Ensure it doesn't overflow */
+  gap: 15px; /* Space between images */
+  overflow-x: hidden; /* Allow horizontal scrolling on smaller screens */
 }
 
-.carousel {
-  width: 100%;
+.Images img {
+  flex: 0 0 auto; /* Prevent images from growing or shrinking */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensure images don't overflow container */
+  object-fit: cover; /* Maintain image proportions */
+  border-radius: 12px; /* Rounded corners */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
-.carouselContainer .carousel-inner {
-  display: flex;
+.Images img:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-.carouselItem {
-  flex: 0 0 calc(100% / 3); /* Show 3 items at once */
-  max-width: calc(100% / 3);
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .Images {
+    flex-wrap: nowrap; 
+    overflow-x: hidden; 
+  }
+
+  .Images img {
+    scroll-snap-align: center; /* Snap images to center */
+    flex: 0 0 calc(100% / 2); /* Show 2 images on medium screens */
+    max-width: calc(100% / 2);
+  }
 }
 
-.imageGroup {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.img {
-  object-fit: cover;
-  border-radius: 8px;
+@media (max-width: 768px) {
+  .Images img {
+    flex: 0 0 100%; /* Show 1 image on small screens */
+    max-width: 100%;
+  }
 }
