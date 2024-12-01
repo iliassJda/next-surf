@@ -4,15 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import prisma from "@/lib/db";
 
 
-type SurfSpot = {
-    title: string;
-    country: string;
-    imageURL: string;
-    id: number;
-  };
-  
-
-async function getSurfSpotsFromPrisma(continentname: string): Promise<SurfSpot[]>{
+async function getSurfSpotsFromPrisma(continentname: string){
     const allSpots = await prisma.surfSpot.findMany({
         where: {
             continent: continentname,
