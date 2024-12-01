@@ -26,6 +26,7 @@ model SurfSpot {
   title      String
   country    String
   continent  String
+  city       String
   imageURL   String
   latitude   Float    @unique
   longitude  Float    @unique

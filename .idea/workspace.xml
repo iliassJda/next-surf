@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/places/[placeName]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/places/[country]/[city]/[title]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/place/getWeatherData.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/highestRated/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/highestRated/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/places/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/places/[placeName]/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/places/places.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/places/[country]/[city]/[title]/places.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar/SurfLogo/logo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/SurfLogo/logo.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,34 +56,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "map",
-    "last_opened_file_path": "/Users/mathiashuygen/Documents/GitHub/next-surf/public/images",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;map&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mathiashuygen/Documents/GitHub/next-surf/public/images&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/places/[country]/[city]/[placeName]" />
+      <recent name="$PROJECT_DIR$/src/app/places/[country]/[city]" />
+      <recent name="$PROJECT_DIR$/src/app/places/[country]" />
       <recent name="$PROJECT_DIR$/src/app/places" />
       <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/src/components/map" />
-      <recent name="$PROJECT_DIR$/src/components/uploadCareUpload/profilePictureUpload" />
-      <recent name="$PROJECT_DIR$/src/components/uploadCareUpload" />
     </key>
   </component>
   <component name="RunManager">
