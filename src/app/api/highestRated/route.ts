@@ -9,7 +9,7 @@ async function GetTopSpots(amount: number) {
         const topTenSurfSpots = await prisma.surfSpot.findMany({
 
             orderBy:{
-                rating: "desc"
+                meanRating: "desc"
             },
 
             take: amount,
