@@ -43,7 +43,7 @@ export default function ShowProfilePicture() {
             }
         };
 
-       void fetchProfilePicture();
+       fetchProfilePicture();
     }, [status, userMail]);
 
     if (isLoading) {
