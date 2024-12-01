@@ -40,7 +40,8 @@ async function getUserID(userEmail: string){
 export async function POST(request: NextRequest) {
     const data = await request.formData();
     const continent = data.get("continent") as string;
-    const country = data.get("country") as string;
+    let country = data.get("country") as string;
+    country = country.substring(0, country.length - 2);
     const city = data.get("city") as string;
     const title = data.get("title") as string;
     const longitude = parseFloat(data.get("longitude") as string);
