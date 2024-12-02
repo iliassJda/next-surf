@@ -1,8 +1,8 @@
-import Input from "./input";
-import LoginButton from "./button";
+"use server";
+
+import ROInput from "./roinput";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
-import CountrySelection from "../selection/selection";
 import styles from "@/app/account/account.module.css";
 
 export default async function Form(probs: any) {
@@ -25,19 +25,17 @@ export default async function Form(probs: any) {
       nationality = existinguser.nationality;
     }
     }
+
   return (
     <form action="">
-      <Input type="text" placeholder={name} />
+      <ROInput type="text" value={name} />
       <br></br>
-      <Input type="text" placeholder={surname} />
+      <ROInput type="text" value={surname} />
       <br></br>
-      <CountrySelection className={`${styles.input} py-3 px-2`}/>
+      <ROInput type="email" value={email} />
       <br></br>
-      <Input type="password" />
+      <ROInput type="text" value={nationality} />
       <br></br>
-      <Input type="password" />
-      <br></br>
-      <LoginButton value="Update" />
     </form>
   );
 }

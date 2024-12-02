@@ -1,22 +1,20 @@
-
+// Account Component (Server Component)
 import styles from "@/app/account/account.module.css";
 import ConstForm from "@/components/account/constform";
 import Form from "@/components/account/form";
+import LoginButton from "@/components/account/button";
 import Image from "next/image";
+import PlacesImg from "../../../public/johnPork.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-import PlacesImg from "../../../public/johnPork.jpg";
-
-export default function Account(probs: any) {
-
+export default function Account({ showForm, toggleForm }: { showForm: boolean; toggleForm: () => void }) {
   return (
-    <>
-      <div className={styles.container}>
-        <div className={`${styles.section} py-4 px-5`}>
-          <h2>Account</h2>
-        </div>
-        <div className={`${styles.section} py-4 px-5`}>
+    <div className={styles.container}>
+      <div className={`${styles.section} py-4 px-5`}>
+        <h2>Account</h2>
+      </div>
+      <div className={`${styles.section} py-4 px-5`}>
           <h5>My Personal Information</h5>
         </div>
         <div className={`${styles.section} px-5`}>
@@ -28,12 +26,10 @@ export default function Account(probs: any) {
           </div>
           <div className={`${styles.right_section} mt-3`}>
             <ConstForm />
-            <a
-      className={`${styles.submit} py-1 px-2`}
-      href="./account_update"
-    >
-      Edit your Personal Information
-    </a>
+            <LoginButton
+              value="Edit your Personal Information"
+              onClick={toggleForm}
+            />
           </div>
         </div>
         <div className={`${styles.section} py-4 px-5`}>
@@ -77,7 +73,14 @@ export default function Account(probs: any) {
             <a>Posto X</a>
           </div>
         </div>
-      </div>
-    </>
+      {showForm && (
+        <div className={styles.overlay}>
+          <div className={styles.new_review}>
+            <h4>Edit your personal Information</h4>
+            <Form />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
