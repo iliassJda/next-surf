@@ -39,9 +39,7 @@ export default async function ProfileLogo(){
                       </a>
                     </li>
                     <li>
-                      <a className={styles.icon} href="#">
                         <Button title="Log Out"/>
-                      </a>
                     </li>
                   </ul>
                 </div>
