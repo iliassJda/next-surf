@@ -1,0 +1,30 @@
+.flexContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Add some spacing between images */
+}
+
+.carousel {
+  width: 100%;
+}
+
+.carouselContainer .carousel-inner {
+  display: flex;
+}
+
+.carouselItem {
+  flex: 0 0 calc(100% / 3); /* Show 3 items at once */
+  max-width: calc(100% / 3);
+}
+
+.imageGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.img {
+  object-fit: cover;
+  border-radius: 8px;
+}

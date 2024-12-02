@@ -1,22 +1,27 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { pinata } from "@/utils/pinataConfig"
+import { PrismaClient } from '@prisma/client';
 import prisma from "@/lib/db";
 
 
 
-async function getProfilePictureURLFromPrisma(userEmail: string){
-    const existingUser = await prisma.user.findUnique({
+async function getSurfSpotsFromPrisma(countryName: string){
+    const allSpots = await prisma.post.findMany({
         where: {
-            email: userEmail,
+            userID: countryName,
+        },
+        select: {
+            title: true,
+            content: true,
         },
     });
     try {
         // @ts-ignore
-        return existingUser.profilePictureCID;
-
+        return allSpots
     }
     catch (error){
         return NextResponse.json(
-            {error: "prisma can't find CID"},
+            {error: "prisma can't find Spots"},
             {status: 500}
         );
     }
@@ -26,9 +31,9 @@ async function getProfilePictureURLFromPrisma(userEmail: string){
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
-    const userEmail = searchParams.get("email");
+    const country = searchParams.get("country");
 
-    if (!userEmail) {
+    if (!country) {
         return NextResponse.json(
             { error: "Email parameter is required" },
             { status: 400 }
@@ -38,7 +43,7 @@ export async function GET(request: NextRequest) {
     try {
         // @ts-ignore
 
-        let userProfilePictureURL = await getProfilePictureURLFromPrisma(userEmail)
+        let userProfilePictureURL = await getSurfSpotsFromPrisma(country)
 
         return NextResponse.json(userProfilePictureURL, {status: 200});
     } catch (e) {

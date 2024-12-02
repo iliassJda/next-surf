@@ -60,4 +60,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
   },
+
+  callbacks: {
+    async signIn({account, profile}) {
+      
+      const email = profile?.email as string
+
+      if (account?.provider === "google"){
+        const newUser = await prisma.user.findUnique({
+          where: { email },
+        });
+
+        if(!newUser){
+          await prisma.user.create({
+            data: {
+              email,
+              password: "",
+              firstname: profile?.given_name as string || "",
+              lastname: profile?.family_name as string || "",
+              nationality: "",
+              profilePictureCID: profile?.picture
+            },
+          });
+          console.log("Existing google user added to database")
+        }
+        
+      } 
+      
+      
+      return true
+    }
+  }
 });

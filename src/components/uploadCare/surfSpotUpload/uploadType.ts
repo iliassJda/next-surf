@@ -1,7 +1,7 @@
 import {uploadFile} from "@uploadcare/upload-client";
 import {showToast} from "@/components/toast/toast";
 
-export async function externalUploader(country: string, city:string, longitude: number, latitude: number,file: File | null, userEmail: string): Promise<void> {
+export async function externalUploader(continent: string, country: string, city: string, title: string, longitude: number | undefined, latitude: number | undefined, file: File | null, userEmail: string | null | undefined): Promise<void> {
     if (!file) return;
 
     try {
@@ -17,12 +17,14 @@ export async function externalUploader(country: string, city:string, longitude: 
         const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
 
         const data = new FormData();
+        data.append("continent", continent);
         data.append("country", country);
         data.append("city", city);
+        data.append("title", title);
         data.append("longitude", longitude as unknown as string); //will be cast to a string.
         data.append("latitude", latitude as unknown as string); //will be cast to a string.
         data.append("surfSpotURL", fileUrl);
-        data.append("userEmail", userEmail);
+        data.append("userEmail", userEmail as unknown as string);
 
 
         const uploadRequest = await fetch("/api/uploadCare/uploadSurfSpot", {
@@ -30,11 +32,11 @@ export async function externalUploader(country: string, city:string, longitude: 
             body: data,
         })
 
-        showToast("success", "Image Uploaded Successfully");
+        showToast("success", "Surf spot uploaded successfully");
         console.log(fileUrl);
 
     } catch (err) {
-        showToast("error", "Image didn't upload");
+        showToast("error", "Surf spot didn't upload");
     } finally {
     }
 }

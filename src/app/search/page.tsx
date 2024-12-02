@@ -3,6 +3,9 @@
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 
+import styles from "./search.module.css";
+import { SurfSpot } from "@prisma/client";
+
 const fetchPosts = async (url: string) => {
   // console.log("yo thest");
   const response = await fetch(url);
@@ -30,14 +33,14 @@ export default function Search() {
 
   // console.log("Search Params", data.posts);
   return (
-    <div>
-      {!isLoading && (
+    <div className={styles.page}>
+      <div className={styles.greyContainer}>
         <div>
           {data.posts.map((post: any) => (
-            <div key={post.id}>
+            <div key={post.id} className={styles.post}>
               <h2>{post.title}</h2>
               <img
-                src={post.content}
+                src={post.imageURL}
                 alt="Surf image"
                 width={400}
                 height={200}
@@ -45,10 +48,11 @@ export default function Search() {
               <p>
                 Location: {post.latitude}, {post.longitude}
               </p>
+              <hr className={styles.seperator} />
             </div>
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
   {
