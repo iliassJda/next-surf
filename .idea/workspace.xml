@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/places/[country]/[city]/[title]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/place/getWeatherData.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/uploadCare/updateSurfSpot/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/highestRated/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/highestRated/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/places/[placeName]/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/places/places.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/places/[country]/[city]/[title]/places.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,6 +138,8 @@
       <workItem from="1732879070865" duration="18179000" />
       <workItem from="1732918475578" duration="2784000" />
       <workItem from="1733081908926" duration="1159000" />
+      <workItem from="1733120722282" duration="2510000" />
+      <workItem from="1733123249064" duration="6354000" />
     </task>
     <servers />
   </component>

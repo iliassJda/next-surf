@@ -6,7 +6,7 @@ import {type NextRequest, NextResponse} from "next/server";
 
 
 
-async function saveToPrisma(continent: string, country: string, city: string, title: string, pictureURL: string, longitude: number, latitude: number, userID: number): Promise<void> {
+async function saveToPrisma(continent: string, country: string, city: string, title: string, longitude: number, latitude: number, userID: number){
     try {
         const surfSpot = await prisma.surfSpot.create({
             data: {
@@ -14,36 +14,17 @@ async function saveToPrisma(continent: string, country: string, city: string, ti
                 country: country,
                 continent: continent,
                 city: city,
-                imageURL: pictureURL,
                 latitude: latitude,
                 longitude: longitude,
                 published: true,
                 userId: userID,
+
             }
 
         })
 
-        await prisma.user.update({
-            where: {
-                id: userID,
-            },
-            data: {
-                posts: {
-                    create: {
-                        title: title,
-                        country: country,
-                        continent: continent,
-                        city: city,
-                        imageURL: pictureURL,
-                        latitude: latitude,
-                        longitude: longitude,
-                        published: true,
-                    }
 
-
-                }
-            }
-        })
+        return surfSpot.id
     }
     catch (error) {
         console.log("failed to save to prisma");
@@ -69,7 +50,6 @@ export async function POST(request: NextRequest) {
     const title = data.get("title") as string;
     const longitude = parseFloat(data.get("longitude") as string);
     const latitude = parseFloat(data.get("latitude") as string);
-    const pictureUrl = data.get("surfSpotURL") as string;
     const userEmail = data.get("userEmail") as string;
     const userID = await getUserID(userEmail);
 
@@ -77,9 +57,9 @@ export async function POST(request: NextRequest) {
 
 
     try {
-        await saveToPrisma(continent, country, city, title, pictureUrl, longitude, latitude, userID);
+        const spotID = await saveToPrisma(continent, country, city, title, longitude, latitude, userID);
 
-        return NextResponse.json({postMessage: "succeeded"}, {status: 200});
+        return NextResponse.json({postMessage: spotID}, {status: 200});
     } catch (e) {
         console.error(e);
         return NextResponse.json(

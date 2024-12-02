@@ -27,14 +27,17 @@ model SurfSpot {
   country    String
   continent  String
   city       String
-  imageURL   String
-  latitude   Float    @unique
-  longitude  Float    @unique
+  imageURL   String   @default("none")
+  latitude   Float
+  longitude  Float
   published  Boolean  @default(false)
   meanRating Float    @default(0)
   ratings    Review[]
   userID     User     @relation(fields: [userId], references: [id])
   userId     Int
+
+  //there can only be one surf spot with a certain title in a city.
+  @@unique([city, title])
 }
 
 model Review {
