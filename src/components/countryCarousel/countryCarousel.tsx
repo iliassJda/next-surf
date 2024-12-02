@@ -48,7 +48,7 @@ export default function ResponsiveCarousel({
             <Link key={index} href={`/${Sci.title}`}>
               <img
                 src={Sci.imageURL}
-                alt={`Carousel image ${index + 1}`}
+                alt={`Unique images ${index + 1}`}
               />
             </Link>
               <p>{Sci.title}</p>
