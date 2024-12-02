@@ -8,61 +8,48 @@ import styles from "@/app/account/account.module.css";
 import { showToast } from "../toast/toast";
 import { updateProfile } from "@/action/user";
 import {getUser} from "./getUser";
+import {useSession} from "next-auth/react";
 
 export default function Form(probs: any) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [nationality, setNationality] = useState("");
-  //const [loaded, setLoaded] = useState(false);
+  const { data: session, status } = useSession();
+  const user = session?.user;
+  const userMail = user?.email as string;
 
-  const handleSubmit = async (formData: FormData) => {
-    const res = await updateProfile(formData);
-    console.log("im here!");
-    if (res.status == "error") {
-      showToast("error", res.message);
-    } else {
-      showToast("success", res.message);
-    }
-  };
-  
-  const fetchUserData = async () => {
-    const existinguser = await getUser();  
-    if(existinguser){
-      setName(existinguser.firstname);
-      setSurname(existinguser.lastname);
-      setNationality(existinguser.nationality);
-      }
-    };
+  useEffect(() => {
+      console.log("ben hier");
+      const fetchUserData = async () => {
+          try {
+              if (userMail) {
+                  const getUserResponse = await fetch(`/api/user?userEmail=${encodeURIComponent(userMail)}`, {
+                      method: "GET",
+                  });
 
-  void fetchUserData();
-  /*const session = await auth();
-  let name = "";
-  let surname = "";
-  let email = "";
-  let nationality = "";
-  if (session){
-    const user = session?.user
-    email = user?.email  as string;
-    const existinguser = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
-    if (existinguser){
-      name = existinguser.firstname;
-      surname = existinguser.lastname;
-      nationality = existinguser.nationality;
-    }
-  }*/
+                  const user = await getUserResponse.json();
+                  console.log("user", user);
+                  setName(user.firstName || "")
+                  setSurname(user.lastName || "");
+                  setNationality(user.nationality || "");
+
+              }}
+          catch
+              (error)
+              {
+                  console.log("failed to get profile");
+              }
+          }
+      void fetchUserData();
+    }, [userMail]);
 
   return (
-    <form action={handleSubmit}>
-      
-      <Input name="firstname" type="text" value={name} />
+    <form>
+      <Input name="firstname" type="text" value={name} ></Input>
       <br></br>
-      <Input name="lastname" type="text" value={surname} />
+      <Input name="lastname" type="text" value={surname} ></Input>
       <br></br>
-      <CountrySelection className={`${styles.input} `} defaultValue={nationality}/>
+      <CountrySelection className={`${styles.input} `} value={nationality}></CountrySelection>
       <br></br>
       <Input name="password" type="password"/>
       <br></br>
