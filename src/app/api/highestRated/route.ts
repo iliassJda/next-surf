@@ -18,6 +18,9 @@ async function GetTopSpots(amount: number) {
                 imageURL: true,
                 title: true,
                 country: true,
+                city: true,
+                latitude: true,
+                longitude: true,
             }
         });
 
