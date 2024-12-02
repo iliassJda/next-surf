@@ -4,7 +4,9 @@ export default function PlacePage({
     params: {
         country: string,
         city: string,
-        title: string
+        title: string,
+        longitude: number,
+        latitude: number
     }
 }) {
     return (

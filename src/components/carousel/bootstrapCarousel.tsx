@@ -15,6 +15,8 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
     const [titles, setTitles] = useState<string[]>([]);
     const [countries, setCountries] = useState<string[]>([]);
     const [cities, setCities] = useState<string[]>([]);
+    const [latitudes, setLatitudes] = useState<number[]>([]);
+    const [longitudes, setLongitudes] = useState<number[]>([]);
     const [loaded, setLoaded] = useState(false);
 
     const handleSelect = (selectedIndex: number, e: Record<string, unknown> | null) => {
@@ -30,12 +32,16 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
                 const titles = spots.map((spot: { title: string }) => spot.title);
                 const countries = spots.map((spot: { country: string }) => spot.country);
                 const cities = spots.map((spot: { city: string }) => spot.city);
+                const longitudes = spots.map((spot: { longitude: number }) => spot.longitude);
+                const latitudes = spots.map((spot: { latitude: number }) => spot.latitude);
 
 
                 setImages(imageUrls);
                 setTitles(titles);
                 setCountries(countries);
                 setCities(cities);
+                setLatitudes(latitudes);
+                setLongitudes(longitudes);
                 setLoaded(true);
 
             } catch (err) {
@@ -52,7 +58,7 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
                     <Carousel activeIndex={index} onSelect={handleSelect} className={styles.carouselItem}>
                         {images.map((imageURL, idx) => (
                             <Carousel.Item key={idx} className={styles.carouselItem}>
-                                <Link href={`/places/${countries[idx]}/${cities[idx]}/${titles[idx]}`}>
+                                <Link href={`/places/${countries[idx]}/${cities[idx]}/${titles[idx]}/${longitudes[idx]}/${latitudes[idx]}`}>
                                     <div className={styles.imageContainer}>
                                         <Image
                                             src={imageURL}
