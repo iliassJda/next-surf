@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
     } catch (e) {
         return NextResponse.json(
             {error: "get profile picture request failed"},
-            {status: 500}
+            {status: 501}
         );
     }
 
