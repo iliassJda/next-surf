@@ -27,10 +27,11 @@ export default function ResponsiveCarousel({
   };
 
   const getVisibleImages = () => {
+    const totalImages = spotCarouselInfos.length;
     return [
-      spotCarouselInfos[startIndex % spotCarouselInfos.length],
-      spotCarouselInfos[(startIndex + 1) % spotCarouselInfos.length],
-      spotCarouselInfos[(startIndex + 2) % spotCarouselInfos.length],
+      spotCarouselInfos[(startIndex - 1 + totalImages) % totalImages],
+      spotCarouselInfos[startIndex],
+      spotCarouselInfos[(startIndex + 1) % totalImages],
     ];
   };
 
@@ -38,14 +39,13 @@ export default function ResponsiveCarousel({
 
   if (spotCarouselInfos.length <= 3) {
     return (
-      <div className="Main">
+      <div className={styles.carouselContainer}>
         <div className={styles.Images}>
           {spotCarouselInfos.map((Sci:SpotCarouselInfo, index:number) => (
             <Link key={index} href={`/surfspots/${Sci.title}`}>
               <img
                 src={Sci.imageURL}
-                alt={`Unique images ${startIndex + index + 1}`}
-                className={styles.img}
+                alt={`Unique images ${index + 1}`}
               />
             </Link>
           ))}
@@ -54,24 +54,31 @@ export default function ResponsiveCarousel({
     );
   } else {
     return (
-      <div className="Main">
+      <div className={styles.carouselContainer}>
+        <button 
+          onClick={handlePrev} 
+          className={styles.btn}
+        >
+          &lt;
+        </button>
         <div className={styles.Images}>
-          <button onClick={handlePrev} className={styles.btn}>
-            Previous
-          </button>
-          {visibleImages.map((Sci:SpotCarouselInfo, index:number) => (
-            <Link key={index} href={`/${Sci.title}`}>
-              <img
-                src={Sci.imageURL}
-                alt={`Carousel image ${startIndex + index + 1}`}
-                className={styles.img}
-              />
-            </Link>
-          ))}
-          <button onClick={handleNext} className={styles.btn}>
-            Next
-          </button>
+          <div className={styles.imagesWrapper}>
+            {visibleImages.map((Sci:SpotCarouselInfo, index:number) => (
+              <Link key={index} href={`/${Sci.title}`}>
+                <img
+                  src={Sci.imageURL}
+                  alt={`Carousel image ${index + 1}`}
+                />
+              </Link>
+            ))}
+          </div>
         </div>
+        <button 
+          onClick={handleNext} 
+          className={styles.btn}
+        >
+          &gt;
+        </button>
       </div>
     );
   }
