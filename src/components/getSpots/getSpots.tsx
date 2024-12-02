@@ -6,7 +6,7 @@ import data from "../../../public/temporary.json";
 import { NextResponse } from "next/server";
 import { SurfSpot,SurfSpots,CountryInfo} from "../../components/types"
 import { NormalizeName} from  "../../components/globalFunc"
-
+import styles from './getSpots.module.css'
 
 export default function ShowSurfSpots({
   continent
@@ -48,7 +48,7 @@ export default function ShowSurfSpots({
       
   if (surfSpots.length === 0) {
     return <p>No Spots Registered</p>; 
-  }
+  }else{
 
   const countries = data.items.countries.filter(
     (c: CountryInfo) => NormalizeName(c.continent) === NormalizeName(continent)
@@ -61,11 +61,11 @@ export default function ShowSurfSpots({
     .filter((c:SurfSpots) => c.length !== 0);
 
   return (
-    <ul>
+    <ul className={styles.ul}>
       {countriesSpots.map((countrySpots:SurfSpots) => (
         <React.Fragment key={countrySpots[0].country}>
           <li>
-            <h2>{countrySpots[0].country}</h2>
+            <h2 className={styles.h2}>{countrySpots[0].country}</h2>
             <ResponsiveCarousel
               spotCarouselInfos={countrySpots.map((s:SurfSpot) => ({
                 title: s.title,
@@ -77,4 +77,4 @@ export default function ShowSurfSpots({
       ))}
     </ul>
   );
-}}
+}}}
