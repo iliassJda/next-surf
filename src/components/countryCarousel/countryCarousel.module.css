@@ -1,44 +1,82 @@
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
 .Images {
   display: flex;
-  align-items: left;
+  align-items: center;
   justify-content: center;
-  width: 100%; /* Take full width of parent container */
-  max-width: 100%; /* Ensure it doesn't overflow */
-  gap: 15px; /* Space between images */
-  overflow-x: hidden; /* Allow horizontal scrolling on smaller screens */
+  width: 100%;
+  gap: 15px;
+  overflow: hidden; 
+  padding: 10px 0;
+}
+
+.imagesWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  transition: transform 0.3s ease;
 }
 
 .Images img {
-  flex: 0 0 auto; /* Prevent images from growing or shrinking */
-  height: auto; /* Maintain aspect ratio */
-  max-width: 100%; /* Ensure images don't overflow container */
-  object-fit: cover; /* Maintain image proportions */
-  border-radius: 12px; /* Rounded corners */
-  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 300px;
+  min-width: 250px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
-.Images img:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+.btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.btn:hover {
+  color: #666;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-  .Images {
-    flex-wrap: nowrap; 
-    overflow-x: hidden; 
-  }
-
   .Images img {
-    scroll-snap-align: center; /* Snap images to center */
-    flex: 0 0 calc(100% / 2); /* Show 2 images on medium screens */
-    max-width: calc(100% / 2);
+    max-width: 250px;
+    min-width: 200px;
   }
 }
 
 @media (max-width: 768px) {
   .Images img {
-    flex: 0 0 100%; /* Show 1 image on small screens */
-    max-width: 100%;
+    max-width: 200px;
+    min-width: 150px;
   }
+}
+
+@media (max-width: 480px) {
+  .Images img {
+    max-width: 180px;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 360px) {
+  .Images img {
+    max-width: 160px;
+    min-width: 90px;
+  } 
 }
