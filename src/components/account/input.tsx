@@ -5,7 +5,7 @@ export default function Input(probs: any) {
     <input
       className={`${styles.input} py-3 px-2`}
       type={probs.type}
-      placeholder={probs.placeholder}
+      value={probs.value}
       required
     />
   );

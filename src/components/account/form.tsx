@@ -5,6 +5,7 @@ import prisma from "@/lib/db";
 import CountrySelection from "../selection/selection";
 import styles from "@/app/account/account.module.css";
 
+
 export default async function Form(probs: any) {
   const session = await auth();
   let name = "";
@@ -27,13 +28,13 @@ export default async function Form(probs: any) {
     }
   return (
     <form action="">
-      <Input type="text" placeholder={name} />
+      <Input type="text" value={name} />
       <br></br>
-      <Input type="text" placeholder={surname} />
+      <Input type="text" value={surname} />
       <br></br>
-      <CountrySelection className={`${styles.input} py-3 px-2`}/>
+      <CountrySelection className={`${styles.input} `} defaultValue={nationality}/>
       <br></br>
-      <Input type="password" />
+      <Input type="password"/>
       <br></br>
       <Input type="password" />
       <br></br>
