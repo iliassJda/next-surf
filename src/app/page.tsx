@@ -9,7 +9,7 @@ export default function Home() {
     <div>
       <main>
           <div className={styles.carousel}>
-            <ContinentChanger/>
+            <Uploader/>
               <FloatingActionButton/>
           </div>
       </main>

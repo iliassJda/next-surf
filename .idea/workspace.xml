@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="" />
+    <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/dev.db-journal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getter.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,8 +25,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "featureIntegration",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "git-widget-placeholder": "map",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib"
   }
 }]]></component>
   <component name="TaskManager">

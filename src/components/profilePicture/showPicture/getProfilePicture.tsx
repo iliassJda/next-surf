@@ -7,6 +7,9 @@ import { useSession } from "next-auth/react"
 import Image from "next/image";
 import Bron from "/images/defaultProfile.png"
 import Styles from "@/components/profilePicture/showPicture/uploader.module.css"
+import {getProfilePictureURLFromPrisma} from "@/components/profilePicture/showPicture/getter";
+
+
 export default function ShowProfilePicture(probs: any) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { data: session, status } = useSession();
@@ -23,12 +26,10 @@ export default function ShowProfilePicture(probs: any) {
                 }
                 else {
                     try {
-                        const getProfilePictureRequest = await fetch(`/api/uploadCare/getProfilePicture?email=${encodeURIComponent(userMail)}`, {
-                            method: "GET",
-                        });
-                        const url = await getProfilePictureRequest.json();
-                        if (url !== "none") {
-                            setImageURL(url);
+                        console.log(userMail)
+                        const newImageURL = await getProfilePictureURLFromPrisma(userMail);
+                        if(newImageURL !== "none") {
+                            setImageURL(newImageURL);
                         }
                     } catch (error) {
                         console.log("failed to get profile");
