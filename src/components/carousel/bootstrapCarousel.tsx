@@ -13,7 +13,8 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
     const [index, setIndex] = useState(0);
     const [images, setImages] = useState<string[]>([]);
     const [titles, setTitles] = useState<string[]>([]);
-    const [countries, setCountries] = useState<number[]>([]);
+    const [countries, setCountries] = useState<string[]>([]);
+    const [cities, setCities] = useState<string[]>([]);
     const [loaded, setLoaded] = useState(false);
 
     const handleSelect = (selectedIndex: number, e: Record<string, unknown> | null) => {
@@ -28,11 +29,13 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
 
                 const titles = spots.map((spot: { title: string }) => spot.title);
                 const countries = spots.map((spot: { country: string }) => spot.country);
+                const cities = spots.map((spot: { city: string }) => spot.city);
 
 
                 setImages(imageUrls);
                 setTitles(titles);
                 setCountries(countries);
+                setCities(cities);
                 setLoaded(true);
 
             } catch (err) {
@@ -49,20 +52,20 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
                     <Carousel activeIndex={index} onSelect={handleSelect} className={styles.carouselItem}>
                         {images.map((imageURL, idx) => (
                             <Carousel.Item key={idx} className={styles.carouselItem}>
-                                <Link href={'/places/title'}>
-                                <div className={styles.imageContainer}>
-                                    <Image
-                                        src={imageURL}
-                                        alt={`${idx}`}
-                                        height={500}
-                                        width={800}
-                                        className={styles.img}
-                                    />
-                                    <div className={styles.title}>
-                                        <p className={styles.paragraph}>{titles[index]}</p>
-                                        <p className={styles.paragraphCountry}>{countries[index]}</p>
+                                <Link href={`/places/${countries[idx]}/${cities[idx]}/${titles[idx]}`}>
+                                    <div className={styles.imageContainer}>
+                                        <Image
+                                            src={imageURL}
+                                            alt={`${idx}`}
+                                            height={500}
+                                            width={800}
+                                            className={styles.img}
+                                        />
+                                        <div className={styles.title}>
+                                            <p className={styles.paragraph}>{titles[idx]}</p>
+                                            <p className={styles.paragraphCountry}>{countries[idx]}</p>
+                                        </div>
                                     </div>
-                                </div>
                                 </Link>
                             </Carousel.Item>
                         ))}
