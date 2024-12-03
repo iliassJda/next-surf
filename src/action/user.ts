@@ -116,6 +116,7 @@ const updateProfile = async (formData: FormData) => {
   const nationality = formData.get("nationality") as string;
   let password = formData.get("password") as string;
   const verpassword = formData.get("verpassword") as string;
+  console.log(password);
 
   const existinguser = await prisma.user.findUnique({
     where: {
@@ -125,7 +126,7 @@ const updateProfile = async (formData: FormData) => {
 
   if (password == "" && existinguser)
     password = existinguser.password
-  if (password !== verpassword) {
+  else if (password !== verpassword) {
     return {
       status: "error",
       message: `Passwords doesn't match!`,

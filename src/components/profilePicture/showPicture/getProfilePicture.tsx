@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react"
 import Image from "next/image";
 import Bron from "/images/defaultProfile.png"
 import Styles from "@/components/profilePicture/showPicture/uploader.module.css"
-export default function ShowProfilePicture() {
+export default function ShowProfilePicture(probs: any) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { data: session, status } = useSession();
     const user = session?.user;
@@ -53,8 +53,8 @@ export default function ShowProfilePicture() {
     return (
         <div>
             <Image className={Styles.Image}
-                width={60}
-                height={60}
+                width={probs.width}
+                height={probs.height}
                 alt="profile picture"
                 src={imageURL}
                 onError={() => {

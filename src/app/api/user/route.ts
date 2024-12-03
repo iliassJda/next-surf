@@ -11,7 +11,6 @@ async function route(userEmail: string) {
                 email: userEmail,
             },
         });
-
         return {
             firstName: existingUser.firstname,
             lastName: existingUser.lastname,
@@ -19,10 +18,10 @@ async function route(userEmail: string) {
         }
 
     }
-    catch (error){
+    catch (error) {
         return NextResponse.json(
-            {error: "prisma can't find CID"},
-            {status: 500}
+            { error: "prisma can't find CID" },
+            { status: 500 }
         );
     }
 }
@@ -35,10 +34,11 @@ export async function GET(request: NextRequest) {
 
     try {
         const user = await route(userEmail);
-        return NextResponse.json(user, {status: 200});
-    }catch (e) {
+        return NextResponse.json(user, { status: 200 });
+    } catch (e) {
         return NextResponse.json(
-            {error: "get one spot failed"},
-            {status: 500}
-        )}
+            { error: "get one spot failed" },
+            { status: 500 }
+        )
+    }
 }

@@ -2,12 +2,11 @@
 
 import Input from "./input";
 import LoginButton from "./button";
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import CountrySelection from "../selection/selection";
 import styles from "@/app/account/account.module.css";
 import { showToast } from "../toast/toast";
 import { updateProfile } from "@/action/user";
-import {getUser} from "./getUser";
 import {useSession} from "next-auth/react";
 
 export default function Form(probs: any) {
@@ -18,8 +17,6 @@ export default function Form(probs: any) {
   const user = session?.user;
   const userMail = user?.email as string;
 
-  useEffect(() => {
-      console.log("ben hier");
       const fetchUserData = async () => {
           try {
               if (userMail) {
@@ -28,7 +25,6 @@ export default function Form(probs: any) {
                   });
 
                   const user = await getUserResponse.json();
-                  console.log("user", user);
                   setName(user.firstName || "")
                   setSurname(user.lastName || "");
                   setNationality(user.nationality || "");
@@ -41,15 +37,23 @@ export default function Form(probs: any) {
               }
           }
       void fetchUserData();
-    }, [userMail]);
+
+      const handleSubmit = async (formData: FormData) => {
+        const res = await updateProfile(formData);
+        if (res.status == "error") {
+          showToast("error", res.message);
+        } else {
+          showToast("success", res.message);
+        }
+      };
 
   return (
-    <form>
-      <Input name="firstname" type="text" value={name} ></Input>
+    <form action={handleSubmit}>
+      <Input name="firstname" type="text" defaultValue={name} ></Input>
       <br></br>
-      <Input name="lastname" type="text" value={surname} ></Input>
+      <Input name="lastname" type="text" defaultValue={surname} ></Input>
       <br></br>
-      <CountrySelection className={`${styles.input} `} value={nationality}></CountrySelection>
+      <CountrySelection name="nationality" className={`${styles.input} `} defaultValue={nationality} />
       <br></br>
       <Input name="password" type="password"/>
       <br></br>
