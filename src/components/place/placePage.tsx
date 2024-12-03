@@ -9,6 +9,13 @@ import WindDirectionPlot from "@/components/place/windDirectionPlot";
 import Form from 'react-bootstrap/Form';
 import Styles from "@/components/place/place.module.css"
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import {getPlaceImage} from "@/components/place/getPlaceImage";
+import Image from "next/image";
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid2';
 
 export default function Spot({country, city, title, longitude, latitude}: {
     country: string,
@@ -29,6 +36,7 @@ export default function Spot({country, city, title, longitude, latitude}: {
     const [windDirections, setWindDirections] = useState([]);
     const [windSpeeds, setWindSpeeds] = useState([]);
     const [selectedChart, setSelectedChart] = useState('waterTemperature');
+    const [imageUrl, setImageUrl] = useState('/images/defaultProfile.png');
 
     const startDate = new Date()
     //*1000 because in milliseconds
@@ -147,7 +155,19 @@ export default function Spot({country, city, title, longitude, latitude}: {
 
         }
 
+
+        /*
+        const getImageUrl = async() =>{
+            const url = await getPlaceImage(city, title);
+            setImageUrl(url)
+            console.log(url);
+        }
+        */
+
+
+
         void weatherData()
+       // void getImageUrl()
 
 
     }, []);
@@ -199,13 +219,11 @@ export default function Spot({country, city, title, longitude, latitude}: {
     const renderSelectedChart = () => {
         const chartData = chartConfig[selectedChart];
         return (
-            <ResponsiveContainer width="100%">
             <SimpleLineChart
                 xLabels={hourLabels.map((hour: number) => hour.toString() + "h")}
                 xData={chartData.data.slice(0, chartData.data.length - 2)}
-                dataLabel={chartData.label}
-            />
-            </ResponsiveContainer>
+                dataLabel={chartData.label}></SimpleLineChart>
+
         );
     };
 
@@ -214,26 +232,39 @@ export default function Spot({country, city, title, longitude, latitude}: {
     };
 
     const hourLabels = getHours();
+    const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: '#fff',
+        ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        ...theme.applyStyles('dark', {
+            backgroundColor: '#1A2027',
+        }),
+    }));
 
     return (
-        <div className={Styles.greyContainer}>
-            <Form.Select aria-label="Select Weather Data" onChange={handleChartChange}
-                         value={selectedChart} size="sm" className="w-25">
-                <option value="waterTemperature">Water Temperature</option>
-                <option value="airTemperature">Air Temperature</option>
-                <option value="swellDirection">Swell Direction</option>
-                <option value="swellHeight">Swell Height</option>
-                <option value="waveDirection">Wave Direction</option>
-                <option value="waveHeight">Wave Height</option>
-                <option value="wavePeriod">Wave Period</option>
-                <option value="windWaveDirection">Wind Wave Direction</option>
-                <option value="windDirection">Wind Direction</option>
-                <option value="windSpeed">Wind Speed</option>
+        <div className={Styles.mainContainer}>
+            <div className={Styles.greyContainer}>
 
-            </Form.Select>
 
-            {renderSelectedChart()}
+                <Form.Select aria-label="Select Weather Data" onChange={handleChartChange}
+                             value={selectedChart} size="sm" className="w-25">
+                    <option value="waterTemperature">Water Temperature</option>
+                    <option value="airTemperature">Air Temperature</option>
+                    <option value="swellDirection">Swell Direction</option>
+                    <option value="swellHeight">Swell Height</option>
+                    <option value="waveDirection">Wave Direction</option>
+                    <option value="waveHeight">Wave Height</option>
+                    <option value="wavePeriod">Wave Period</option>
+                    <option value="windWaveDirection">Wind Wave Direction</option>
+                    <option value="windDirection">Wind Direction</option>
+                    <option value="windSpeed">Wind Speed</option>
 
+                </Form.Select>
+                {renderSelectedChart()}
+
+            </div>
         </div>
     )
 }

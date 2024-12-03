@@ -1,7 +1,9 @@
-
+"use client"
 import Spot from "@/components/place/placePage";
-import React, { use } from 'react';
+import React, {use, useEffect, useState} from 'react';
 import { AgCharts } from 'ag-charts-react';
+import {useSession} from "next-auth/react";
+import FloatingActionButton from "@/components/floatingButtons/floatingActionButton/floatAction";
 
 export default function PlacePage({
                                       params
@@ -14,12 +16,33 @@ export default function PlacePage({
         latitude: number
     }
 }) {
+    const [country, setCountry] = useState<string>();
+    const [city, setCity] = useState<string>();
+    const [title, setTitle] = useState<string>();
+    const [latitude, setLatitude] = useState<number>();
+    const [longitude, setLongitude] = useState<number>();
+    useEffect(() => {
 
-    const resolvedParams = React.use(Promise.resolve(params));
+        const getParams = async()=> {
+            const resolvedParams = await Promise.resolve(params)
+            setCountry(resolvedParams.country)
+            setCity(resolvedParams.city)
+            setTitle(resolvedParams.title)
+            setLatitude(resolvedParams.latitude)
+            setLongitude(resolvedParams.longitude)
+
+        }
+        void getParams()
+    }, [])
+    const { data: session, status } = useSession();
     return (
         <div>
-            <Spot country={resolvedParams.country} city={resolvedParams.city} title={resolvedParams.title} longitude={resolvedParams.longitude} latitude={resolvedParams.latitude} />
-
+            {city && country && title && longitude && latitude ? (
+            <Spot country={country} city={city} title={title} longitude={longitude} latitude={latitude} />
+                ) : null}
+            {session? (
+                <FloatingActionButton/>
+            ) : null}
         </div>
     )
 }

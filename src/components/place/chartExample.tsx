@@ -20,16 +20,17 @@ export default function SimpleLineChart({ xLabels, xData, dataLabel }: SimpleLin
                 width={1200}
                 height={300}
                 series={[
-                    { data: xData, label: dataLabel },
+                    { data: xData, label: dataLabel,  color: '#a56dbd',},
                 ]}
                 xAxis={
                 [{ scaleType: 'point',
                     data: xLabels,
+                    stroke: "white",  // x-axis line color
                 }]}
                 yAxis={[
                     {
                         style: {
-                            axisLine: { stroke: '#C70039' },
+                            axisLine: { stroke: '#a56dbd' },
                             tickLine: { stroke: '#C70039' },
                             label: { fill: '#900C3F' },
                         },
