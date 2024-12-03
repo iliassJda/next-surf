@@ -4,147 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/places/[placeName]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/places/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar/SurfLogo/logo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/SurfLogo/logo.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <favorite-branches>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="hotfix" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </favorite-branches>
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="homePage" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2oplcS8ZByAQYx11z1B8fcKtb7i" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "map",
-    "last_opened_file_path": "/Users/mathiashuygen/Documents/GitHub/next-surf/public/images",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+    "git-widget-placeholder": "featureIntegration",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/images" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app/places/[country]/[city]/[placeName]" />
-      <recent name="$PROJECT_DIR$/src/app/places/[country]/[city]" />
-      <recent name="$PROJECT_DIR$/src/app/places/[country]" />
-      <recent name="$PROJECT_DIR$/src/app/places" />
-      <recent name="$PROJECT_DIR$/public" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="dev" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.dev" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+}]]></component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="b7b0b22f-a33a-4f1f-916d-7c7124463775" name="Changes" comment="" />
-      <created>1731574477132</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1731574477132</updated>
-      <workItem from="1731574478614" duration="724000" />
-      <workItem from="1732174921000" duration="77000" />
-      <workItem from="1732175004418" duration="5209000" />
-      <workItem from="1732182538138" duration="1474000" />
-      <workItem from="1732194406062" duration="617000" />
-      <workItem from="1732264339074" duration="3516000" />
-      <workItem from="1732358587213" duration="7567000" />
-      <workItem from="1732366489414" duration="12815000" />
-      <workItem from="1732382914597" duration="358000" />
-      <workItem from="1732383342395" duration="921000" />
-      <workItem from="1732388262455" duration="6576000" />
-      <workItem from="1732470369567" duration="1450000" />
-      <workItem from="1732522150406" duration="3123000" />
-      <workItem from="1732525291008" duration="10485000" />
-      <workItem from="1732545687066" duration="5205000" />
-      <workItem from="1732554043968" duration="1047000" />
-      <workItem from="1732577204328" duration="2263000" />
-      <workItem from="1732614232019" duration="764000" />
-      <workItem from="1732615054687" duration="4312000" />
-      <workItem from="1732631954776" duration="24299000" />
-      <workItem from="1732870880263" duration="2240000" />
-      <workItem from="1732879070865" duration="18179000" />
-      <workItem from="1732918475578" duration="2784000" />
-      <workItem from="1733081908926" duration="1159000" />
-      <workItem from="1733120722282" duration="2510000" />
-      <workItem from="1733123249064" duration="6354000" />
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>
