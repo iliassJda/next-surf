@@ -57,7 +57,7 @@ export default function Spot({country, city, title, longitude, latitude}: {
     }
 
     useEffect(() => {
-        /*
+
         const weatherData = async () => {
             const data = await getWeatherData(longitude, latitude,
                 [
@@ -148,7 +148,7 @@ export default function Spot({country, city, title, longitude, latitude}: {
         }
 
         void weatherData()
-        */
+
 
     }, []);
 
@@ -156,43 +156,43 @@ export default function Spot({country, city, title, longitude, latitude}: {
     const chartConfig = {
         'waterTemperature': {
             data: waterTemperatures,
-            label: 'Water Temperature'
+            label: 'Water Temperature(celcius)'
         },
         'airTemperature': {
             data: airTemperatures,
-            label: 'Air Temperatures'
+            label: 'Air Temperature(celcius)'
         },
         'swellDirection': {
             data: swellDirections,
-            label: 'Swell Directions'
+            label: 'Swell Direction(degrees)'
         },
         'swellHeight': {
             data: swellHeights,
-            label: 'Swell Heights'
+            label: 'Swell Height(m)'
         },
         'waveDirection': {
             data: waveDirections,
-            label: 'Wave Directions'
+            label: 'Wave Direction(degrees)'
         },
         'waveHeight': {
             data: waveHeights,
-            label: 'Wave Heights'
+            label: 'Wave Height'
         },
         'wavePeriod': {
             data: wavePeriods,
-            label: 'Wave Periods'
+            label: 'Wave Period'
         },
         'windWaveDirection': {
             data: windWaveDirections,
-            label: 'Wind Wave Directions'
+            label: 'Wind Wave Direction(degrees)'
         },
         'windDirection': {
             data: windDirections,
-            label: 'Wind Directions'
+            label: 'Wind Direction(degrees)'
         },
         'windSpeed': {
             data: windSpeeds,
-            label: 'Wind Speeds'
+            label: 'Wind Speed(km/h)'
         }
     };
 
