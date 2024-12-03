@@ -27,6 +27,7 @@ export default function Account(probs: any) {
             <Form />
           </div>
         </div>
+        <a className={styles.x} href="./account"> <i className="bi bi-x-circle"></i> </a>
       </div>
     </>
   );

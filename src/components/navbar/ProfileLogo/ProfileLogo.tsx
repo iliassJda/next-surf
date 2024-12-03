@@ -26,7 +26,7 @@ export default async function ProfileLogo(){
 
               <div className={styles.user_menu}>
                 <div className={styles.user_container}>
-                  <ShowProfilePicture/> {name}
+                  <ShowProfilePicture width="60" height="60"/> {name}
                   <ul className={styles.dropdown}>
                     <li>
                       <a className={styles.icon} href="./account">
@@ -39,9 +39,7 @@ export default async function ProfileLogo(){
                       </a>
                     </li>
                     <li>
-                      <a className={styles.icon} href="#">
                         <Button title="Log Out"/>
-                      </a>
                     </li>
                   </ul>
                 </div>

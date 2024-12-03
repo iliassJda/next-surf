@@ -1,43 +1,65 @@
+"use client";
+
 import Input from "./input";
 import LoginButton from "./button";
-import { auth } from "@/lib/auth";
-import prisma from "@/lib/db";
+import React, {useState} from 'react';
 import CountrySelection from "../selection/selection";
 import styles from "@/app/account/account.module.css";
+import { showToast } from "../toast/toast";
+import { updateProfile } from "@/action/user";
+import {useSession} from "next-auth/react";
 
-export default async function Form(probs: any) {
-  const session = await auth();
-  let name = "";
-  let surname = "";
-  let email = "";
-  let nationality = "";
-    if (session){
-    const user = session?.user
-    email = user?.email  as string;
-    const existinguser = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
-    if (existinguser){
-      name = existinguser.firstname;
-      surname = existinguser.lastname;
-      nationality = existinguser.nationality;
-    }
-    }
+export default function Form(probs: any) {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [nationality, setNationality] = useState("");
+  const { data: session, status } = useSession();
+  const user = session?.user;
+  const userMail = user?.email as string;
+
+      const fetchUserData = async () => {
+          try {
+              if (userMail) {
+                  const getUserResponse = await fetch(`/api/user?userEmail=${encodeURIComponent(userMail)}`, {
+                      method: "GET",
+                  });
+
+                  const user = await getUserResponse.json();
+                  setName(user.firstName || "")
+                  setSurname(user.lastName || "");
+                  setNationality(user.nationality || "");
+
+              }}
+          catch
+              (error)
+              {
+                  console.log("failed to get profile");
+              }
+          }
+      void fetchUserData();
+
+      const handleSubmit = async (formData: FormData) => {
+        const res = await updateProfile(formData);
+        if (res.status == "error") {
+          showToast("error", res.message);
+        } else {
+          showToast("success", res.message);
+        }
+      };
+
   return (
-    <form action="">
-      <Input type="text" placeholder={name} />
+    <form action={handleSubmit}>
+      <Input name="firstname" type="text" defaultValue={name} ></Input>
       <br></br>
-      <Input type="text" placeholder={surname} />
+      <Input name="lastname" type="text" defaultValue={surname} ></Input>
       <br></br>
-      <CountrySelection className={`${styles.input} py-3 px-2`}/>
+      <CountrySelection name="nationality" className={`${styles.input} `} defaultValue={nationality} />
       <br></br>
-      <Input type="password" />
+      <Input name="password" type="password"/>
       <br></br>
-      <Input type="password" />
+      <Input name="verpassword" type="password" />
       <br></br>
-      <LoginButton value="Update" />
+      <LoginButton title="Update" />
     </form>
   );
 }

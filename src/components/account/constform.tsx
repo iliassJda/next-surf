@@ -1,4 +1,3 @@
-"use server";
 
 import ROInput from "./roinput";
 import { auth } from "@/lib/auth";

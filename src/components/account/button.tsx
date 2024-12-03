@@ -5,8 +5,8 @@ export default function Button(probs: any) {
     <input
       className={`${styles.submit} py-1 px-2`}
       type="submit"
-      value={probs.value}
-      onClick={probs.onClick}
+      title={probs.title}
+      
     />
   );
 }

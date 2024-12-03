@@ -1,15 +1,12 @@
 
 import styles from "@/app/account/account.module.css";
 import ConstForm from "@/components/account/constform";
-import Form from "@/components/account/form";
-import Image from "next/image";
+import UploadedPlaces from "@/components/account/uploadedPlaces";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-
-import PlacesImg from "../../../public/johnPork.jpg";
+import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture"
 
 export default function Account(probs: any) {
-
   return (
     <>
       <div className={styles.container}>
@@ -20,6 +17,10 @@ export default function Account(probs: any) {
           <h5>My Personal Information</h5>
         </div>
         <div className={`${styles.section} px-5`}>
+          <div className={styles.left_selection}>
+            <ShowProfilePicture width="150" height="150"/>
+          </div>
+          <div className={` ${styles.right_section} ${styles.flex}`}> 
           <div className={styles.left_section}>
             <p className="py-1 px-2">Name : </p>
             <p className="py-1 px-2">Surname : </p>
@@ -29,54 +30,18 @@ export default function Account(probs: any) {
           <div className={`${styles.right_section} mt-3`}>
             <ConstForm />
             <a
-      className={`${styles.submit} py-1 px-2`}
+      className={`${styles.submit} py-2 px-2`}
       href="./account_update"
     >
-      Edit your Personal Information
+      <i className="bi bi-pencil-square"></i> Edit your Personal Information
     </a>
+          </div>
           </div>
         </div>
         <div className={`${styles.section} py-4 px-5`}>
-          <h5>Saved Places</h5>
+          <h5>Uploaded Places</h5>
         </div>
-        <div className={`${styles.scrollable} ${styles.places}`}>
-          <div className={`${styles.place} ${styles.section}`}>
-            <div className={styles.left_section}>
-              <Image
-                src={PlacesImg}
-                className={styles.img_places}
-                alt="User"
-                height={100}
-              />
-            </div>
-            <div className={styles.right_section}>
-              <h4>Name of the place</h4>
-              <p>
-                {" "}
-                <i className="bi bi-geo-alt"></i>Oostende, Belgium
-              </p>
-              <div className={styles.star}>
-                <i className="bi bi-star-fill text-warning"></i>
-                <i className="bi bi-star-fill text-warning"></i>
-                <i className="bi bi-star-fill text-warning"></i>
-                <i className="bi bi-star-half text-warning"></i>
-                <i className="bi bi-star text-warning"></i>
-              </div>
-            </div>
-          </div>
-          <div className={`${styles.place} ${styles.section}`}>
-            <a>Posto X</a>
-          </div>
-          <div className={`${styles.place} ${styles.section}`}>
-            <a>Posto X</a>
-          </div>
-          <div className={`${styles.place} ${styles.section}`}>
-            <a>Posto X</a>
-          </div>
-          <div className={`${styles.place} ${styles.section}`}>
-            <a>Posto X</a>
-          </div>
-        </div>
+        <UploadedPlaces></UploadedPlaces>
       </div>
     </>
   );
