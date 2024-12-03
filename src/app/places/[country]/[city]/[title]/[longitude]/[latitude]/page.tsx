@@ -1,7 +1,6 @@
 "use client"
 import Spot from "@/components/place/placePage";
 import React, {use, useEffect, useState} from 'react';
-import { AgCharts } from 'ag-charts-react';
 import {useSession} from "next-auth/react";
 import FloatingActionButton from "@/components/floatingButtons/floatingActionButton/floatAction";
 

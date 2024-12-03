@@ -26,7 +26,7 @@ export default function BootstrapCarousel({imageIndex} : {imageIndex: number}){
     useEffect(() => {
         const getImages = async () => {
             try {
-                const spots = await getMostPopularSpots(6)
+                const spots = await getMostPopularSpots(12)
                 const imageUrls = spots.map((spot: { imageURL: string }) => spot.imageURL);
 
                 const titles = spots.map((spot: { title: string }) => spot.title);

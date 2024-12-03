@@ -4,18 +4,27 @@
 
 import {SetStateAction, useEffect, useState} from "react";
 import {getWeatherData} from "@/components/place/getWeatherData";
-import SimpleLineChart from "@/components/place/chartExample";
-import WindDirectionPlot from "@/components/place/windDirectionPlot";
-import Form from 'react-bootstrap/Form';
 import Styles from "@/components/place/place.module.css"
-import { LineChart, Line, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-import {getPlaceImage} from "@/components/place/getPlaceImage";
-import Image from "next/image";
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid2';
+import WavesIcon from '@mui/icons-material/Waves';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+import AirIcon from '@mui/icons-material/Air';
+import WaterIcon from '@mui/icons-material/Water';
+
+import SouthIcon from '@mui/icons-material/South';
+import SouthEastIcon from '@mui/icons-material/SouthEast';
+import SouthWestIcon from '@mui/icons-material/SouthWest';
+
+import NorthIcon from '@mui/icons-material/North';
+import NorthWestIcon from '@mui/icons-material/NorthWest';
+import NorthEastIcon from '@mui/icons-material/NorthEast';
+
+import EastIcon from '@mui/icons-material/East';
+
+import WestIcon from '@mui/icons-material/West';
+
+import Map from "@/components/place/map"
 
 export default function Spot({country, city, title, longitude, latitude}: {
     country: string,
@@ -79,8 +88,9 @@ export default function Spot({country, city, title, longitude, latitude}: {
                     "windWaveDirection",
                     "windDirection",
                     "windSpeed",
+                    "precipitation"
                 ],
-                start, end);
+                start, start);
 
             setWaterTemperatures(data.hours?.map((hour: {
                 waterTemperature: {
@@ -156,16 +166,6 @@ export default function Spot({country, city, title, longitude, latitude}: {
         }
 
 
-        /*
-        const getImageUrl = async() =>{
-            const url = await getPlaceImage(city, title);
-            setImageUrl(url)
-            console.log(url);
-        }
-        */
-
-
-
         void weatherData()
        // void getImageUrl()
 
@@ -173,97 +173,168 @@ export default function Spot({country, city, title, longitude, latitude}: {
     }, []);
 
 
-    const chartConfig = {
-        'waterTemperature': {
-            data: waterTemperatures,
-            label: 'Water Temperature(celcius)'
-        },
-        'airTemperature': {
-            data: airTemperatures,
-            label: 'Air Temperature(celcius)'
-        },
-        'swellDirection': {
-            data: swellDirections,
-            label: 'Swell Direction(degrees)'
-        },
-        'swellHeight': {
-            data: swellHeights,
-            label: 'Swell Height(m)'
-        },
-        'waveDirection': {
-            data: waveDirections,
-            label: 'Wave Direction(degrees)'
-        },
-        'waveHeight': {
-            data: waveHeights,
-            label: 'Wave Height'
-        },
-        'wavePeriod': {
-            data: wavePeriods,
-            label: 'Wave Period'
-        },
-        'windWaveDirection': {
-            data: windWaveDirections,
-            label: 'Wind Wave Direction(degrees)'
-        },
-        'windDirection': {
-            data: windDirections,
-            label: 'Wind Direction(degrees)'
-        },
-        'windSpeed': {
-            data: windSpeeds,
-            label: 'Wind Speed(km/h)'
-        }
-    };
-
-    const renderSelectedChart = () => {
-        const chartData = chartConfig[selectedChart];
-        return (
-            <SimpleLineChart
-                xLabels={hourLabels.map((hour: number) => hour.toString() + "h")}
-                xData={chartData.data.slice(0, chartData.data.length - 2)}
-                dataLabel={chartData.label}></SimpleLineChart>
-
-        );
-    };
-
     const handleChartChange = (e: { target: { value: SetStateAction<string>; }; }) => {
         setSelectedChart(e.target.value);
     };
 
     const hourLabels = getHours();
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        ...theme.applyStyles('dark', {
-            backgroundColor: '#1A2027',
-        }),
-    }));
+
+    console.log(latitude, longitude);
+
+    const reviews = [
+        {
+            author: "SurfBrah23",
+            rating: 4.5,
+            text: "Awesome waves, perfect for intermediate surfers. Great beach break with consistent swells. Water was clean and the view is incredible.",
+            date: "2023-11-15"
+        },
+        {
+            author: "OceanRider",
+            rating: 5,
+            text: "Absolutely stunning location! The waves were epic and the local surf community is super friendly. Definitely coming back.",
+            date: "2023-12-02"
+        },
+        {
+            author: "WindChaser",
+            rating: 3.5,
+            text: "Decent spot, but can get crowded during peak season. Wind conditions were tricky, but still managed to catch some good rides.",
+            date: "2024-01-10"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+
+        {
+            author: "BeachLover",
+            rating: 4,
+            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+            date: "2023-10-25"
+        },
+        {
+            author: "SaltySurfer",
+            rating: 4.5,
+            text: "Perfect for longboarding. Gentle waves in the morning, more challenging breaks later in the day. Highly recommend for all skill levels.",
+            date: "2024-02-14"
+        }
+    ];
+
 
     return (
         <div className={Styles.mainContainer}>
-            <div className={Styles.greyContainer}>
+            <div className={Styles.titleContainer}>
+                <h1>{title}</h1>
+            </div>
+            <div className={Styles.map}>
+                <Map city={city} country={country} title={title} longitude={longitude} latitude={latitude} />
+            </div>
+            <div className={Styles.twoCardContainer}>
 
-
-                <Form.Select aria-label="Select Weather Data" onChange={handleChartChange}
-                             value={selectedChart} size="sm" className="w-25">
-                    <option value="waterTemperature">Water Temperature</option>
-                    <option value="airTemperature">Air Temperature</option>
-                    <option value="swellDirection">Swell Direction</option>
-                    <option value="swellHeight">Swell Height</option>
-                    <option value="waveDirection">Wave Direction</option>
-                    <option value="waveHeight">Wave Height</option>
-                    <option value="wavePeriod">Wave Period</option>
-                    <option value="windWaveDirection">Wind Wave Direction</option>
-                    <option value="windDirection">Wind Direction</option>
-                    <option value="windSpeed">Wind Speed</option>
-
-                </Form.Select>
-                {renderSelectedChart()}
-
+                <div className={Styles.weatherImages}>
+                    <div className={Styles.greyContainer}>
+                        <div><WaterDropIcon/>{waterTemperatures}</div>
+                        <div><WavesIcon/>{waveHeights}</div>
+                        <div><ThermostatIcon/>{waveHeights}</div>
+                        <div><AirIcon/>{waveHeights}</div>
+                        <div><WaterIcon/>{waveHeights}</div>
+                        <div><SouthIcon/>{waveHeights}</div>
+                        <div><NorthIcon/>{waveHeights}</div>
+                        <div><EastIcon/>{waveHeights}</div>
+                        <div><WestIcon/>{waveHeights}</div>
+                        <div><SouthEastIcon/>{waveHeights}</div>
+                    </div>
+                    <div className={Styles.greyContainer}>
+                        images
+                    </div>
+                </div>
+                <div className={`${Styles.greyContainer} ${Styles.reviewContainer}`}>
+                    {reviews.map((review, index) => (
+                        <div key={index} className={Styles.singleReview}>
+                            <div className={Styles.reviewHeader}>
+                                <span className={Styles.reviewAuthor}>{review.author}</span>
+                                <span className={Styles.reviewRating}>{review.rating}/5</span>
+                            </div>
+                            <p className={Styles.reviewText}>{review.text}</p>
+                            <div className={Styles.reviewFooter}>
+                                <span className={Styles.reviewDate}>{review.date}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

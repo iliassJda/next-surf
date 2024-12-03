@@ -217,7 +217,10 @@ export default function Map() {
     }
 
     return (
+
+
         <div className={Styles.page}>
+            {session? (
             <div className={Styles.greyContainer}>
 
                         <div ref={mapContainerRef} style={{
@@ -300,7 +303,11 @@ export default function Map() {
                     </div>
                 </div>
             </div>
+            ) : null}
         </div>
+
+
+
 
 
     )
