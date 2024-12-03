@@ -26,6 +26,23 @@ export default function ResponsiveCarousel({
     );
   };
 
+  function giveTitle(newIndex: number): void{
+    switch (newIndex) {
+        case 0:
+            redirect("/asia");
+        case 1:
+            redirect("/europe");
+        case 2:
+            redirect("/north-america");
+        case 3:
+            redirect("/south-america");
+        case 4:
+            redirect("/oceania");
+        case 5:
+            redirect("/africa");
+
+    }
+
   const getVisibleImages = () => {
     const totalImages = spotCarouselInfos.length;
     return [
@@ -64,12 +81,18 @@ export default function ResponsiveCarousel({
         <div className={styles.Images}>
           <div className={styles.imagesWrapper}>
             {visibleImages.map((Sci:SpotCarouselInfo, index:number) => (
+              <div className={styles.imageContainer}>
               <Link key={index} href={`/${Sci.title}`}>
                 <img
                   src={Sci.imageURL}
                   alt={`Carousel image ${index + 1}`}
                 />
               </Link>
+              
+              <div className={styles.imgText}>
+                <p className={styles.Title[index]}>{Sci.title}</p>
+              </div>
+              </div>
             ))}
           </div>
         </div>
