@@ -1,3 +1,8 @@
+
+import Spot from "@/components/place/placePage";
+import React, { use } from 'react';
+import { AgCharts } from 'ag-charts-react';
+
 export default function PlacePage({
                                       params
                                   }: {
@@ -9,11 +14,12 @@ export default function PlacePage({
         latitude: number
     }
 }) {
+
+    const resolvedParams = React.use(Promise.resolve(params));
     return (
         <div>
-            <h1>{params.title}</h1>
-            <p>Country: {params.country}</p>
-            <p>City: {params.city}</p>
+            <Spot country={resolvedParams.country} city={resolvedParams.city} title={resolvedParams.title} longitude={resolvedParams.longitude} latitude={resolvedParams.latitude} />
+
         </div>
     )
 }

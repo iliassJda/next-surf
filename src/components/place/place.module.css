@@ -1,0 +1,23 @@
+
+
+.selectBootstrap {
+    width: 1Opx;
+}
+
+.custom-select-width {
+    width: 300px; /* Or any specific width */
+}
+
+.greyContainer {
+    background-color: hsla(0, 0%, 16%, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 2%;
+    height: 760px;
+    border-radius: 20px;
+    position: relative;
+}

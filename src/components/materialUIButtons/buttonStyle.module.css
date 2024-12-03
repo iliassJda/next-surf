@@ -1,7 +1,7 @@
 .demo {
-    --btn-text: rgba(131, 191, 202, 1);
+    --btn-text: black;
 
-    --btn-bg: rgba(5, 5, 5, 0.7);
+    --btn-bg: rgb(213, 219, 214);
 
     --btn-hover: rgba(5, 5, 5, 0.5);
     --btn-active-bg: #298e46;
