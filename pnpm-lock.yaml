@@ -8295,10 +8295,6 @@ snapshots:
 
   yaml@1.10.2: {}
 
-<<<<<<< HEAD
-  yaml@2.6.1: {}
-=======
   yaml@2.6.0: {}
->>>>>>> 577022f (before rebase)
 
   yocto-queue@0.1.0: {}
