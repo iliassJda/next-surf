@@ -11,6 +11,8 @@ import AirIcon from "@mui/icons-material/Air";
 import WaterIcon from "@mui/icons-material/Water";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 
+import ReviewButton from "../button/review/review";
+
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 
 import EastIcon from "@mui/icons-material/East";
@@ -49,6 +51,7 @@ export default function Spot({
   const [windDirections, setWindDirections] = useState([]);
   const [windSpeeds, setWindSpeeds] = useState([]);
   const [precipitations, setPrecipitations] = useState([]);
+  const [selectedChart, setSelectedChart] = useState("waterTemperature");
   const [imageUrl, setImageUrl] = useState("/images/defaultProfile.png");
 
   const startDate = new Date();
@@ -223,6 +226,12 @@ export default function Spot({
     // void getImageUrl()
   }, []);
 
+  const handleChartChange = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setSelectedChart(e.target.value);
+  };
+
   const hourLabels = getHours();
 
   console.log(latitude, longitude);
@@ -385,41 +394,37 @@ export default function Spot({
             </div>
 
             <div className={Styles.waveData}>
-              <div className={Styles.directionData}>
-                <GetDirectionIcon
-                  degrees={swellDirections[0]}
-                  text={"Swell Direction"}
-                />
-                <GetDirectionIcon
-                  degrees={waveDirections[0]}
-                  text={"Wave Direction"}
-                />
-                <GetDirectionIcon
-                  degrees={windWaveDirections[0]}
-                  text={"Wind Wave Direction"}
-                />
+              <GetDirectionIcon
+                degrees={swellDirections[0]}
+                text={"Swell Direction"}
+              />
+              <GetDirectionIcon
+                degrees={waveDirections[0]}
+                text={"Wave Direction"}
+              />
+              <GetDirectionIcon
+                degrees={windWaveDirections[0]}
+                text={"Wind Wave Direction"}
+              />
+              <div>
+                <HourglassBottomIcon />
+                Wave Period: {wavePeriods}s
               </div>
-              <div className={Styles.heights}>
-                <div>
-                  <HourglassBottomIcon />
-                  Wave Period: {wavePeriods}s
-                </div>
-                <div>
-                  <HeightIcon />
-                  Wave Height: {waveHeights}m
-                </div>
-                <div>
-                  <HeightIcon />
-                  Swell Height: {swellHeights}m
-                </div>
+              <div>
+                <HeightIcon />
+                Wave Height: {waveHeights}m
+              </div>
+              <div>
+                <HeightIcon />
+                Swell Height: {swellHeights}m
               </div>
             </div>
           </div>
-
           <div className={Styles.greyContainer}>
             <BootstrapCarouselWithoutArrows></BootstrapCarouselWithoutArrows>
           </div>
         </div>
+
         <div className={`${Styles.greyContainer} ${Styles.reviewContainer}`}>
           {reviews.map((review, index) => (
             <div key={index} className={Styles.singleReview}>
@@ -434,6 +439,7 @@ export default function Spot({
             </div>
           ))}
         </div>
+        <ReviewButton title={title} city={city} />
       </div>
     </div>
   );
