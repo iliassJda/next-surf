@@ -7,18 +7,18 @@ import FloatingActionButton from "@/components/floatingButtons/floatingActionBut
 export default function PlacePage({
                                       params,
                                   }: {
-    params: { country: string; city: string; title: string; longitude: number; latitude: number };
+    params: { country: string; city: string; title: string; longitude: string; latitude: string };
 }) {
     const { data: session } = useSession();
-
+    console.log(params)
     return (
         <div>
             <Spot
                 country={params.country}
                 city={params.city}
                 title={params.title}
-                longitude={params.longitude}
-                latitude={params.latitude}
+                longitude={parseFloat(params.longitude)}
+                latitude={parseFloat(params.latitude)}
             />
             {session && <FloatingActionButton />}
         </div>
