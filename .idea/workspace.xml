@@ -19,6 +19,13 @@
     "ts.external.directory.path": "/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib"
   }
 }]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <servers />
   </component>

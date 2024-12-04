@@ -6,9 +6,9 @@ import GoogleButton from "../button/google/google";
 import styles from "./forum.module.css";
 import { loginManual, loginGoogle } from "@/action/user";
 import { signIn } from "@/lib/auth";
-import router from 'next/navigation'
 
 import { showToast } from "../toast/toast";
+import {router} from "next/client";
 
 export default function LoginForum() {
   const handleManualSubmit = async (formData: FormData) => {
