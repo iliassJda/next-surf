@@ -4,31 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/floatingButtons/floatingActionButton/floatAction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/floatingButtons/floatingActionButton/floatAction.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/place.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/place.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/placePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placePage.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="30a5d125-b2f2-4882-8904-1f51ab893df8" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;placesPage&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib"
   }
-}</component>
+}]]></component>
   <component name="TaskManager">
     <servers />
   </component>
