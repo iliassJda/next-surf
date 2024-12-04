@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/place/map.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/place/carousel.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/place/carousel.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/places/[country]/[city]/[title]/[longitude]/[latitude]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/places/[country]/[city]/[title]/[longitude]/[latitude]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/carousel/carousel.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/carousel.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/map/mapbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/mapbox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contintsComp/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contintsComp/main.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/place/place.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/place.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/place/placePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placePage.tsx" afterDir="false" />
     </list>
@@ -25,13 +25,13 @@
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "placesPage",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "ts.external.directory.path": "/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;git-widget-placeholder&quot;: &quot;placesPage&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/mathiashuygen/Documents/GitHub/next-surf/node_modules/typescript/lib&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <servers />
   </component>

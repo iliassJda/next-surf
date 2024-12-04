@@ -3,13 +3,13 @@
 import {useEffect, useState} from "react";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "../carousel/carousel.module.css";
+import styles from "@/components/place/carousel.module.css";
 import Image from "next/image";
 import {getMostPopularSpots} from "@/components/carousel/getMostPopular";
 import {Skeleton} from "@mui/material";
 import Link from "next/link";
 
-export default function BootstrapCarousel(){
+export default function BootstrapCarouselWithoutArrows(){
     const [index, setIndex] = useState(0);
     const [images, setImages] = useState<string[]>([]);
     const [titles, setTitles] = useState<string[]>([]);
@@ -55,7 +55,7 @@ export default function BootstrapCarousel(){
         <div className={styles.carousel}>
             {loaded ? (
                 <div className={styles.centering}>
-                    <Carousel activeIndex={index} onSelect={handleSelect} className={styles.carouselItem}>
+                    <Carousel activeIndex={index} onSelect={handleSelect} className={styles.carouselItem} controls={false}>
                         {images.map((imageURL, idx) => (
                             <Carousel.Item key={idx} className={styles.carouselItem}>
                                 <Link href={`/places/${countries[idx]}/${cities[idx]}/${titles[idx]}/${longitudes[idx]}/${latitudes[idx]}`}>
@@ -77,10 +77,10 @@ export default function BootstrapCarousel(){
                         ))}
                     </Carousel>
                 </div>
-                ) : (
-                    <div className={styles.skeletonContainer}>
-                        <Skeleton className={styles.skeleton} variant="rectangular" width={1200} height={600} animation="pulse" />
-                    </div>
+            ) : (
+                <div className={styles.skeletonContainer}>
+                    <Skeleton className={styles.skeleton} variant="rectangular" width={1200} height={600} animation="pulse" />
+                </div>
             )}
 
         </div>

@@ -3,7 +3,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  width: 80%;
   border-radius: 20px;
   height: 630px;
   filter: brightness(65%);
@@ -39,7 +39,7 @@
   position: absolute;
   bottom:70%;
   left: 50%;
-  transform: translateX(-60%);
+  transform: translateX(-70%);
   background-color: rgba(0, 0, 0, 0.0);
   color: white;
   padding: 10px;

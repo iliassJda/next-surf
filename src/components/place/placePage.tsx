@@ -20,11 +20,16 @@ import NorthIcon from '@mui/icons-material/North';
 import NorthWestIcon from '@mui/icons-material/NorthWest';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 
+
 import EastIcon from '@mui/icons-material/East';
 
 import WestIcon from '@mui/icons-material/West';
 
+import HeightIcon from '@mui/icons-material/Height';
+
 import Map from "@/components/place/map"
+
+import BootstrapCarouselWithoutArrows from "@/components/place/carousel"
 
 export default function Spot({country, city, title, longitude, latitude}: {
     country: string,
@@ -44,6 +49,7 @@ export default function Spot({country, city, title, longitude, latitude}: {
     const [windWaveDirections, setWindWaveDirections] = useState([]);
     const [windDirections, setWindDirections] = useState([]);
     const [windSpeeds, setWindSpeeds] = useState([]);
+    const [precipitations, setPrecipitations] = useState([]);
     const [selectedChart, setSelectedChart] = useState('waterTemperature');
     const [imageUrl, setImageUrl] = useState('/images/defaultProfile.png');
 
@@ -162,6 +168,12 @@ export default function Spot({country, city, title, longitude, latitude}: {
                 };
             }) => hour?.windSpeed?.noaa || []) || []);
 
+            setPrecipitations(data.hours?.map((hour : {
+                precipitation: {
+                    noaa: any;
+                    value: any;
+                }
+            }) => hour?.precipitation?.noaa || []) || []);
 
         }
 
@@ -305,20 +317,33 @@ export default function Spot({country, city, title, longitude, latitude}: {
             <div className={Styles.twoCardContainer}>
 
                 <div className={Styles.weatherImages}>
-                    <div className={Styles.greyContainer}>
-                        <div><WaterDropIcon/>{waterTemperatures}</div>
-                        <div><WavesIcon/>{waveHeights}</div>
-                        <div><ThermostatIcon/>{waveHeights}</div>
-                        <div><AirIcon/>{waveHeights}</div>
-                        <div><WaterIcon/>{waveHeights}</div>
-                        <div><SouthIcon/>{waveHeights}</div>
-                        <div><NorthIcon/>{waveHeights}</div>
-                        <div><EastIcon/>{waveHeights}</div>
-                        <div><WestIcon/>{waveHeights}</div>
-                        <div><SouthEastIcon/>{waveHeights}</div>
+                    <div className={Styles.weatherData}>
+                        <div className={Styles.dataGroup}>
+                            <div className={Styles.waterData}>
+                                <div><WaterDropIcon/>{waterTemperatures} °C</div>
+                                <div><WaterDropIcon/>{precipitations} mm/h</div>
+                            </div>
+
+                            <div className={Styles.airData}>
+                                <div><ThermostatIcon/>{airTemperatures} °C</div>
+                                <div><AirIcon/>{windDirections}</div>
+                                <div><AirIcon/>{windSpeeds} m/s</div>
+                                </div>
+                        </div>
+
+                        <div className={Styles.waveData}>
+                            <div><SouthIcon/>{swellDirections}</div>
+                            <div><NorthIcon/>{waveDirections}</div>
+                            <div><WestIcon/>{windWaveDirections}</div>
+                            <div><EastIcon/>{wavePeriods}s</div>
+                            <div><HeightIcon/>{waveHeights}m</div>
+                            <div><HeightIcon/>{swellHeights}m</div>
+                        </div>
+
+
                     </div>
                     <div className={Styles.greyContainer}>
-                        images
+                        <BootstrapCarouselWithoutArrows></BootstrapCarouselWithoutArrows>
                     </div>
                 </div>
                 <div className={`${Styles.greyContainer} ${Styles.reviewContainer}`}>

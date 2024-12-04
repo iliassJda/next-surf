@@ -29,7 +29,7 @@ export default function ContinentChanger() {
   return (
     <div>
           <div>
-           <BootstrapCarousel imageIndex={ContinentIndex}/>
+           <BootstrapCarousel />
           </div>
           <div className={styles.buttonStyles}>
               <div className={styles.continent} >
