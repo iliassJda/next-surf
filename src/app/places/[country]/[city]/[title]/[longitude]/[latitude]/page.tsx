@@ -4,13 +4,18 @@ import React from "react";
 import { useSession } from "next-auth/react";
 import FloatingActionButton from "@/components/floatingButtons/floatingActionButton/floatAction";
 
-export default function PlacePage({
-                                      params,
-                                  }: {
-    params: { country: string; city: string; title: string; longitude: string; latitude: string };
-}) {
+interface PlacePageProps {
+    params: {
+        country: string;
+        city: string;
+        title: string;
+        longitude: string;
+        latitude: string;
+    };
+}
+
+export default function PlacePage({ params }: PlacePageProps) {
     const { data: session } = useSession();
-    console.log(params)
     return (
         <div>
             <Spot

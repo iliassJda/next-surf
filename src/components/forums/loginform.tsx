@@ -16,7 +16,7 @@ export default function LoginForum() {
 
     if (response.status == "success") {
       showToast("success", response.message);
-      router.redirect("/")
+      await router.push("/")
         
     } else {
       showToast("error", response.message);
