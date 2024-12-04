@@ -48,16 +48,14 @@ const register = async (formData: FormData) => {
 };
 
 const loginGoogle = async () => {
-
   // await signIn("google", { redirect: false })
-  const res = await signIn("google", { redirectTo: "/" })
+  const res = await signIn("google", { redirectTo: "/" });
 
   return {
     status: "success",
     message: "Successfully logged in!",
   };
-
-}
+};
 
 const loginManual = async (formData: FormData) => {
   const email = formData.get("email") as string;
@@ -66,8 +64,8 @@ const loginManual = async (formData: FormData) => {
   if (!email || !password) {
     return {
       status: "error",
-      message: "Please fill in your email and password"
-    }
+      message: "Please fill in your email and password",
+    };
   }
 
   const user = await prisma.user.findUnique({
@@ -96,9 +94,7 @@ const loginManual = async (formData: FormData) => {
     redirectTo: "/",
     email,
     password,
-  })
-
-
+  });
 
   return {
     status: "success",
@@ -108,7 +104,7 @@ const loginManual = async (formData: FormData) => {
 
 const updateProfile = async (formData: FormData) => {
   const session = await auth();
-  const user = session?.user
+  const user = session?.user;
   const email = user?.email as string;
 
   const firstname = formData.get("firstname") as string;
@@ -124,8 +120,7 @@ const updateProfile = async (formData: FormData) => {
     },
   });
 
-  if (password == "" && existinguser)
-    password = existinguser.password
+  if (password == "" && existinguser) password = existinguser.password;
   else if (password !== verpassword) {
     return {
       status: "error",

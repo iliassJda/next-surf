@@ -19,6 +19,7 @@ model User {
   nationality       String
   profilePictureCID String     @default("none")
   posts             SurfSpot[]
+  reviews           Review[]
 }
 
 model SurfSpot {
@@ -42,9 +43,10 @@ model SurfSpot {
 
 model Review {
   id          Int       @id @default(autoincrement())
-  title       String
   rating      Float
   description String //the whole review that the user provides.
-  SurfSpot    SurfSpot? @relation(fields: [surfSpotId], references: [id])
-  surfSpotId  Int?
+  SurfSpot    SurfSpot @relation(fields: [surfSpotId], references: [id])
+  surfSpotId  Int
+  user        User @relation(fields: [userId], references: [id])
+  userId      Int
 }
