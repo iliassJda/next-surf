@@ -11,14 +11,9 @@ import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import AirIcon from '@mui/icons-material/Air';
 import WaterIcon from '@mui/icons-material/Water';
-
-import SouthIcon from '@mui/icons-material/South';
-import SouthEastIcon from '@mui/icons-material/SouthEast';
-import SouthWestIcon from '@mui/icons-material/SouthWest';
-
-import NorthIcon from '@mui/icons-material/North';
-import NorthWestIcon from '@mui/icons-material/NorthWest';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
+
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 
 
 import EastIcon from '@mui/icons-material/East';
@@ -30,6 +25,8 @@ import HeightIcon from '@mui/icons-material/Height';
 import Map from "@/components/place/map"
 
 import BootstrapCarouselWithoutArrows from "@/components/place/carousel"
+
+import GetDirectionIcon from "@/components/place/directionArrow";
 
 export default function Spot({country, city, title, longitude, latitude}: {
     country: string,
@@ -320,24 +317,24 @@ export default function Spot({country, city, title, longitude, latitude}: {
                     <div className={Styles.weatherData}>
                         <div className={Styles.dataGroup}>
                             <div className={Styles.waterData}>
-                                <div><WaterDropIcon/>{waterTemperatures} °C</div>
-                                <div><WaterDropIcon/>{precipitations} mm/h</div>
+                                <div><WaterDropIcon/>Water Temperature: {waterTemperatures} °C</div>
+                                <div><WaterDropIcon/>Precipitation: {precipitations} mm/h</div>
                             </div>
 
                             <div className={Styles.airData}>
-                                <div><ThermostatIcon/>{airTemperatures} °C</div>
-                                <div><AirIcon/>{windDirections}</div>
-                                <div><AirIcon/>{windSpeeds} m/s</div>
+                                <div><ThermostatIcon/>Temperature: {airTemperatures} °C</div>
+                                <GetDirectionIcon degrees={windDirections[0]} text={"Wind Direction"}/>
+                                <div><AirIcon/>Wind Speed:{windSpeeds} m/s</div>
                                 </div>
                         </div>
 
                         <div className={Styles.waveData}>
-                            <div><SouthIcon/>{swellDirections}</div>
-                            <div><NorthIcon/>{waveDirections}</div>
-                            <div><WestIcon/>{windWaveDirections}</div>
-                            <div><EastIcon/>{wavePeriods}s</div>
-                            <div><HeightIcon/>{waveHeights}m</div>
-                            <div><HeightIcon/>{swellHeights}m</div>
+                            <GetDirectionIcon degrees={swellDirections[0]} text={"Swell Direction"}/>
+                            <GetDirectionIcon degrees={waveDirections[0]} text={"Wave Direction"}/>
+                            <GetDirectionIcon degrees={windWaveDirections[0]} text={"Wind Wave Direction"}/>
+                            <div><HourglassBottomIcon/>Wave Period: {wavePeriods}s</div>
+                            <div><HeightIcon/>Wave Height: {waveHeights}m</div>
+                            <div><HeightIcon/>Swell Height: {swellHeights}m</div>
                         </div>
 
 

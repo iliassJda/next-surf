@@ -4,16 +4,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import mapboxgl from 'mapbox-gl';
 import Styles from "@/components/map/map.module.css"
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Button from 'react-bootstrap/Button';
-import Button2 from "@/components/materialUIButtons/button2";
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Style from "@/components/uploadCare/surfSpotUpload/upload.module.css";
-import {showToast} from "@/components/toast/toast";
-import {externalUploader} from "@/components/uploadCare/surfSpotUpload/uploadType";
 import {useSession} from "next-auth/react";
-import {getLocationData, submittedCountry} from "@/components/map/getLocationData";
-import {getExistingSurfSpots} from "@/components/map/getExistingSpots";
 
 
 
