@@ -1,0 +1,26 @@
+.inputContainer {
+  /* border: solid red 2px; */
+  margin-bottom: 2rem;
+}
+
+.inputContainer .names {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.myForm {
+  width: 70%;
+}
+
+.myForm form {
+  margin-bottom: 20px;
+}
+
+.nameDiv {
+  width: 50%;
+}
+
+.input .textInput {
+  color: black;
+}

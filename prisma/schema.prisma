@@ -10,19 +10,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  id                Int        @id @default(autoincrement())
+  email             String     @unique
+  password          String
+  firstname         String
+  lastname          String
+  nationality       String
+  profilePictureCID String     @default("none")
+  posts             SurfSpot[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model SurfSpot {
+  id         Int      @id @default(autoincrement())
+  title      String
+  country    String
+  continent  String
+  city       String
+  imageURL   String   @default("none")
+  latitude   Float
+  longitude  Float
+  published  Boolean  @default(false)
+  meanRating Float    @default(0)
+  ratings    Review[]
+  userID     User     @relation(fields: [userId], references: [id])
+  userId     Int
+
+  //there can only be one surf spot with a certain title in a city.
+  @@unique([city, title])
+}
+
+model Review {
+  id          Int       @id @default(autoincrement())
+  title       String
+  rating      Float
+  description String //the whole review that the user provides.
+  SurfSpot    SurfSpot? @relation(fields: [surfSpotId], references: [id])
+  surfSpotId  Int?
 }

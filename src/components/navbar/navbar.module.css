@@ -1,5 +1,42 @@
-.navContainer {
-  height: 70px;
-  width: 100%;
-  border: solid orange 2px;
+
+#top_bar {
+  padding: 10px;
 }
+
+#main_bar {
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
+  position: relative;
+}
+
+
+
+#search_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+#search_bar {
+  padding: 20px 10px;
+  border: none;
+  border-radius: 10px;
+  width: 450px;
+  height: 20px;
+  color: black;
+  border-color: transparent;
+  outline: none;
+}
+
+
+
+
+
+
+
+
+
