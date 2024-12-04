@@ -26,22 +26,7 @@ export default function ResponsiveCarousel({
     );
   };
 
-  function giveTitle(newIndex: number): void{
-    switch (newIndex) {
-        case 0:
-            redirect("/asia");
-        case 1:
-            redirect("/europe");
-        case 2:
-            redirect("/north-america");
-        case 3:
-            redirect("/south-america");
-        case 4:
-            redirect("/oceania");
-        case 5:
-            redirect("/africa");
-
-    }
+  
 
   const getVisibleImages = () => {
     const totalImages = spotCarouselInfos.length;
@@ -88,10 +73,7 @@ export default function ResponsiveCarousel({
                   alt={`Carousel image ${index + 1}`}
                 />
               </Link>
-              
-              <div className={styles.imgText}>
-                <p className={styles.Title[index]}>{Sci.title}</p>
-              </div>
+                <p>{Sci.title}</p>
               </div>
             ))}
           </div>
