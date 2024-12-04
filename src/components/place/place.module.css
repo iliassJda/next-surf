@@ -126,7 +126,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(213, 219, 214);;
+    background-color: rgb(213, 219, 214);
     width: 100%;
     height: 100%;
     border-radius: 20px;
@@ -137,10 +137,10 @@
 
 .waveData{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #c8a3e3;
+    background-color: #dec3eb;
     width: 100%;
     height: 200px;
     border-radius: 20px;
@@ -162,5 +162,69 @@
     border-radius: 20px;
     position: relative;
     gap: 10px;
+
+}
+
+
+.directionData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+    position: relative;
+    gap: 10px;
+}
+
+
+.heights{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+    position: relative;
+    gap: 10px;
+}
+
+
+
+
+@media screen and (max-width: 640px){
+
+    .mainContainer{
+        font-size: 10px;
+
+
+    }
+    .twoCardContainer{
+        flex-direction: column;
+        width: 100%;
+    }
+    .waveData{
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+    }
+
+    .airData{
+        height: 150px;
+    }
+
+    .waterData{
+        height: 150px;
+    }
+    .dataGroup{
+        height: auto;
+    }
+
 
 }

@@ -47,7 +47,6 @@ export default function Spot({country, city, title, longitude, latitude}: {
     const [windDirections, setWindDirections] = useState([]);
     const [windSpeeds, setWindSpeeds] = useState([]);
     const [precipitations, setPrecipitations] = useState([]);
-    const [selectedChart, setSelectedChart] = useState('waterTemperature');
     const [imageUrl, setImageUrl] = useState('/images/defaultProfile.png');
 
     const startDate = new Date()
@@ -182,9 +181,6 @@ export default function Spot({country, city, title, longitude, latitude}: {
     }, []);
 
 
-    const handleChartChange = (e: { target: { value: SetStateAction<string>; }; }) => {
-        setSelectedChart(e.target.value);
-    };
 
     const hourLabels = getHours();
 
@@ -314,6 +310,7 @@ export default function Spot({country, city, title, longitude, latitude}: {
             <div className={Styles.twoCardContainer}>
 
                 <div className={Styles.weatherImages}>
+
                     <div className={Styles.weatherData}>
                         <div className={Styles.dataGroup}>
                             <div className={Styles.waterData}>
@@ -329,16 +326,22 @@ export default function Spot({country, city, title, longitude, latitude}: {
                         </div>
 
                         <div className={Styles.waveData}>
-                            <GetDirectionIcon degrees={swellDirections[0]} text={"Swell Direction"}/>
-                            <GetDirectionIcon degrees={waveDirections[0]} text={"Wave Direction"}/>
-                            <GetDirectionIcon degrees={windWaveDirections[0]} text={"Wind Wave Direction"}/>
-                            <div><HourglassBottomIcon/>Wave Period: {wavePeriods}s</div>
-                            <div><HeightIcon/>Wave Height: {waveHeights}m</div>
-                            <div><HeightIcon/>Swell Height: {swellHeights}m</div>
+                                <div className={Styles.directionData}>
+                                    <GetDirectionIcon degrees={swellDirections[0]} text={"Swell Direction"}/>
+                                    <GetDirectionIcon degrees={waveDirections[0]} text={"Wave Direction"}/>
+                                    <GetDirectionIcon degrees={windWaveDirections[0]} text={"Wind Wave Direction"}/>
+                                </div>
+                                <div className={Styles.heights}>
+                                    <div><HourglassBottomIcon/>Wave Period: {wavePeriods}s</div>
+                                    <div><HeightIcon/>Wave Height: {waveHeights}m</div>
+                                    <div><HeightIcon/>Swell Height: {swellHeights}m</div>
+                                </div>
+
                         </div>
 
 
                     </div>
+
                     <div className={Styles.greyContainer}>
                         <BootstrapCarouselWithoutArrows></BootstrapCarouselWithoutArrows>
                     </div>

@@ -17,12 +17,13 @@ export default function FloatingActionButton() {
     const [inputValue, setInputValue] = useState('');
     const router = useRouter();
 
+
     const handlePlusClick = () => {
         setIsExpanded(!isExpanded);
     };
 
     const handleInputSubmit = () => {
-        redirect('/uploadSurfSpot');
+        router.push('/uploadSurfSpot');
     };
 
     return (
