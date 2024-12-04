@@ -62,7 +62,7 @@ export default function Map({ country, city, title, longitude, latitude }: { cou
                 }
             }
         });
-        map.current.flyTo({ center: [longitude, latitude], zoom: 11 });
+        map.current.flyTo({ center: [longitude, latitude], zoom: 14 });
         const newMarker = new mapboxgl.Marker({
             color: "#3285a8",
             draggable: false
