@@ -41,15 +41,18 @@ export default function ResponsiveCarousel({
 
   if (spotCarouselInfos.length <= 3) {
     return (
-      <div className={styles.carouselContainer}>
-        <div className={styles.Images}>
+      <div className={styles.Images}>
+        <div className={styles.imagesWrapper}>
           {spotCarouselInfos.map((Sci:SpotCarouselInfo, index:number) => (
-            <Link key={index} href={`/surfspots/${Sci.title}`}>
+            <div className={styles.imageContainer}>
+            <Link key={index} href={`/${Sci.title}`}>
               <img
                 src={Sci.imageURL}
-                alt={`Unique images ${index + 1}`}
+                alt={`Carousel image ${index + 1}`}
               />
             </Link>
+              <p>{Sci.title}</p>
+            </div>
           ))}
         </div>
       </div>
