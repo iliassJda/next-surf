@@ -15,7 +15,7 @@ export default function ReviewButton({
   };
 
   return (
-    <Button onClick={handleClick} variant="outlined">
+    <Button onClick={handleClick} variant="contained">
       add a review
     </Button>
   );

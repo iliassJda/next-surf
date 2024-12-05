@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Id,
@@ -25,4 +25,13 @@ const showToast = (type: ToastType, content: ToastContent) => {
   }
 };
 
-export { showToast };
+const doToast = (response: any) => {
+  if (response.toast == "success") {
+    showToast("success", response.message);
+    // router.redirect("/")
+  } else {
+    showToast("error", response.message);
+  }
+};
+
+export { doToast };
