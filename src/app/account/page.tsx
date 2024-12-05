@@ -4,7 +4,8 @@ import ConstForm from "@/components/account/constform";
 import UploadedPlaces from "@/components/account/uploadedPlaces";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture"
+import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture";
+import Uploader from "@/components/uploadCare/profilePictureUpload/uploader";
 
 export default function Account(probs: any) {
   return (
@@ -19,6 +20,7 @@ export default function Account(probs: any) {
         <div className={`${styles.section} px-5`}>
           <div className={styles.left_selection}>
             <ShowProfilePicture width="150" height="150"/>
+            <Uploader/>
           </div>
           <div className={` ${styles.right_section} ${styles.flex}`}> 
           <div className={styles.left_section}>

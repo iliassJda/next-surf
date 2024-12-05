@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "@/app/account/account.module.css";
 import PlacesImg from "../../../public/johnPork.jpg";
 import {useSession} from "next-auth/react";
-import React, {useState} from 'react';
+import React, {useEffect,useState} from 'react';
 import {getUploadedPlaces} from './getUploadedPlaces';
 
 interface Place {
@@ -25,20 +25,16 @@ export default function UploadedPlaces(probs: any) {
     const [places, setPlaces] = useState<Place[]>([]);
     const user = session?.user;
     const userMail = user?.email as string;
+    useEffect(()=> {
+      async function fetchData() {
+        const data = await getUploadedPlaces(userMail);
+        setPlaces(data || []); // Safely update state here
+      }
+      if (userMail) {
+        fetchData();
+      }
+    }, [userMail]);
 
-    const fetchPlaces = async () => {
-        try {
-            if(userMail){
-                const placess = await getUploadedPlaces(userMail)
-                setPlaces(placess || []);
-            }
-        }
-        catch (error){
-            console.log("failed to get profile");
-        }
-    }
-
-    void fetchPlaces();
 
     return(
         <div className={`${styles.scrollable} ${styles.places}`}>
