@@ -1,19 +1,22 @@
 export type SurfSpot = {
-    title: string;
-    country: string;
-    imageURL: string;
-    id: number;
+    title: true,
+    country:true,
+    city:true,
+    longitude:true,
+    latitude:true,
+    imageURL: true,
+    id:true,
   };
 
 export type SurfSpots = SurfSpot[];
 
-export type SpotCarouselInfo = Pick<SurfSpot, 'title' | 'imageURL'>;
+// export type SpotCarouselInfo = Pick<SurfSpot, 'title' | 'imageURL' | 'country' | 'city' | 'longitude' | 'latitude'>;
 
-export type SpotCarouselInfos = SpotCarouselInfo[];
+// export type SpotCarouselInfos = SpotCarouselInfo[];
 
 export type CountryInfo = {
     country:string,
-    continent:string
+    continent:string,
 }
 
 // export type ResponsiveCarouselProps = {
