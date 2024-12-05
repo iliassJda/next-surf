@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import ContinentPage from '../../components/continentPage/continentPage';
+import ContinentPage from '../../../components/continentPage/continentPage';
 import {useSession} from "next-auth/react";
 import FloatingActionButton from "@/components/floatingButtons/floatingActionButton/floatAction";
 
