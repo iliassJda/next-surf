@@ -12,6 +12,9 @@ async function getSurfSpotsFromPrisma(continentname: string){
         select: {
             title: true,
             country:true,
+            city:true,
+            longitude:true,
+            latitude:true,
             imageURL: true,
             id:true,
         },

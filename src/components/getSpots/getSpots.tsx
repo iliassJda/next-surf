@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import ResponsiveCarousel from "../countryCarousel/countryCarousel";
 import data from "../../../public/temporary.json";
-import { NextResponse } from "next/server";
 import { SurfSpot,SurfSpots,CountryInfo} from "../../components/types"
 import { NormalizeName} from  "../../components/globalFunc"
 import styles from './getSpots.module.css'
@@ -67,10 +66,7 @@ export default function ShowSurfSpots({
           <li>
             <h2 className={styles.h2}>{countrySpots[0].country}</h2>
             <ResponsiveCarousel
-              spotCarouselInfos={countrySpots.map((s:SurfSpot) => ({
-                title: s.title,
-                imageURL: s.imageURL,
-              }))}
+              spotCarouselInfos={countrySpots}
             />
           </li>
         </React.Fragment>

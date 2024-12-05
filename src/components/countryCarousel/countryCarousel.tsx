@@ -4,14 +4,14 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./countryCarousel.module.css";
 import {
-  SpotCarouselInfo,
-  SpotCarouselInfos,
+  SurfSpots,
+  SurfSpot,
 } from "../../components/types";
 
 export default function ResponsiveCarousel({
   spotCarouselInfos
 }:{
-  spotCarouselInfos:SpotCarouselInfos;
+  spotCarouselInfos:SurfSpots;
 }
 ) {
   const [startIndex, setStartIndex] = useState(0);
@@ -43,12 +43,12 @@ export default function ResponsiveCarousel({
     return (
       <div className={styles.Images}>
         <div className={styles.imagesWrapper}>
-          {spotCarouselInfos.map((Sci:SpotCarouselInfo, index:number) => (
-            <div className={styles.imageContainer}>
-            <Link key={index} href={`/${Sci.title}`}>
+          {spotCarouselInfos.map((Sci:SurfSpot, index:number) => (
+            <div key={Sci.id} className={styles.imageContainer}>
+            <Link href={`/places/${Sci.country}/${Sci.city}/${Sci.title}/${Sci.longitude}/${Sci.latitude}`}>
               <img
                 src={Sci.imageURL}
-                alt={`Carousel image ${index + 1}`}
+                alt={`Non Carousel image ${index + 1}`}
               />
             </Link>
               <p>{Sci.title}</p>
@@ -69,8 +69,8 @@ export default function ResponsiveCarousel({
         <div className={styles.Images}>
           <div className={styles.imagesWrapper}>
             {visibleImages.map((Sci:SpotCarouselInfo, index:number) => (
-              <div className={styles.imageContainer}>
-              <Link key={index} href={`/${Sci.title}`}>
+              <div key={Sci.id} className={styles.imageContainer}>
+              <Link href={`/places/${Sci.country}/${Sci.city}/${Sci.title}/${Sci.longitude}/${Sci.latitude}`}>
                 <img
                   src={Sci.imageURL}
                   alt={`Carousel image ${index + 1}`}
