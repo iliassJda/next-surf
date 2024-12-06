@@ -35,7 +35,7 @@ model SurfSpot {
   published  Boolean  @default(false)
   meanRating Float    @default(0)
   reviews    Review[]
-  userID     User     @relation(fields: [userId], references: [id])
+  userID     User     @relation("UserPosts", fields: [userId], references: [id])
   userId     Int
   savers     User[]     @relation("UserSaved")
 
