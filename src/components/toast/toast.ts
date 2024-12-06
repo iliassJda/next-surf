@@ -34,4 +34,5 @@ const doToast = (response: any) => {
   }
 };
 
-export { doToast };
+export { doToast, showToast };
+
