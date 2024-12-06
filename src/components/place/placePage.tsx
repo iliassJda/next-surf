@@ -1,6 +1,6 @@
 "use client";
 
-import { SetStateAction, useEffect, useState } from "react";
+import {SetStateAction, useEffect, useRef, useState} from "react";
 import { getWeatherData } from "@/components/place/getWeatherData";
 import Styles from "@/components/place/place.module.css";
 import * as React from "react";
@@ -29,6 +29,13 @@ import GetDirectionIcon from "@/components/place/directionArrow";
 import { getReviews } from "@/action/review";
 import { Review } from "@prisma/client";
 
+import {getSpotImages} from "@/components/place/handleSpotImage";
+import Button2 from "@/components/materialUIButtons/button2";
+import Style from "@/components/uploadCare/profilePictureUpload/upload.module.css";
+import {uploadFile} from "@uploadcare/upload-client";
+import {showToast} from "@/components/toast/toast";
+import {useSession} from "next-auth/react";
+
 export default function Spot({
   country,
   city,
@@ -54,9 +61,16 @@ export default function Spot({
   const [windSpeeds, setWindSpeeds] = useState([]);
   const [precipitations, setPrecipitations] = useState([]);
   const [selectedChart, setSelectedChart] = useState("waterTemperature");
-  const [imageUrl, setImageUrl] = useState("/images/defaultProfile.png");
+  const [imageUrls, setImageUrl] = useState(["/images/defaultProfile.png"]);
 
   const [reviews, setReviews] = useState([]);
+
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const { data: session, status } = useSession();
+  const user = session?.user
+    const userEmail = user?.email as string;
 
   const startDate = new Date();
   //*1000 because in milliseconds
@@ -235,8 +249,15 @@ export default function Spot({
       );
     };
 
+    const getImageUrl = async() => {
+       const imageUrls = await getSpotImages(city, title);
+       // @ts-ignore
+        setImageUrl(imageUrls.map((imageUrl) => {
+           imageUrl.imageURL
+       }));
+    }
     void weatherData();
-    // void getImageUrl()
+    void getImageUrl()
     void reviews();
   }, []);
 
@@ -250,117 +271,6 @@ export default function Spot({
 
   console.log(latitude, longitude);
 
-  // const reviews = [
-  //   {
-  //     author: "SurfBrah23",
-  //     rating: 4.5,
-  //     text: "Awesome waves, perfect for intermediate surfers. Great beach break with consistent swells. Water was clean and the view is incredible.",
-  //     date: "2023-11-15",
-  //   },
-  //   {
-  //     author: "OceanRider",
-  //     rating: 5,
-  //     text: "Absolutely stunning location! The waves were epic and the local surf community is super friendly. Definitely coming back.",
-  //     date: "2023-12-02",
-  //   },
-  //   {
-  //     author: "WindChaser",
-  //     rating: 3.5,
-  //     text: "Decent spot, but can get crowded during peak season. Wind conditions were tricky, but still managed to catch some good rides.",
-  //     date: "2024-01-10",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-
-  //   {
-  //     author: "BeachLover",
-  //     rating: 4,
-  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-  //     date: "2023-10-25",
-  //   },
-  //   {
-  //     author: "SaltySurfer",
-  //     rating: 4.5,
-  //     text: "Perfect for longboarding. Gentle waves in the morning, more challenging breaks later in the day. Highly recommend for all skill levels.",
-  //     date: "2024-02-14",
-  //   },
-  // ];
 
   useEffect;
 
@@ -380,91 +290,124 @@ export default function Spot({
       </div>
       <div className={Styles.twoCardContainer}>
         <div className={Styles.weatherImages}>
-          <div className={Styles.weatherData}>
-            <div className={Styles.dataGroup}>
-              <div className={Styles.waterData}>
-                <div>
-                  <WaterDropIcon />
-                  Water Temperature: {waterTemperatures} °C
-                </div>
-                <div>
-                  <WaterDropIcon />
-                  Precipitation: {precipitations} mm/h
-                </div>
-              </div>
+            <div className={Styles.weatherData}>
+                <div className={Styles.dataGroup}>
+                    <div className={Styles.waterData}>
+                        <div>
+                            <WaterDropIcon/>
+                            Water Temperature: {waterTemperatures} °C
+                        </div>
+                        <div>
+                            <WaterDropIcon/>
+                            Precipitation: {precipitations} mm/h
+                        </div>
+                    </div>
 
-              <div className={Styles.airData}>
-                <div>
-                  <ThermostatIcon />
-                  Temperature: {airTemperatures} °C
+                    <div className={Styles.airData}>
+                        <div>
+                            <ThermostatIcon/>
+                            Temperature: {airTemperatures} °C
+                        </div>
+                        <GetDirectionIcon
+                            degrees={windDirections[0]}
+                            text={"Wind Direction"}
+                        />
+                        <div>
+                            <AirIcon/>
+                            Wind Speed:{windSpeeds} m/s
+                        </div>
+                    </div>
                 </div>
-                <GetDirectionIcon
-                  degrees={windDirections[0]}
-                  text={"Wind Direction"}
+
+                <div className={Styles.waveData}>
+                    <div className={Styles.directionData}>
+                        <GetDirectionIcon degrees={swellDirections[0]} text={"Swell Direction"}/>
+                        <GetDirectionIcon degrees={waveDirections[0]} text={"Wave Direction"}/>
+                        <GetDirectionIcon degrees={windWaveDirections[0]} text={"Wind Wave Direction"}/>
+                    </div>
+                    <div className={Styles.heights}>
+                        <div><HourglassBottomIcon/>Wave Period: {wavePeriods}s</div>
+                        <div><HeightIcon/>Wave Height: {waveHeights}m</div>
+                        <div><HeightIcon/>Swell Height: {swellHeights}m</div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div className={Styles.greyContainer}>
+                <BootstrapCarouselWithoutArrows imageURLS={imageUrls}></BootstrapCarouselWithoutArrows>
+                <input
+                    className={Style.input}
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={async (event) => {
+
+                        const file = event.target.files?.[0];
+                        if (!file) return;
+
+                        setUploading(true);
+
+                        try {
+                            // Upload the file to Uploadcare
+                            const uploadedFile = await uploadFile(
+                                file,
+                                {
+                                    publicKey: process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
+                                }
+                            );
+
+                            // Construct the file URL
+                            const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
+
+                            const data = new FormData();
+                            data.append("profilePictureURL", fileUrl);
+                            data.append("userEmail", userEmail);
+
+                            const uploadRequest = await fetch("/api/uploadCare/uploadProfilePicture", {
+                                method: "POST",
+                                body: data,
+                            })
+
+                            showToast("success", "Image Uploaded Successfully");
+                            console.log(fileUrl);
+
+                        } catch (err) {
+                            console.log(err);
+                        } finally {
+                            setUploading(false);
+                        }
+                    }}
                 />
-                <div>
-                  <AirIcon />
-                  Wind Speed:{windSpeeds} m/s
-                </div>
-              </div>
-            </div>
 
-            <div className={Styles.waveData}>
-              <GetDirectionIcon
-                degrees={swellDirections[0]}
-                text={"Swell Direction"}
-              />
-              <GetDirectionIcon
-                degrees={waveDirections[0]}
-                text={"Wave Direction"}
-              />
-              <GetDirectionIcon
-                degrees={windWaveDirections[0]}
-                text={"Wind Wave Direction"}
-              />
-              <div>
-                <HourglassBottomIcon />
-                Wave Period: {wavePeriods}s
-              </div>
-              <div>
-                <HeightIcon />
-                Wave Height: {waveHeights}m
-              </div>
-              <div>
-                <HeightIcon />
-                Swell Height: {swellHeights}m
-              </div>
             </div>
-          </div>
-          <div className={Styles.greyContainer}>
-            <BootstrapCarouselWithoutArrows></BootstrapCarouselWithoutArrows>
-          </div>
         </div>
-        {/* ${Styles.greyContainer} */}
-        <div className={Styles.reviewContainer}>
-          <h1>Reviews</h1>
-          <div className={` ${Styles.commentsContainer}`}>
-            {reviews.map((review: Review, index) => (
-              <div key={index} className={Styles.singleReview}>
-                <div className={Styles.reviewHeader}>
+          {/* ${Styles.greyContainer} */}
+          <div className={Styles.reviewContainer}>
+              <h1>Reviews</h1>
+              <div className={` ${Styles.commentsContainer}`}>
+                  {reviews.map((review: Review, index) => (
+                      <div key={index} className={Styles.singleReview}>
+                          <div className={Styles.reviewHeader}>
                   <span className={Styles.reviewAuthor}>
                     {review.userFirstName}
                   </span>{" "}
-                  <br />
-                  <span className={Styles.reviewRating}>{review.rating}/5</span>
-                </div>
-                <p className={Styles.reviewText}>{review.description}</p>
-                {/* <div className={Styles.reviewFooter}>
+                              <br/>
+                              <span className={Styles.reviewRating}>{review.rating}/5</span>
+                          </div>
+                          <p className={Styles.reviewText}>{review.description}</p>
+                          {/* <div className={Styles.reviewFooter}>
                   <span className={Styles.reviewDate}>{review.date}</span>
                 </div> */}
+                      </div>
+                  ))}
               </div>
-            ))}
-          </div>
-          <ReviewButton title={title} city={city} />
-          {/* <div className={Styles.buttonContainer}>
+              <ReviewButton title={title} city={city}/>
+              {/* <div className={Styles.buttonContainer}>
             
           </div> */}
-        </div>
+          </div>
       </div>
     </div>
   );

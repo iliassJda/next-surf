@@ -27,7 +27,14 @@ export default function BootstrapCarousel(){
         const getImages = async () => {
             try {
                 const spots = await getMostPopularSpots(12)
-                const imageUrls = spots.map((spot: { imageURL: string }) => spot.imageURL);
+                const imageUrls = spots.map((spot: { imageURL: string }) =>{
+                if(spot.imageURL === "none") {
+                    return "/images/defaultProfile.png"
+                }
+                else {
+                    return spot.imageURL
+                }
+                });
 
                 const titles = spots.map((spot: { title: string }) => spot.title);
                 const countries = spots.map((spot: { country: string }) => spot.country);
