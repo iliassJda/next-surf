@@ -26,7 +26,7 @@ export default async function ProfileLogo(){
 
               <div className={styles.user_menu}>
                 <div className={styles.user_container}>
-                  <ShowProfilePicture width="60" height="60"/> {name}
+                  <ShowProfilePicture width="60" height="60"/> &nbsp;&nbsp; {name}
                   <ul className={styles.dropdown}>
                     <li>
                       <a className={styles.icon} href="./account">

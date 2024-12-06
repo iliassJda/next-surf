@@ -6,6 +6,7 @@ import {showToast} from "@/components/toast/toast";
 import { useSession } from "next-auth/react"
 import Style from "@/components/uploadCare/profilePictureUpload/upload.module.css";
 import Button2 from "@/components/materialUIButtons/button2";
+import styles from "@/app/account/account.module.css";
 
 
 export default function Uploader() {
@@ -16,7 +17,7 @@ export default function Uploader() {
     const userEmail = user?.email as string;
 
     return (
-        <div>
+        <div className={Style.uploader}>
             <input
                 className={Style.input}
                 type="file"
@@ -59,12 +60,14 @@ export default function Uploader() {
                         setUploading(false);
                     }}}
             />
-
-            <Button2 title="Upload"
-                     onClick={() => {
-                         fileInputRef.current?.click();
-                     }}>
-            </Button2>
+            <a
+                className={`${styles.submit} py-2 px-2`}
+                onClick={() => {
+                    fileInputRef.current?.click();
+                }}
+            >
+               <i className="bi bi-upload"></i> Upload
+            </a>
         </div>
     );
 };

@@ -8,3 +8,8 @@
     position: absolute;
     width: 1px;
 }
+
+.uploader {
+    position: absolute;
+    left: 7%;
+}

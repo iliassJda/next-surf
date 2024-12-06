@@ -5,7 +5,7 @@ import styles from "@/app/account/account.module.css";
 import PlacesImg from "../../../public/johnPork.jpg";
 import {useSession} from "next-auth/react";
 import React, {useEffect,useState} from 'react';
-import {getUploadedPlaces} from './getUploadedPlaces';
+import {getSavedPlaces} from './getSavedPlaces';
 import Link from "next/link";
 
 interface Place {
@@ -29,7 +29,7 @@ export default function UploadedPlaces(probs: any) {
     const userMail = user?.email as string;
     useEffect(()=> {
       async function fetchData() {
-        const data = await getUploadedPlaces(userMail);
+        const data = await getSavedPlaces(userMail);
         setPlaces(data || []); // Safely update state here
       }
       if (userMail) {
@@ -41,7 +41,7 @@ export default function UploadedPlaces(probs: any) {
     return(
         <div className={`${styles.scrollable} ${styles.places}`}>
           {places.length === 0 ? (
-            <p> You have not upload any place :-&#40;</p>
+            <p> You don't have any saved place :-&#40;</p>
           ) : (
             <>
             {places.map((place) => (   

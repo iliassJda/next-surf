@@ -40,6 +40,7 @@
 .left_section {
   width: 20%;
   text-align: center;
+  align-items: center;
 }
 
 .right_section {
@@ -121,6 +122,14 @@
   border: 1px solid white;
 }
 
+.place:hover {
+  background-color: #d9d9d9;
+}
+
+.place:hover * {
+  color: rgba(5, 5, 5, 0.7);
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -159,4 +168,9 @@
   top: 5%;
   right: 5%;
   font-size: 30px;
+}
+
+.nope {
+  outline: none;
+  text-decoration: none;
 }
