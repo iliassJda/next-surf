@@ -2,7 +2,7 @@
 
 import styles from "./input.module.css";
 import SearchLogo from "../navbar/Searchlogo/logo";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 import { useState, useEffect } from "react";
 
@@ -11,11 +11,20 @@ export default function SearchBar() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams?.get("q") || "";
   const [inputValue, setInputValue] = useState(searchQuery);
+  const pathname = usePathname();
 
   useEffect(() => {
+    setInputValue(searchQuery); // Synchronize input with the query parameter on mount or URL update
+  }, [searchQuery]);
+
+  useEffect(() => {
+    // if (pathname !== "/search") return;
+
     const handler = setTimeout(() => {
+      // console.log(inputValue, searchQuery);
       if (inputValue !== searchQuery) {
         const encodedQuery = encodeURIComponent(inputValue);
+
         router.push(`/search?q=${encodedQuery}`);
       }
     }, 300); // 300ms debounce

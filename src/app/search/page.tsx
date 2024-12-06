@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
+import Link from "next/link";
 
 import styles from "./search.module.css";
 import { SurfSpot } from "@prisma/client";
@@ -36,15 +37,20 @@ export default function Search() {
     <div className={styles.page}>
       <div className={styles.greyContainer}>
         <div>
-          {data.posts.map((post: any) => (
+          {data.posts.map((post: SurfSpot) => (
             <div key={post.id} className={styles.post}>
               <h2>{post.title}</h2>
-              <img
-                src={post.imageURL}
-                alt="Surf image"
-                width={400}
-                height={200}
-              />
+              <Link
+                href={`/places/${post.country}/${post.city}/${post.title}/${post.longitude}/${post.latitude}`}
+                replace
+              >
+                <img
+                  src={post.imageURL}
+                  alt="Surf image"
+                  width={400}
+                  height={200}
+                />
+              </Link>
               <p>
                 Location: {post.latitude}, {post.longitude}
               </p>
