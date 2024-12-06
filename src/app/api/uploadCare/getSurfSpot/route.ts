@@ -35,6 +35,7 @@ async function getAllSurfSpotsPrisma() {
             select: {
                 latitude: true,
                 longitude: true,
+                city: true,
                 country: true,
                 title: true,
             }

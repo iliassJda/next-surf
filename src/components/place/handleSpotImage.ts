@@ -3,7 +3,7 @@
 
 import prisma from "@/lib/db";
 
-export async function uploadSpotImage(city: string, title: string, userEmail: string, imageURL: string){
+export async function handleSpotImage(city: string, title: string, userEmail: string, imageURL: string){
 
     try {
 
@@ -36,5 +36,26 @@ export async function uploadSpotImage(city: string, title: string, userEmail: st
     catch (error){
         return error;
     }
+}
 
+
+
+export async function getSpotImages(city: string, title: string){
+
+    const existingSurfSpot = await prisma.surfSpot.findUnique({
+        where: {
+            city_title: {
+                city,
+                title,
+            },
+        },
+    });
+
+    const images = await prisma.spotImage.findMany({
+        where:  {
+            surfSpotId: existingSurfSpot?.id,
+        }
+    })
+    
+    return images;
 }

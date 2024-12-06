@@ -97,6 +97,7 @@ export default function Map() {
                                 <p>Latitude: ${spot.latitude.toFixed(4)}</p>
                                 <p>Country: ${spot.country}</p>
                                 <p>Title: ${spot.title}</p>
+                               <Link href={`/places/${spot.country}/${spot.city}/${spot.title}/${spot.longitude}/${spot.latitude}`}></Link>
                               </div>
                             `);
           const lngLat = [spot.longitude, spot.latitude];
