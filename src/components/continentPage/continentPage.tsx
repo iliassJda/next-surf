@@ -1,41 +1,30 @@
 'use client';
-import React from 'react'; // Add this import
+import React from 'react'; 
 import { notFound, useParams } from 'next/navigation';
 import data from '../../../public/temporary.json';
-import ResponsiveCarousel from '../countryCarousel/bootstrapcountryCarousel';
 import GetSpots from '../getSpots/getSpots';
-
-
-
+import styles from './continentPage.module.css'
+import { NormalizeName,NormalizeURLName } from '../../components/globalFunc'
 
 const ContinentPage = () => {
   const params = useParams();
-  const continent = params?.continentName;
+  const continent = params?.continentName as string;
   const filteredContinents = data.items.continent.filter(
-    (c) => c.toLowerCase() !== continent.toLowerCase()
+    (c:string) => NormalizeName(c) === NormalizeURLName(continent)
   );
  
-  if (filteredContinents.length === data.items.continent.length) {
+  const filteredContinent = filteredContinents[0] 
+  
+  if (filteredContinent === undefined) {
     notFound();
   }
-  
-  const countries = data.items.countries.filter(
-    (c) => c.continent.toLowerCase() === continent.toLowerCase()
-  );
-
-  const images = [
-    '/sunshine.jpg',
-    '/johnPork.jpg',
-  ];
+  console.log(continent)  
+  console.log(filteredContinent)  
 
   return (
-    <div>
-      <h1>{continent}</h1>
-      <ul>
-        {countries.map((country) => (
-          <GetSpots countryName = {country.country}/>
-        ))}
-      </ul>
+    <div className={styles.page}>
+      <h1>{filteredContinent}</h1>
+      <GetSpots continent = {filteredContinent}/>
     </div>
   );
 };

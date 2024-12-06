@@ -6,6 +6,11 @@ import Button from "@mui/material/Button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
+import { postReview } from "@/action/review";
+
+import { doToast } from "@/components/toast/toast";
+import HoverRating from "@/components/rating/rating";
+
 export default function Review() {
   const [review, setReview] = useState("");
   const search = useSearchParams();
@@ -16,33 +21,23 @@ export default function Review() {
 
   const router = useRouter();
 
-  const handleClick = async () => {
+  const handleClick = async (formData: FormData) => {
     try {
-      //   console.log(searchQuery);
-      const response = await fetch("/api/review", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: titleQuery,
-          text: review,
-          city: cityQuery,
-        }),
-      });
-
-      const body = await response.json();
-      console.log(body);
-      //   if (response.ok) {
-      //     // Clear input and reset rating
-      //     setReview("");
-      //     router.push("/reviews");
-      //   } else {
-      //     // Handle error
-      //     console.error("Review submission failed");
-      //   }
+      const response = await postReview(
+        cityQuery as string,
+        titleQuery as string,
+        review,
+        formData
+      );
+      doToast(response);
+      if (response.toast == "success") {
+        setReview("");
+        router.back();
+      } else {
+        console.log("Review submission failed");
+      }
     } catch (error) {
-      console.error("Error submitting review:", error);
+      console.log("Error submitting review:", error);
     }
   };
 
@@ -50,14 +45,17 @@ export default function Review() {
     <div className={styles.container}>
       <h1>Leave a review!</h1>
       <div className={styles.greyContainer}>
-        <input
-          type="text"
-          className={styles.input}
-          onChange={(e) => setReview(e.currentTarget.value)}
-        />
-        <Button onClick={handleClick} variant="outlined">
-          Send
-        </Button>
+        <form action={handleClick}>
+          <HoverRating />
+          <input
+            type="text"
+            className={styles.input}
+            onChange={(e) => setReview(e.currentTarget.value)}
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Send
+          </Button>
+        </form>
       </div>
     </div>
   );

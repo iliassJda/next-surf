@@ -26,6 +26,8 @@ import Map from "@/components/place/map";
 import BootstrapCarouselWithoutArrows from "@/components/place/carousel";
 
 import GetDirectionIcon from "@/components/place/directionArrow";
+import { getReviews } from "@/action/review";
+import { Review } from "@prisma/client";
 
 export default function Spot({
   country,
@@ -54,6 +56,8 @@ export default function Spot({
   const [selectedChart, setSelectedChart] = useState("waterTemperature");
   const [imageUrl, setImageUrl] = useState("/images/defaultProfile.png");
 
+  const [reviews, setReviews] = useState([]);
+
   const startDate = new Date();
   //*1000 because in milliseconds
   const endDate = new Date(new Date(startDate).getTime() + 24 * 60 * 60 * 1000);
@@ -79,6 +83,15 @@ export default function Spot({
   }
 
   useEffect(() => {
+    const reviews = async () => {
+      const data = await getReviews(city, title);
+
+      data.forEach((review) => {
+        console.log(`Review: ${review.id}, ${review.description}`);
+      });
+      setReviews(data);
+    };
+
     const weatherData = async () => {
       const data = await getWeatherData(
         longitude,
@@ -224,6 +237,7 @@ export default function Spot({
 
     void weatherData();
     // void getImageUrl()
+    void reviews();
   }, []);
 
   const handleChartChange = (e: {
@@ -236,117 +250,119 @@ export default function Spot({
 
   console.log(latitude, longitude);
 
-  const reviews = [
-    {
-      author: "SurfBrah23",
-      rating: 4.5,
-      text: "Awesome waves, perfect for intermediate surfers. Great beach break with consistent swells. Water was clean and the view is incredible.",
-      date: "2023-11-15",
-    },
-    {
-      author: "OceanRider",
-      rating: 5,
-      text: "Absolutely stunning location! The waves were epic and the local surf community is super friendly. Definitely coming back.",
-      date: "2023-12-02",
-    },
-    {
-      author: "WindChaser",
-      rating: 3.5,
-      text: "Decent spot, but can get crowded during peak season. Wind conditions were tricky, but still managed to catch some good rides.",
-      date: "2024-01-10",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
+  // const reviews = [
+  //   {
+  //     author: "SurfBrah23",
+  //     rating: 4.5,
+  //     text: "Awesome waves, perfect for intermediate surfers. Great beach break with consistent swells. Water was clean and the view is incredible.",
+  //     date: "2023-11-15",
+  //   },
+  //   {
+  //     author: "OceanRider",
+  //     rating: 5,
+  //     text: "Absolutely stunning location! The waves were epic and the local surf community is super friendly. Definitely coming back.",
+  //     date: "2023-12-02",
+  //   },
+  //   {
+  //     author: "WindChaser",
+  //     rating: 3.5,
+  //     text: "Decent spot, but can get crowded during peak season. Wind conditions were tricky, but still managed to catch some good rides.",
+  //     date: "2024-01-10",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
 
-    {
-      author: "BeachLover",
-      rating: 4,
-      text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-      date: "2023-10-25",
-    },
-    {
-      author: "SaltySurfer",
-      rating: 4.5,
-      text: "Perfect for longboarding. Gentle waves in the morning, more challenging breaks later in the day. Highly recommend for all skill levels.",
-      date: "2024-02-14",
-    },
-  ];
+  //   {
+  //     author: "BeachLover",
+  //     rating: 4,
+  //     text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
+  //     date: "2023-10-25",
+  //   },
+  //   {
+  //     author: "SaltySurfer",
+  //     rating: 4.5,
+  //     text: "Perfect for longboarding. Gentle waves in the morning, more challenging breaks later in the day. Highly recommend for all skill levels.",
+  //     date: "2024-02-14",
+  //   },
+  // ];
+
+  useEffect;
 
   return (
     <div className={Styles.mainContainer}>
@@ -424,22 +440,31 @@ export default function Spot({
             <BootstrapCarouselWithoutArrows></BootstrapCarouselWithoutArrows>
           </div>
         </div>
-
-        <div className={`${Styles.greyContainer} ${Styles.reviewContainer}`}>
-          {reviews.map((review, index) => (
-            <div key={index} className={Styles.singleReview}>
-              <div className={Styles.reviewHeader}>
-                <span className={Styles.reviewAuthor}>{review.author}</span>
-                <span className={Styles.reviewRating}>{review.rating}/5</span>
+        {/* ${Styles.greyContainer} */}
+        <div className={Styles.reviewContainer}>
+          <h1>Reviews</h1>
+          <div className={` ${Styles.commentsContainer}`}>
+            {reviews.map((review: Review, index) => (
+              <div key={index} className={Styles.singleReview}>
+                <div className={Styles.reviewHeader}>
+                  <span className={Styles.reviewAuthor}>
+                    {review.userFirstName}
+                  </span>{" "}
+                  <br />
+                  <span className={Styles.reviewRating}>{review.rating}/5</span>
+                </div>
+                <p className={Styles.reviewText}>{review.description}</p>
+                {/* <div className={Styles.reviewFooter}>
+                  <span className={Styles.reviewDate}>{review.date}</span>
+                </div> */}
               </div>
-              <p className={Styles.reviewText}>{review.text}</p>
-              <div className={Styles.reviewFooter}>
-                <span className={Styles.reviewDate}>{review.date}</span>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <ReviewButton title={title} city={city} />
+          {/* <div className={Styles.buttonContainer}>
+            
+          </div> */}
         </div>
-        <ReviewButton title={title} city={city} />
       </div>
     </div>
   );

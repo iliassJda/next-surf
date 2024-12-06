@@ -34,8 +34,13 @@ model SurfSpot {
   longitude  Float
   published  Boolean  @default(false)
   meanRating Float    @default(0)
+<<<<<<< HEAD
   ratings    Review[]
   userID     User     @relation("UserPosts", fields: [userId], references: [id])
+=======
+  reviews    Review[]
+  userID     User     @relation(fields: [userId], references: [id])
+>>>>>>> a502119c1789508ffc2cee46c5c33cb7b5b25152
   userId     Int
   savers     User[]     @relation("UserSaved")
 
@@ -51,4 +56,5 @@ model Review {
   surfSpotId  Int
   user        User @relation(fields: [userId], references: [id])
   userId      Int
+  userFirstName String
 }

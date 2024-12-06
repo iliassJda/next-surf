@@ -14,7 +14,7 @@ const register = async (formData: FormData) => {
 
   if (!firstname || !lastname || !email || !password) {
     return {
-      status: "error",
+      toast: "error",
       message: "Please fill all the fields.",
     };
   }
@@ -27,7 +27,7 @@ const register = async (formData: FormData) => {
 
   if (existinguser) {
     return {
-      status: "error",
+      toast: "error",
       message: `User ${firstname} with ${email} already exists!`,
     };
   }
@@ -52,7 +52,7 @@ const loginGoogle = async () => {
   const res = await signIn("google", { redirectTo: "/" });
 
   return {
-    status: "success",
+    toast: "success",
     message: "Successfully logged in!",
   };
 };
@@ -63,7 +63,7 @@ const loginManual = async (formData: FormData) => {
 
   if (!email || !password) {
     return {
-      status: "error",
+      toast: "error",
       message: "Please fill in your email and password",
     };
   }
@@ -76,7 +76,7 @@ const loginManual = async (formData: FormData) => {
 
   if (!user) {
     return {
-      status: "error",
+      toast: "error",
       message: "User does not exist. Please register first!",
     };
   }
@@ -85,7 +85,7 @@ const loginManual = async (formData: FormData) => {
 
   if (!valid) {
     return {
-      status: "error",
+      toast: "error",
       message: "Password is not valid",
     };
   }
@@ -97,7 +97,7 @@ const loginManual = async (formData: FormData) => {
   });
 
   return {
-    status: "success",
+    toast: "success",
     message: "Successfully logged in!",
   };
 };
@@ -123,7 +123,7 @@ const updateProfile = async (formData: FormData) => {
   if (password == "" && existinguser) password = existinguser.password;
   else if (password !== verpassword) {
     return {
-      status: "error",
+      toast: "error",
       message: `Passwords doesn't match!`,
     };
   }
