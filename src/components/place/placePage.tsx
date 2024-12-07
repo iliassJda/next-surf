@@ -8,20 +8,15 @@ import WavesIcon from "@mui/icons-material/Waves";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import AirIcon from "@mui/icons-material/Air";
-import WaterIcon from "@mui/icons-material/Water";
-import NorthEastIcon from "@mui/icons-material/NorthEast";
 
 import ReviewButton from "../button/review/review";
 
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 
-import EastIcon from "@mui/icons-material/East";
 
-import WestIcon from "@mui/icons-material/West";
+import Map from "@/components/place/map"
 
 import HeightIcon from "@mui/icons-material/Height";
-
-import Map from "@/components/place/map";
 
 import BootstrapCarouselWithoutArrows from "@/components/place/carousel";
 
@@ -29,7 +24,7 @@ import GetDirectionIcon from "@/components/place/directionArrow";
 import { getReviews } from "@/action/review";
 import { Review } from "@prisma/client";
 
-import {getSpotImages} from "@/components/place/handleSpotImage";
+import {getSpotImages, handleSpotImage} from "@/components/place/handleSpotImage";
 import Button2 from "@/components/materialUIButtons/button2";
 import Style from "@/components/uploadCare/profilePictureUpload/upload.module.css";
 import {uploadFile} from "@uploadcare/upload-client";
@@ -60,8 +55,7 @@ export default function Spot({
   const [windDirections, setWindDirections] = useState([]);
   const [windSpeeds, setWindSpeeds] = useState([]);
   const [precipitations, setPrecipitations] = useState([]);
-  const [selectedChart, setSelectedChart] = useState("waterTemperature");
-  const [imageUrls, setImageUrl] = useState(["/images/defaultProfile.png"]);
+  const [imageUrls, setImageUrl] = useState([]);
 
   const [reviews, setReviews] = useState([]);
 
@@ -69,32 +63,12 @@ export default function Spot({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const { data: session, status } = useSession();
-  const user = session?.user
-    const userEmail = user?.email as string;
-
-  const startDate = new Date();
-  //*1000 because in milliseconds
-  const endDate = new Date(new Date(startDate).getTime() + 24 * 60 * 60 * 1000);
+  const user = session?.user;
+  const userEmail = user?.email as string;
 
   const start = new Date().toISOString();
-  const end = new Date(
-    new Date(start).getTime() + 24 * 60 * 60 * 1000
-  ).toISOString();
 
-  function getHours() {
-    const hours: number[] = [];
 
-    for (
-      let currentDate = startDate;
-      currentDate < endDate;
-      currentDate.setHours(currentDate.getHours() + 1)
-    ) {
-      const currentHour = currentDate.getHours();
-
-      hours.push(currentHour);
-    }
-    return hours;
-  }
 
   useEffect(() => {
     const reviews = async () => {
@@ -253,26 +227,21 @@ export default function Spot({
        const imageUrls = await getSpotImages(city, title);
        // @ts-ignore
         setImageUrl(imageUrls.map((imageUrl) => {
-           imageUrl.imageURL
+
+           if(imageUrl.imageURL === "none"){
+               return "/images/defaultProfile.png"
+           }
+           else{
+               return imageUrl.imageURL
+           }
        }));
     }
-    void weatherData();
+    //void weatherData();
     void getImageUrl()
     void reviews();
   }, []);
 
-  const handleChartChange = (e: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setSelectedChart(e.target.value);
-  };
 
-  const hourLabels = getHours();
-
-  console.log(latitude, longitude);
-
-
-  useEffect;
 
   return (
     <div className={Styles.mainContainer}>
@@ -360,18 +329,9 @@ export default function Spot({
 
                             // Construct the file URL
                             const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
-
-                            const data = new FormData();
-                            data.append("profilePictureURL", fileUrl);
-                            data.append("userEmail", userEmail);
-
-                            const uploadRequest = await fetch("/api/uploadCare/uploadProfilePicture", {
-                                method: "POST",
-                                body: data,
-                            })
+                            await handleSpotImage(city, title, userEmail, fileUrl)
 
                             showToast("success", "Image Uploaded Successfully");
-                            console.log(fileUrl);
 
                         } catch (err) {
                             console.log(err);
@@ -380,10 +340,16 @@ export default function Spot({
                         }
                     }}
                 />
+                <div className={Styles.customButton}>
+                    <Button2 title={"upload your experience"}
+                             style={{ width: "100%" }}
+                              onClick={() => {
+                        fileInputRef.current?.click();
+                    }}></Button2>
+                </div>
 
             </div>
         </div>
-          {/* ${Styles.greyContainer} */}
           <div className={Styles.reviewContainer}>
               <h1>Reviews</h1>
               <div className={` ${Styles.commentsContainer}`}>

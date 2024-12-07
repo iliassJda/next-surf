@@ -5,6 +5,7 @@
     flex-direction: row;
     justify-content: center;
     flex: 1 1;
+    gap: 10px;
 }
 
 .continent{

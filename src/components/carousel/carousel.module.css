@@ -7,6 +7,8 @@
   border-radius: 20px;
   height: 630px;
   filter: brightness(65%);
+  object-fit: cover; /* Ensures image covers entire container */
+  object-position: center; /* Centers the image */
 }
 
 

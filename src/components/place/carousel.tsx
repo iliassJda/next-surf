@@ -23,11 +23,9 @@ export default function BootstrapCarouselWithoutArrows(imageURLS: string[]){
   return (
       <div className={styles.carousel}>
         {loaded ? (
-            <div className={styles.centering}>
               <Carousel activeIndex={index} onSelect={handleSelect} className={styles.carouselItem} controls={false}>
                 {imageURLS.imageURLS.map((imageURL, idx) => (
                     <Carousel.Item key={idx} className={styles.carouselItem}>
-                      <div className={styles.imageContainer}>
                         <Image
                             src={imageURL}
                             alt={`${idx}`}
@@ -35,11 +33,9 @@ export default function BootstrapCarouselWithoutArrows(imageURLS: string[]){
                             width={800}
                             className={styles.img}
                         />
-                      </div>
                     </Carousel.Item>
                 ))}
               </Carousel>
-            </div>
         ) : (
             <div className={styles.skeletonContainer}>
               <Skeleton className={styles.skeleton} variant="rectangular" width={1200} height={600} animation="pulse" />

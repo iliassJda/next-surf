@@ -1,7 +1,8 @@
 .greyContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-color: #1a1e22;
   width: 100%;
   height: 100%;
@@ -66,6 +67,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: white;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .titleContainer {
@@ -109,15 +111,16 @@
   justify-content: center;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 20px;
+  margin-top: 10px;
   align-items: center;
   width: 100%;
   gap: 10px;
-  height: 800px;
+  height: auto;
 }
 
 .map {
   color: black;
+  width: 100%;
 }
 
 .waterData {
@@ -201,13 +204,30 @@
   gap: 10px;
 }
 
+
+
+
+
+.customButton{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+
+
 @media screen and (max-width: 640px) {
   .mainContainer {
     font-size: 10px;
+    display: flex;
+    flex-direction: column;
   }
   .twoCardContainer {
     flex-direction: column;
     width: 100%;
+    gap: 20px;
   }
   .waveData {
     height: 250px;
@@ -226,4 +246,43 @@
   .dataGroup {
     height: auto;
   }
+
+  .reviewContainer{
+    margin-bottom: 20px;
+  }
 }
+
+@media screen and (min-width: 641px) and (max-width: 1007px) {
+  .mainContainer {
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .twoCardContainer {
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+  }
+  .waveData {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .airData {
+    height: 150px;
+  }
+
+  .waterData {
+    height: 150px;
+  }
+  .dataGroup {
+    height: auto;
+  }
+
+  .reviewContainer{
+    margin-bottom: 20px;
+  }
+}
+

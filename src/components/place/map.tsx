@@ -12,19 +12,38 @@ export default function Map({ country, city, title, longitude, latitude }: { cou
     const mapContainerRef = useRef<HTMLDivElement>(null);
     const zoom = 1;
     const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
-
-    const [markers, setMarkers] = useState<mapboxgl.Marker[]>([]);
     const [center, setCenter] = useState<[number, number]>([0, 0]);
-    const [location, setLocation] = useState("")
-    const [continent, setContinent] = useState<string>();
-    const [file, setFile] = useState<File | null>(null);
-    const [fileName, setFileName] = useState<string>();
-    const markerRef = useRef<mapboxgl.Marker | null>(null);//used to remove previous marker.
+
+    const [dimensions, setDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
 
 
     const map = useRef(null);
     const { data: session, status } = useSession();
     const user = session?.user
+
+
+    useEffect(() => {
+        // Handle window resize
+        const handleResize = () => {
+            setDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+
+            if (map.current) {
+                map.current.resize();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
 
 
@@ -85,22 +104,20 @@ export default function Map({ country, city, title, longitude, latitude }: { cou
         return () => map.current.remove();
 
 
-    }, []);
+    }, [dimensions]);
 
 
 
 
 
     return (
-        <div className={Styles.page}>
-
-                <div ref={mapContainerRef} style={{
-                    width: '1740px',
-                    height: '500px',
-                    borderRadius: '20px'
-                }}>
-
-                </div>
+        <div ref={mapContainerRef}
+             style={{
+                 width: '100%',
+                 height: `${dimensions.height * 0.45}px`, // 70% of viewport height
+                 maxWidth: '100%',
+                 borderRadius: '20px'
+        }}>
         </div>
 
 
