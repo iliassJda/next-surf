@@ -40,7 +40,7 @@ export default function FloatingActionButton() {
                 </div>
             )}
 
-            <Fab color="primary" aria-label="add" onMouseEnter={handlePlusClick}>
+            <Fab color="primary" aria-label="add" onMouseEnter={handlePlusClick} onClick={handlePlusClick}>
                 <AddIcon />
             </Fab>
 

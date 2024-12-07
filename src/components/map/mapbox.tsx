@@ -42,6 +42,35 @@ export default function Map() {
   const user = session?.user;
   const userEmail = user?.email;
 
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+
+
+
+  useEffect(() => {
+    // Handle window resize
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+
+      if (map.current) {
+        map.current.resize();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
+
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
@@ -97,6 +126,7 @@ export default function Map() {
                                 <p>Latitude: ${spot.latitude.toFixed(4)}</p>
                                 <p>Country: ${spot.country}</p>
                                 <p>Title: ${spot.title}</p>
+                                <a href="/places/${spot.country}/${spot.city}/${spot.title}/${spot.longitude}/${spot.latitude}">View Details</a>
                               </div>
                             `);
           const lngLat = [spot.longitude, spot.latitude];
@@ -180,7 +210,6 @@ export default function Map() {
           newMarker.togglePopup();
         });
 
-        setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
         // @ts-ignore
         map.current.flyTo({ center: [lng, lat], zoom: map.current.getZoom() });
       }
@@ -189,7 +218,7 @@ export default function Map() {
     // Clean up on unmount
     // @ts-ignore
     return () => map.current.remove();
-  }, [accessToken, center, zoom]);
+  }, [accessToken, center, zoom, dimensions]);
 
   function getTitle() {
     if (fileName?.length > 20) {
@@ -233,61 +262,78 @@ export default function Map() {
           <div
             ref={mapContainerRef}
             style={{
-              width: "1000px",
-              height: "500px",
+              width: "100%",
+              height: `${dimensions.height * 0.60}px`, // 70% of viewport height
+              maxWidth: '100%',
               borderRadius: "20px",
             }}
-          ></div>
+          >
+
+          </div>
+
           <div className={Styles.inputContainer}>
-            <InputGroup className="mb-3">
-              <Form.Control
-                type="text"
-                onKeyDown={async (e) => {
-                  if (e.key === "Enter") {
-                    await searchLocation();
-                  }
-                }}
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="Enter location and pin it (e.g., Pipeline)"
-              />
-              <Button
-                variant="secondary"
-                id="button-addon2"
-                onClick={searchLocation}
-              >
-                Search
-              </Button>
-            </InputGroup>
 
-            <div className={Style.container}>
-              <input
-                className={Style.input}
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={async (event) => {
-                  setFile(event.target.files[0]);
-                  setFileName(event.target.files[0].name);
-                }}
-              />
+            <div className={Styles.locationData}>
 
-              <Button2
-                title={getTitle() || "Select picture"}
-                onClick={() => {
-                  fileInputRef.current?.click();
-                }}
-              ></Button2>
-
-              <InputGroup className="mb-3">
+              <InputGroup>
                 <Form.Control
                   type="text"
-                  placeholder="Enter title (e.g., Pipeline)"
-                  onChange={(e) => {
-                    setTitle(e.target.value);
+                  onKeyDown={async (e) => {
+                    if (e.key === "Enter") {
+                      await searchLocation();
+                    }
+                  }}
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Enter location and pin it (e.g., Pipeline)"
+                />
+                <Button
+                  variant="secondary"
+                  id="button-addon2"
+                  onClick={searchLocation}
+                >
+                  Search
+                </Button>
+              </InputGroup>
+              <Button2 title="Find me"> </Button2>
+
+            </div>
+
+
+            <div className={Styles.imageTitle}>
+              <div className={Style.container}>
+                <input
+                  className={Style.input}
+                  type="file"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  onChange={async (event) => {
+                    setFile(event.target.files[0]);
+                    setFileName(event.target.files[0].name);
                   }}
                 />
-              </InputGroup>
+
+
+
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter title (e.g., Pipeline)"
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
+                  />
+                </InputGroup>
+
+                <Button2
+                    title={getTitle() || "Select picture"}
+                    onClick={() => {
+                      fileInputRef.current?.click();
+                    }}
+                ></Button2>
+            </div>
+
+
 
               <Button2
                 title={"upload"}

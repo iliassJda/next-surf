@@ -1,18 +1,32 @@
 
 
 .inputContainer {
-    width: 30%;
+    width: 60%;
     margin-left: 20px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    gap: 20px;
+    background-color: #33393f;
+    border-radius: 10px;
 }
 
 .map{
     border-radius: 50px;
 }
+
+.locationData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    gap: 10px;
+    border-radius: 20px;
+}
+
 
 
 .greyContainer {
@@ -21,15 +35,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 1300px;
+    width: 95%;
     height: 760px;
     border-radius: 20px;
     position: relative;
 }
 
 .page {
-    /* border: solid purple 2px; */
-    padding-top: 2rem;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,4 +52,23 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    color: #d5dbd6;
 }
+
+
+
+
+
+@media screen and (max-width: 640px) {
+    .inputContainer {
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+    }
+
+}
+
+@media screen and (min-width: 641px) and (max-width: 1007px) {
+
+}
+
