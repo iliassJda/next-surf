@@ -18,7 +18,7 @@ model User {
   lastname          String
   nationality       String
   profilePictureCID String      @default("none")
-  posts             SurfSpot[]
+  posts             SurfSpot[] @relation("UserPosts")
   reviews           Review[]
   SpotImage         SpotImage[]
 }
@@ -32,17 +32,10 @@ model SurfSpot {
   imageURL   String      @default("none")
   latitude   Float
   longitude  Float
-<<<<<<< HEAD
   published  Boolean  @default(false)
   meanRating Float    @default(0)
   reviews    Review[]
   userID     User     @relation("UserPosts", fields: [userId], references: [id])
-=======
-  published  Boolean     @default(false)
-  meanRating Float       @default(0)
-  ratings    Review[]
-  userID     User        @relation(fields: [userId], references: [id])
->>>>>>> placesPage
   userId     Int
   SpotImage  SpotImage[]
 
