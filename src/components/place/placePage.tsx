@@ -10,7 +10,8 @@ import ThermostatIcon from "@mui/icons-material/Thermostat";
 import AirIcon from "@mui/icons-material/Air";
 import WaterIcon from "@mui/icons-material/Water";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+
+import RemoveReview from "../button/removeReview/removeReview";
 
 import ReviewButton from "../button/review/review";
 

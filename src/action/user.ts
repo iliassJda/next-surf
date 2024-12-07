@@ -142,4 +142,6 @@ const updateProfile = async (formData: FormData) => {
   redirect("/account");
 };
 
+const getUserInfo = (email: string) => {};
+
 export { register, loginManual, loginGoogle, updateProfile };
