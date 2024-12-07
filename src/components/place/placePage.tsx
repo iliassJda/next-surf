@@ -86,9 +86,11 @@ export default function Spot({
     const reviews = async () => {
       const data = await getReviews(city, title);
 
-      data.forEach((review) => {
-        console.log(`Review: ${review.id}, ${review.description}`);
-      });
+      // data.forEach((review) => {
+      //   console.log(
+      //     `Review: ${review.id}, ${review.description} and his spot: ${review.surfSpotId}`
+      //   );
+      // });
       setReviews(data);
     };
 
@@ -248,7 +250,7 @@ export default function Spot({
 
   const hourLabels = getHours();
 
-  console.log(latitude, longitude);
+  // console.log(latitude, longitude);
 
   // const reviews = [
   //   {

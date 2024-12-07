@@ -1,6 +1,44 @@
 "use server";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
+import { Review, SurfSpot } from "@prisma/client";
+
+const updateSpotRating = async (spot: SurfSpot) => {
+  // const reviews = await prisma.review;
+  let currentMeanRating = 0;
+  const surfSpotReviews = await prisma.surfSpot.findUnique({
+    where: {
+      id: spot.id, // Replace with the specific SurfSpot ID
+    },
+    include: {
+      reviews: true, // Fetch all associated reviews
+    },
+  });
+
+  surfSpotReviews.reviews.map(
+    (review: Review) => (currentMeanRating += review.rating)
+  );
+
+  const newMeanRating =
+    Math.round((currentMeanRating / surfSpotReviews?.reviews.length) * 100) /
+    100;
+
+  await prisma.surfSpot.update({
+    where: {
+      id: spot.id,
+    },
+    data: {
+      meanRating: newMeanRating,
+    },
+  });
+
+  // console.log(
+  //   "is the new Mean Rating of the spot",
+  //   spot.meanRating,
+  //   "Is the number of reviews",
+  //   surfSpotReviews?.reviews.length
+  // );
+};
 
 const postReview = async (
   city: string,
@@ -11,9 +49,9 @@ const postReview = async (
   try {
     const session = await auth();
     const email = session?.user?.email;
-    console.log("ik ben hier");
+    // console.log("ik ben hier");
     const rating = formData.get("rating");
-    console.log(rating);
+    // console.log(rating);
 
     const spot = await prisma.surfSpot.findUnique({
       where: {
@@ -47,6 +85,10 @@ const postReview = async (
       },
     });
 
+    // console.log("test ik ben hier");
+
+    void updateSpotRating(spot);
+
     return { message: "Review added succesfully", toast: "success" };
   } catch (e) {
     console.log(`error is ${e}`);
@@ -59,6 +101,7 @@ const postReview = async (
 
 const getReviews = async (city: string, title: string) => {
   try {
+    console.log(city, title);
     const spot = await prisma.surfSpot.findUnique({
       where: {
         city_title: {
@@ -69,7 +112,7 @@ const getReviews = async (city: string, title: string) => {
     });
 
     const surfSpotId = spot?.id;
-    //   console.log(`This is the current spot: ${surfSpotId}`);
+    // console.log(`This is the current spot: ${spot}`);
 
     const reviews = await prisma.review.findMany({
       where: {
@@ -77,7 +120,11 @@ const getReviews = async (city: string, title: string) => {
       },
     });
 
-    //   console.log(`These are the reviews of the spot: ${JSON.stringify(reviews)}`);
+    // console.log(
+    //   `These are the reviews of the spot: ${JSON.stringify(reviews)}`
+    // );
+
+    console.log("and the rating of the spot: ", spot?.meanRating);
 
     return reviews;
   } catch (e) {
