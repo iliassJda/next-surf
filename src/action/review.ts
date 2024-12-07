@@ -132,4 +132,24 @@ const getReviews = async (city: string, title: string) => {
   }
 };
 
-export { postReview, getReviews };
+const removeReview = async (reviewId: number) => {
+  try {
+    await prisma.review.delete({
+      where: {
+        id: reviewId,
+      },
+    });
+
+    return {
+      toast: "success",
+      message: "Review has been removed successfuly",
+    };
+  } catch (e) {
+    return {
+      toast: "error",
+      message: "There has been some issue with removing the review",
+    };
+  }
+};
+
+export { postReview, getReviews, removeReview };

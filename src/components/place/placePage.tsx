@@ -71,6 +71,8 @@ export default function Spot({
   const [precipitations, setPrecipitations] = useState([]);
   const [imageUrls, setImageUrl] = useState([]);
 
+  const session = await auth();
+
   const [reviews, setReviews] = useState([]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -413,6 +415,30 @@ export default function Spot({
                 fileInputRef.current?.click();
               }}
             ></Button2>
+        {/* ${Styles.greyContainer} */}
+        <div className={Styles.reviewContainer}>
+          <h1>Reviews</h1>
+          <div className={` ${Styles.commentsContainer}`}>
+            {reviews.map((review: Review, index) => (
+              <div key={index} className={Styles.singleReview}>
+                <div className={Styles.reviewHeader}>
+                  <div className={Styles.reviewTopRow}>
+                    {review.userFirstName}
+                    {session?.user?.name == review.userFirstName ? (
+                      <RemoveReview reviewId={review.id} />
+                    ) : (
+                      <div>not yours</div>
+                    )}
+                  </div>{" "}
+                  <br />
+                  <span className={Styles.reviewRating}>{review.rating}/5</span>
+                </div>
+                <p className={Styles.reviewText}>{review.description}</p>
+                {/* <div className={Styles.reviewFooter}>
+                  <span className={Styles.reviewDate}>{review.date}</span>
+                </div> */}
+              </div>
+            ))}
           </div>
         </div>
       </div>

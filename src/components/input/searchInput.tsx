@@ -11,7 +11,7 @@ export default function SearchBar() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams?.get("q") || "";
   const [inputValue, setInputValue] = useState(searchQuery);
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   useEffect(() => {
     setInputValue(searchQuery); // Synchronize input with the query parameter on mount or URL update
