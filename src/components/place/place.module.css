@@ -12,6 +12,13 @@
   color: white;
 }
 
+.reviewTopRow {
+  display: flex;
+  justify-content: space-between;
+  /* border: 2px solid red; */
+  width: 100%;
+}
+
 .singleReview {
   width: 90%;
   height: auto;
