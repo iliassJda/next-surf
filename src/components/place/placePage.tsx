@@ -14,7 +14,7 @@ import ReviewButton from "../button/review/review";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 
 
-import Map from "@/components/place/map"
+import Map from "@/components/place/map";
 
 import HeightIcon from "@mui/icons-material/Height";
 
@@ -30,6 +30,16 @@ import Style from "@/components/uploadCare/profilePictureUpload/upload.module.cs
 import {uploadFile} from "@uploadcare/upload-client";
 import {showToast} from "@/components/toast/toast";
 import {useSession} from "next-auth/react";
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import {User} from "next-auth";
+
+import {verifyUser} from "@/components/place/verifyUser";
+
+import SpotDelete from "@/components/place/postDeletePopUp";
+import {amber} from "@mui/material/colors";
+
+
 
 export default function Spot({
   country,
@@ -61,12 +71,16 @@ export default function Spot({
 
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
   const { data: session, status } = useSession();
   const user = session?.user;
-  const userEmail = user?.email as string;
+  const userEmail = user?.email;
 
   const start = new Date().toISOString();
+
+  const [adminUser, setAdminUser] = useState(() =>{
+      const savedState = sessionStorage.getItem('adminStatus');
+      return savedState !== null ? JSON.parse(savedState) : false;
+  })
 
 
 
@@ -74,9 +88,6 @@ export default function Spot({
     const reviews = async () => {
       const data = await getReviews(city, title);
 
-      data.forEach((review) => {
-        console.log(`Review: ${review.id}, ${review.description}`);
-      });
       setReviews(data);
     };
 
@@ -236,9 +247,21 @@ export default function Spot({
            }
        }));
     }
+
+    const isAdmin = async() => {
+        if(await verifyUser(city, title, userEmail as string)){
+            sessionStorage.setItem('adminStatus', JSON.stringify(true))
+            setAdminUser(true)
+        }
+        else{
+            sessionStorage.setItem('adminStatus', JSON.stringify(false))
+            setAdminUser(false)
+        }
+    }
     //void weatherData();
     void getImageUrl()
     void reviews();
+    void isAdmin()
   }, []);
 
 
@@ -247,6 +270,11 @@ export default function Spot({
     <div className={Styles.mainContainer}>
       <div className={Styles.titleContainer}>
         <h1>{title}</h1>
+
+          {adminUser && session ? (
+              <SpotDelete spotCity={city} spotTitle={title} longitude={longitude} latitude={latitude}></SpotDelete>
+          ) : null}
+
       </div>
       <div className={Styles.map}>
         <Map
@@ -316,7 +344,7 @@ export default function Spot({
                         const file = event.target.files?.[0];
                         if (!file) return;
 
-                        setUploading(true);
+
 
                         try {
                             // Upload the file to Uploadcare
@@ -335,13 +363,11 @@ export default function Spot({
 
                         } catch (err) {
                             console.log(err);
-                        } finally {
-                            setUploading(false);
                         }
                     }}
                 />
                 <div className={Styles.customButton}>
-                    <Button2 title={"upload your experience"}
+                    <Button2 title={"Upload your experience!"}
                              style={{ width: "100%" }}
                               onClick={() => {
                         fileInputRef.current?.click();

@@ -23,9 +23,9 @@ export default function PlacePage({
   useEffect(() => {
     const getParams = async () => {
       const resolvedParams = await Promise.resolve(params);
-      setCountry(resolvedParams.country);
-      setCity(resolvedParams.city);
-      setTitle(resolvedParams.title);
+      setCountry(decodeURI(resolvedParams.country));
+      setCity(decodeURI(resolvedParams.city));
+      setTitle(decodeURI(resolvedParams.title));
       setLatitude(resolvedParams.latitude);
       setLongitude(resolvedParams.longitude);
     };

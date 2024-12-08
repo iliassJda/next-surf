@@ -17,7 +17,6 @@ export default function BootstrapCarouselWithoutArrows(imageURLS: string[]){
     setIndex(selectedIndex);
   };
 
-  console.log(imageURLS);
 
 
   return (

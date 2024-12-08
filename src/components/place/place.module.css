@@ -35,9 +35,7 @@
   /* height: 800px; */
 }
 
-.buttonContainer {
-  width: auto;
-}
+
 
 .commentsContainer {
   display: flex;
@@ -73,7 +71,7 @@
 .titleContainer {
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: space-between;
   margin-right: auto;
   margin-left: auto;
   width: 100%;
@@ -210,13 +208,18 @@
 
 .customButton{
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
 }
 
-
+.buttonIcon{
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
 
 @media screen and (max-width: 640px) {
   .mainContainer {
@@ -254,7 +257,7 @@
 
 @media screen and (min-width: 641px) and (max-width: 1007px) {
   .mainContainer {
-    font-size: 10px;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
   }

@@ -36,11 +36,15 @@ export default function Map() {
   const [latitude, setLatitude] = useState<number>(0);
   const markerRef = useRef<mapboxgl.Marker | null>(null); //used to remove previous marker.
 
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+
   const map = useRef(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { data: session, status } = useSession();
   const user = session?.user;
   const userEmail = user?.email;
+
+
 
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -48,6 +52,31 @@ export default function Map() {
   });
 
 
+  function getUserLocation() {
+    // Check if geolocation is supported
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+          (position) => {
+            // Success callback
+            const { latitude, longitude } = position.coords;
+            setUserLocation([longitude, latitude]);
+            map.current.flyTo({ center: [longitude, latitude], zoom: 14 });
+          },
+          (error) => {
+            // Error callback
+            console.error("Error getting location:", error.message);
+          },
+          {
+            // Options
+            enableHighAccuracy: true, // Use GPS if possible
+            timeout: 5000, // 5 seconds timeout
+            maximumAge: 0 // Don't use cached location
+          }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser");
+    }
+  }
 
   useEffect(() => {
     // Handle window resize
@@ -263,7 +292,7 @@ export default function Map() {
             ref={mapContainerRef}
             style={{
               width: "100%",
-              height: `${dimensions.height * 0.60}px`, // 70% of viewport height
+              height: `${dimensions.height * 0.40}px`, // 70% of viewport height
               maxWidth: '100%',
               borderRadius: "20px",
             }}
@@ -273,11 +302,11 @@ export default function Map() {
 
           <div className={Styles.inputContainer}>
 
-            <div className={Styles.locationData}>
 
-              <InputGroup>
+              <InputGroup className={Styles.locationInput}>
                 <Form.Control
                   type="text"
+
                   onKeyDown={async (e) => {
                     if (e.key === "Enter") {
                       await searchLocation();
@@ -295,12 +324,11 @@ export default function Map() {
                   Search
                 </Button>
               </InputGroup>
-              <Button2 title="Find me"> </Button2>
-
-            </div>
+              <Button2 title="Find me" onClick={getUserLocation} > </Button2>
 
 
-            <div className={Styles.imageTitle}>
+
+
               <div className={Style.container}>
                 <input
                   className={Style.input}
@@ -331,9 +359,9 @@ export default function Map() {
                       fileInputRef.current?.click();
                     }}
                 ></Button2>
-            </div>
 
 
+              </div>
 
               <Button2
                 title={"upload"}
@@ -366,7 +394,7 @@ export default function Map() {
                 }}
               ></Button2>
             </div>
-          </div>
+
         </div>
       ) : null}
     </div>

@@ -21,8 +21,8 @@ export async function externalUploader(
     data.append("country", country);
     //trimmed because getting a unique surf spot back requires matching these fields, once they are in a url and contain white spaces they have symbol between them
     //which makes them not usable.
-    data.append("city", city.replace(/\s/g, ""));
-    data.append("title", title.replace(/\s/g, ""));
+    data.append("city", city);
+    data.append("title", title);
     data.append("longitude", longitude as unknown as string); //will be cast to a string.
     data.append("latitude", latitude as unknown as string); //will be cast to a string.
     data.append("userEmail", userEmail as unknown as string);
