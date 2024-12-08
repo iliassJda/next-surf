@@ -41,6 +41,7 @@ model SurfSpot {
 
   //there can only be one surf spot with a certain title in a city.
   @@unique([city, title])
+  @@unique([latitude, longitude])
 }
 
 model Review {

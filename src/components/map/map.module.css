@@ -1,19 +1,23 @@
 
 
 .inputContainer {
-    width: 60%;
-    margin-left: 20px;
+    width: 100%;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 20px;
     background-color: #33393f;
     border-radius: 10px;
 }
 
+.locationInput{
+    width: 30%;
+}
+
 .map{
-    border-radius: 50px;
+    border-radius: 20px;
 }
 
 .locationData{
@@ -25,18 +29,18 @@
     height: auto;
     gap: 10px;
     border-radius: 20px;
+    margin-top: 20px;
 }
 
 
 
 .greyContainer {
-    background-color: hsla(0, 0%, 16%, 0.5);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 95%;
-    height: 760px;
+    width: 97%;
+    height: auto;
     border-radius: 20px;
     position: relative;
 }
@@ -66,9 +70,21 @@
         height: 500px;
     }
 
+    .locationInput{
+        width: 80%;
+    }
+
 }
 
 @media screen and (min-width: 641px) and (max-width: 1007px) {
+    .inputContainer {
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+    }
 
+    .locationInput{
+        width: 60%;
+    }
 }
 
