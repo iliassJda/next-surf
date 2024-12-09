@@ -71,8 +71,6 @@ export default function Spot({
   const [precipitations, setPrecipitations] = useState([]);
   const [imageUrls, setImageUrl] = useState([]);
 
-  const session = await auth();
-
   const [reviews, setReviews] = useState([]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -304,6 +302,36 @@ export default function Spot({
                 </div>
               </div>
             </div>
+            <div className={Styles.waveData}>
+              <div className={Styles.directionData}>
+                <GetDirectionIcon
+                  degrees={swellDirections[0]}
+                  text={"Swell Direction"}
+                />
+                <GetDirectionIcon
+                  degrees={waveDirections[0]}
+                  text={"Wave Direction"}
+                />
+                <GetDirectionIcon
+                  degrees={windWaveDirections[0]}
+                  text={"Wind Wave Direction"}
+                />
+              </div>
+              <div className={Styles.heights}>
+                <div>
+                  <HourglassBottomIcon />
+                  Wave Period: {wavePeriods}s
+                </div>
+                <div>
+                  <HeightIcon />
+                  Wave Height: {waveHeights}m
+                </div>
+                <div>
+                  <HeightIcon />
+                  Swell Height: {swellHeights}m
+                </div>
+              </div>
+            </div>
             <div className={Styles.greyContainer}>
               <BootstrapCarouselWithoutArrows
                 imageURLS={imageUrls}
@@ -345,76 +373,7 @@ export default function Spot({
               </div>
             </div>
           </div>
-
-          <div className={Styles.waveData}>
-            <div className={Styles.directionData}>
-              <GetDirectionIcon
-                degrees={swellDirections[0]}
-                text={"Swell Direction"}
-              />
-              <GetDirectionIcon
-                degrees={waveDirections[0]}
-                text={"Wave Direction"}
-              />
-              <GetDirectionIcon
-                degrees={windWaveDirections[0]}
-                text={"Wind Wave Direction"}
-              />
-            </div>
-            <div className={Styles.heights}>
-              <div>
-                <HourglassBottomIcon />
-                Wave Period: {wavePeriods}s
-              </div>
-              <div>
-                <HeightIcon />
-                Wave Height: {waveHeights}m
-              </div>
-              <div>
-                <HeightIcon />
-                Swell Height: {swellHeights}m
-              </div>
-            </div>
-          </div>
         </div>
-        <div className={Styles.greyContainer}>
-          <BootstrapCarouselWithoutArrows
-            imageURLS={imageUrls}
-          ></BootstrapCarouselWithoutArrows>
-          <input
-            className={Style.input}
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            onChange={async (event) => {
-              const file = event.target.files?.[0];
-              if (!file) return;
-
-              try {
-                // Upload the file to Uploadcare
-                const uploadedFile = await uploadFile(file, {
-                  publicKey: process.env
-                    .NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
-                });
-
-                // Construct the file URL
-                const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
-                await handleSpotImage(city, title, userEmail, fileUrl);
-
-                showToast("success", "Image Uploaded Successfully");
-              } catch (err) {
-                console.log(err);
-              }
-            }}
-          />
-          <div className={Styles.customButton}>
-            <Button2
-              title={"upload your experience"}
-              style={{ width: "100%" }}
-              onClick={() => {
-                fileInputRef.current?.click();
-              }}
-            ></Button2>
         {/* ${Styles.greyContainer} */}
         <div className={Styles.reviewContainer}>
           <h1>Reviews</h1>
@@ -442,33 +401,6 @@ export default function Spot({
           </div>
         </div>
       </div>
-      {/* ${Styles.greyContainer} */}
-      <div className={Styles.reviewContainer}>
-        <h1>Reviews</h1>
-        <div className={` ${Styles.commentsContainer}`}>
-          {reviews.map((review: Review, index) => (
-            <div key={index} className={Styles.singleReview}>
-              <div className={Styles.reviewHeader}>
-                <div className={Styles.reviewTopRow}>
-                  {review.userFirstName}
-                  <DeleteOutlineOutlinedIcon />
-                </div>{" "}
-                <br />
-                <span className={Styles.reviewRating}>{review.rating}/5</span>
-              </div>
-              <p className={Styles.reviewText}>{review.description}</p>
-              {/* <div className={Styles.reviewFooter}>
-                  <span className={Styles.reviewDate}>{review.date}</span>
-                </div> */}
-            </div>
-          ))}
-        </div>
-        <ReviewButton title={title} city={city} />
-        {/* <div className={Styles.buttonContainer}>
-            
-          </div> */}
-      </div>
     </div>
-    // </div>
   );
 }
