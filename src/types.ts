@@ -1,11 +1,11 @@
 export type SurfSpot = {
-    title: true,
-    country:true,
-    city:true,
-    longitude:true,
-    latitude:true,
-    imageURL: true,
-    id:true,
+    title: string,
+    country:string,
+    city:string,
+    longitude:number,
+    latitude:number,
+    imageURL: string,
+    id:number,
   };
 
 export type SurfSpots = SurfSpot[];
@@ -18,6 +18,18 @@ export type CountryInfo = {
     country:string,
     continent:string,
 }
+
+export type AccountInfo = {
+  id:                number,
+  email:             string,
+  username:          string,
+  password:          string,
+  firstname:         string,
+  lastname:          string,
+  nationality:       string,
+  profilePictureCID: string,
+}
+
 
 // export type ResponsiveCarouselProps = {
 //     spotCarouselInfos: SpotCarouselInfos;

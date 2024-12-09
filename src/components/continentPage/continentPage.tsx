@@ -4,7 +4,7 @@ import { notFound, useParams } from 'next/navigation';
 import data from '../../../public/temporary.json';
 import GetSpots from '../getSpots/getSpots';
 import styles from './continentPage.module.css'
-import { NormalizeName,NormalizeURLName } from '../../components/globalFunc'
+import { NormalizeName,NormalizeURLName } from '../../globalFunc'
 
 const ContinentPage = () => {
   const params = useParams();

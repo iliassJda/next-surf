@@ -8,6 +8,7 @@ import { signIn, auth } from "@/lib/auth";
 const register = async (formData: FormData) => {
   const firstname = formData.get("firstname") as string;
   const lastname = formData.get("lastname") as string;
+  const username = formData.get("username") as string
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const nationality = formData.get("nationality") as string;
@@ -24,11 +25,24 @@ const register = async (formData: FormData) => {
       email: email,
     },
   });
+  
+  const existingusername = await prisma.user.findUnique({
+    where: {
+      username: username,
+    },
+  });
 
   if (existinguser) {
     return {
       toast: "error",
-      message: `User ${firstname} with ${email} already exists!`,
+      message: `User with email: "${email}" already exists!`,
+    };
+  }
+
+  if (existingusername) {
+    return {
+      toast: "error",
+      message: `User with username: "${username}" already exists!`,
     };
   }
 
@@ -37,6 +51,7 @@ const register = async (formData: FormData) => {
   await prisma.user.create({
     data: {
       email,
+      username,
       password: hashedpassword,
       firstname,
       lastname,
@@ -106,7 +121,6 @@ const updateProfile = async (formData: FormData) => {
   const session = await auth();
   const user = session?.user;
   const email = user?.email as string;
-
   const firstname = formData.get("firstname") as string;
   const lastname = formData.get("lastname") as string;
   const nationality = formData.get("nationality") as string;

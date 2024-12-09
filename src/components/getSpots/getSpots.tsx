@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import ResponsiveCarousel from "../countryCarousel/countryCarousel";
 import data from "../../../public/temporary.json";
-import { SurfSpot,SurfSpots,CountryInfo} from "../../components/types"
-import { NormalizeName} from  "../../components/globalFunc"
+import { SurfSpot,SurfSpots,CountryInfo} from "../../types"
+import { NormalizeName} from  "../../globalFunc"
 import styles from './getSpots.module.css'
 
 export default function ShowSurfSpots({
