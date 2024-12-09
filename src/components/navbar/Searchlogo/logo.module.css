@@ -11,3 +11,9 @@
     color: #83bfca;
     cursor: pointer;
 }
+
+@media (max-width: 820px) {
+    .small_screen {
+        display: none;
+    }
+}

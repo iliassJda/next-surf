@@ -12,6 +12,22 @@ export default function SearchBar() {
   const searchQuery = searchParams?.get("q") || "";
   const [inputValue, setInputValue] = useState(searchQuery);
   const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 820);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleVisibility = () => {
+    if(!isLargeScreen)
+      setIsVisible((prev) => !prev)
+  }
 
   useEffect(() => {
     setInputValue(searchQuery); // Synchronize input with the query parameter on mount or URL update
@@ -44,8 +60,9 @@ export default function SearchBar() {
   // };
 
   return (
-    <div id={styles.search_div}>
-      <input
+    <div id={isVisible ? styles.prova : styles.search_div} >
+        <>
+      {(isLargeScreen || (isLargeScreen==false && isVisible==true)) && <input
         // value={query}
         value={inputValue}
         // onChange={(event) => setQuery(event.currentTarget.value)}
@@ -53,8 +70,10 @@ export default function SearchBar() {
         type="text"
         id={styles.search_bar}
         placeholder="Search a place to surf"
-      />
-      <SearchLogo />
+        className={styles.small_screen}
+      />}
+      </>
+    <SearchLogo onClick={toggleVisibility}/>
     </div>
   );
 }
