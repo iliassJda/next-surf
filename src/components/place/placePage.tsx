@@ -368,7 +368,7 @@ export default function Spot({
                 />
                 <div className={Styles.customButton}>
                     <Button2 title={"Upload your experience!"}
-                             style={{ width: "100%" }}
+                             className={Styles.customButton}
                               onClick={() => {
                         fileInputRef.current?.click();
                     }}></Button2>
