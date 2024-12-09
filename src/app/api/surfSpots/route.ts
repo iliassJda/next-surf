@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
 
     if (!continentname) {
         return NextResponse.json(
-            { error: "Email parameter is required" },
+            { error: "Continent parameter is required" },
             { status: 400 }
         );
     }
@@ -47,12 +47,12 @@ export async function GET(request: NextRequest) {
     try {
         // @ts-ignore
 
-        let userProfilePictureURL = await getSurfSpotsFromPrisma(continentname)
+        let surfSpots = await getSurfSpotsFromPrisma(continentname)
 
-        return NextResponse.json(userProfilePictureURL, {status: 200});
+        return NextResponse.json(surfSpots, {status: 200});
     } catch (e) {
         return NextResponse.json(
-            {error: "get profile picture request failed"},
+            {error: "get surf spot request failed"},
             {status: 501}
         );
     }

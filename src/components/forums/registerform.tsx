@@ -24,6 +24,10 @@ export default function RegisterForum() {
       </div>
 
       <div className={styles.inputContainer}>
+        <Input type="username" placeholder="USERNAME" isRequired={true} />
+      </div>
+
+      <div className={styles.inputContainer}>
         <Input type="password" placeholder="PASSWORD" isRequired={true} />
       </div>
 

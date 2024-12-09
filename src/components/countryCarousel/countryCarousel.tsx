@@ -6,7 +6,7 @@ import styles from "./countryCarousel.module.css";
 import {
   SurfSpots,
   SurfSpot,
-} from "../../components/types";
+} from "../../types";
 
 export default function ResponsiveCarousel({
   spotCarouselInfos
