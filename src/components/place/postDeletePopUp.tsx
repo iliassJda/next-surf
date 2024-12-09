@@ -12,11 +12,11 @@ function DeletePopUp({ isOpen, onClose, onConfirm }: any){
     if (!isOpen) return null;
 
     return (
-        <div className={Styles.modalOverlay}>
-            <div className={Styles.modalContent}>
+        <div className={Styles.popUpOverlay}>
+            <div className={Styles.popUpContent}>
                 <h2>Confirm Delete</h2>
                 <p>Are you sure you want to delete this surf spot?</p>
-                <div className={Styles.modalActions}>
+                <div className={Styles.popUpActions}>
                     <button onClick={onClose} className={Styles.cancelButton} >Cancel</button>
                     <button onClick={onConfirm} className={Styles.deleteButton}>Delete</button>
                 </div>
@@ -26,21 +26,20 @@ function DeletePopUp({ isOpen, onClose, onConfirm }: any){
 };
 
 export default function SpotDelete({spotCity, spotTitle, longitude, latitude}: {spotCity: string, spotTitle: string, longitude: string, latitude: string}) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
     const handleDeleteClick = () => {
-        setIsModalOpen(true);
+        setIsPopUpOpen(true);
     };
 
     const handleConfirmDelete = async() => {
-        console.log(spotCity);
         await deleteSpot(spotCity, spotTitle, parseFloat(longitude), parseFloat(latitude));
-        setIsModalOpen(false);
+        setIsPopUpOpen(false);
         redirect("/")
     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
+    const handleClosePopUp = () => {
+        setIsPopUpOpen(false);
     };
 
     return (
@@ -54,8 +53,8 @@ export default function SpotDelete({spotCity, spotTitle, longitude, latitude}: {
             </button>
 
             <DeletePopUp
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
+                isOpen={isPopUpOpen}
+                onClose={handleClosePopUp}
                 onConfirm={async() =>{ await handleConfirmDelete()}}
 
             />

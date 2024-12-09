@@ -7,7 +7,8 @@
     <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/carousel/carousel.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/carousel.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/place/deletePopUp.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/deletePopUp.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/place/postDeletePopUp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/postDeletePopUp.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +59,8 @@
       <updated>1733732223550</updated>
       <workItem from="1733732225068" duration="280000" />
       <workItem from="1733735588945" duration="115000" />
+      <workItem from="1733735908371" duration="1602000" />
+      <workItem from="1733739682866" duration="928000" />
     </task>
     <servers />
   </component>
