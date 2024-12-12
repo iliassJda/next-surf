@@ -22,9 +22,11 @@ import Map from "@/components/place/map";
 import HeightIcon from "@mui/icons-material/Height";
 
 import BootstrapCarouselWithoutArrows from "@/components/place/carousel";
+import SurfingIcon from "@mui/icons-material/Surfing";
 
 import GetDirectionIcon from "@/components/place/directionArrow";
 import { getReviews } from "@/action/review";
+import { getUser } from "@/action/user";
 import { Review } from "@prisma/client";
 
 import {
@@ -44,6 +46,7 @@ import { verifyUser } from "@/components/place/verifyUser";
 
 import SpotDelete from "@/components/place/postDeletePopUp";
 import { amber } from "@mui/material/colors";
+import prisma from "@/lib/db";
 
 export default function Spot({
   country,
@@ -71,7 +74,13 @@ export default function Spot({
   const [precipitations, setPrecipitations] = useState([]);
   const [imageUrls, setImageUrl] = useState([]);
 
+  const [userId, setUserId] = useState(() => {
+    const savedState = sessionStorage.getItem("userID");
+    return savedState !== null ? JSON.parse(savedState) : false;
+  });
+
   const [reviews, setReviews] = useState([]);
+  const [spotRating, setSpotRating] = useState(0);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { data: session, status } = useSession();
@@ -89,7 +98,23 @@ export default function Spot({
     const reviews = async () => {
       const data = await getReviews(city, title);
 
-      setReviews(data);
+      setReviews(data?.review);
+      setSpotRating(data?.spotRating as number);
+    };
+
+    const user = async () => {
+      const user = session?.user;
+      const userEmail = user?.email;
+      if (userEmail) {
+        const newUser = await getUser(userEmail as string);
+        console.log(
+          "This is what the current user ID should be: ",
+          newUser?.id
+        );
+        sessionStorage.setItem("userID", JSON.stringify(newUser?.id as number));
+        setUserId(newUser?.id as number);
+        // console.log("This is the current user ID: ", userId);
+      }
     };
 
     const weatherData = async () => {
@@ -262,21 +287,34 @@ export default function Spot({
     void getImageUrl();
     void reviews();
     void isAdmin();
+    void user();
   }, []);
 
   return (
     <div className={Styles.mainContainer}>
       <div className={Styles.titleContainer}>
-        <h1>{title}</h1>
+        <h1>{title} : </h1>
+        <div className={Styles.ratingContainer}>
+          {spotRating === 0 ? (
+            <p>There is no rating yet</p>
+          ) : (
+            <>
+              <h1>
+                {spotRating} <SurfingIcon fontSize="large" />
+              </h1>
+            </>
+            // <span>2</span>
+          )}
 
-        {adminUser && session ? (
-          <SpotDelete
-            spotCity={city}
-            spotTitle={title}
-            longitude={longitude}
-            latitude={latitude}
-          ></SpotDelete>
-        ) : null}
+          {adminUser && session ? (
+            <SpotDelete
+              spotCity={city}
+              spotTitle={title}
+              longitude={longitude}
+              latitude={latitude}
+            ></SpotDelete>
+          ) : null}
+        </div>
       </div>
       <div className={Styles.map}>
         <Map
@@ -383,7 +421,7 @@ export default function Spot({
                 <div className={Styles.reviewHeader}>
                   <div className={Styles.reviewTopRow}>
                     {review.userFirstName}
-                    {session?.user?.name == review.userFirstName ? (
+                    {userId == review.userId ? (
                       <RemoveReview reviewId={review.id} />
                     ) : (
                       <div>not yours</div>
@@ -399,6 +437,7 @@ export default function Spot({
               </div>
             ))}
           </div>
+          <ReviewButton title={title} city={city} />
         </div>
       </div>
     </div>

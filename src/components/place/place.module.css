@@ -12,6 +12,14 @@
   color: white;
 }
 
+.ratingContainer {
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 180px;
+}
+
 .reviewTopRow {
   display: flex;
   justify-content: space-between;
@@ -41,8 +49,6 @@
   max-height: 100%;
   /* height: 800px; */
 }
-
-
 
 .commentsContainer {
   display: flex;
@@ -76,6 +82,7 @@
 }
 
 .titleContainer {
+  /* border: 2px solid red; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -209,15 +216,11 @@
   gap: 10px;
 }
 
-
-
-
-
-.customButton{
+.customButton {
   width: 100%;
 }
 
-.buttonIcon{
+.buttonIcon {
   background: none;
   border: none;
   cursor: pointer;
@@ -257,7 +260,7 @@
     height: auto;
   }
 
-  .reviewContainer{
+  .reviewContainer {
     margin-bottom: 20px;
   }
 }
@@ -291,8 +294,7 @@
     height: auto;
   }
 
-  .reviewContainer{
+  .reviewContainer {
     margin-bottom: 20px;
   }
 }
-

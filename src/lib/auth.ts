@@ -9,7 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     Credentials({
       credentials: {
@@ -53,7 +53,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         return userData;
       },
-    
     }),
   ],
 
@@ -62,33 +61,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 
   callbacks: {
-    async signIn({account, profile}) {
-      
-      const email = profile?.email as string
+    async signIn({ account, profile }) {
+      const email = profile?.email as string;
 
-      if (account?.provider === "google"){
+      if (account?.provider === "google") {
         const newUser = await prisma.user.findUnique({
           where: { email },
         });
 
-        if(!newUser){
+        if (!newUser) {
           await prisma.user.create({
             data: {
               email,
               password: "",
-              firstname: profile?.given_name as string || "",
-              lastname: profile?.family_name as string || "",
+              firstname: (profile?.given_name as string) || "",
+              lastname: (profile?.family_name as string) || "",
               nationality: "",
-              profilePictureCID: profile?.picture
+              profilePictureCID: profile?.picture,
             },
           });
-          console.log("Existing google user added to database")
+          console.log("Existing google user added to database");
         }
-        
-      } 
-      
-      
-      return true
-    }
-  }
+      }
+
+      return true;
+    },
+  },
 });
