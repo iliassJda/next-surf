@@ -101,7 +101,7 @@ const postReview = async (
 
 const getReviews = async (city: string, title: string) => {
   try {
-    console.log(city, title);
+    // console.log(city, title);
     const spot = await prisma.surfSpot.findUnique({
       where: {
         city_title: {
@@ -126,10 +126,38 @@ const getReviews = async (city: string, title: string) => {
 
     console.log("and the rating of the spot: ", spot?.meanRating);
 
-    return reviews;
+    return { review: reviews, spotRating: spot?.meanRating };
   } catch (e) {
     console.log(`There has been an issue in Action/review ${e}`);
   }
 };
 
-export { postReview, getReviews };
+const removeReview = async (reviewId: number) => {
+  try {
+    const deletedReview = await prisma.review.delete({
+      where: {
+        id: reviewId,
+      },
+    });
+
+    const spot = await prisma.surfSpot.findUnique({
+      where: {
+        id: deletedReview.surfSpotId,
+      },
+    });
+
+    updateSpotRating(spot);
+
+    return {
+      toast: "success",
+      message: "Review has been removed successfuly",
+    };
+  } catch (e) {
+    return {
+      toast: "error",
+      message: "There has been some issue with removing the review",
+    };
+  }
+};
+
+export { postReview, getReviews, removeReview };

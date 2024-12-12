@@ -142,4 +142,15 @@ const updateProfile = async (formData: FormData) => {
   redirect("/account");
 };
 
-export { register, loginManual, loginGoogle, updateProfile };
+const getUser = async (userEmail: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: userEmail,
+    },
+  });
+
+  console.log("From server: ", user);
+  return user;
+};
+
+export { register, loginManual, loginGoogle, updateProfile, getUser };
