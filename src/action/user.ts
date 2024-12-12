@@ -153,4 +153,24 @@ const getUser = async (userEmail: string) => {
   return user;
 };
 
-export { register, loginManual, loginGoogle, updateProfile, getUser };
+const SavePlace = async (userId: number, latitude: string, longitude: string) => {
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      saved: {
+        connect: {
+          latitude_longitude: {
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude)
+          }
+        },
+      }
+    },
+    include: {
+      saved: true,
+    }
+  });
+
+}
+
+export { register, loginManual, loginGoogle, updateProfile, getUser, SavePlace };

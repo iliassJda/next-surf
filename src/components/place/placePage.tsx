@@ -26,7 +26,7 @@ import SurfingIcon from "@mui/icons-material/Surfing";
 
 import GetDirectionIcon from "@/components/place/directionArrow";
 import { getReviews } from "@/action/review";
-import { getUser } from "@/action/user";
+import { getUser, SavePlace } from "@/action/user";
 import { Review } from "@prisma/client";
 
 import {
@@ -116,6 +116,7 @@ export default function Spot({
         // console.log("This is the current user ID: ", userId);
       }
     };
+
 
     const weatherData = async () => {
       const data = await getWeatherData(
@@ -283,6 +284,7 @@ export default function Spot({
         setAdminUser(false);
       }
     };
+
     //void weatherData();
     void getImageUrl();
     void reviews();
@@ -290,10 +292,15 @@ export default function Spot({
     void user();
   }, []);
 
+  const handleSave = async () => {
+    const res = await SavePlace(userId, latitude, longitude);
+  };
+
   return (
     <div className={Styles.mainContainer}>
       <div className={Styles.titleContainer}>
         <h1>{title} : </h1>
+        
         <div className={Styles.ratingContainer}>
           {spotRating === 0 ? (
             <p>There is no rating yet</p>
@@ -314,6 +321,9 @@ export default function Spot({
               latitude={latitude}
             ></SpotDelete>
           ) : null}
+        </div>
+        <div className={Styles.saveContainer} onClick={handleSave}> 
+          Save&ensp;<i className="bi bi-bookmark"></i>
         </div>
       </div>
       <div className={Styles.map}>

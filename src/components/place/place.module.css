@@ -20,6 +20,26 @@
   min-width: 180px;
 }
 
+.saveContainer {
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 80px;
+  font-size: 25px;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 5px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.saveContainer:hover {
+  /* border: 2px solid red; */
+  color: #1a1e22;
+  background-color: white;
+}
+
 .reviewTopRow {
   display: flex;
   justify-content: space-between;
@@ -240,11 +260,13 @@
     display: flex;
     flex-direction: column;
   }
+
   .twoCardContainer {
     flex-direction: column;
     width: 100%;
     gap: 20px;
   }
+
   .waveData {
     height: 250px;
     display: flex;
@@ -259,6 +281,7 @@
   .waterData {
     height: 150px;
   }
+
   .dataGroup {
     height: auto;
   }
@@ -274,11 +297,13 @@
     display: flex;
     flex-direction: column;
   }
+
   .twoCardContainer {
     flex-direction: column;
     width: 100%;
     gap: 20px;
   }
+
   .waveData {
     height: 250px;
     display: flex;
@@ -293,6 +318,7 @@
   .waterData {
     height: 150px;
   }
+
   .dataGroup {
     height: auto;
   }

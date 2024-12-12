@@ -19,6 +19,7 @@ model User {
   nationality       String
   profilePictureCID String      @default("none")
   posts             SurfSpot[] @relation("UserPosts")
+  saved             SurfSpot[] @relation("SavedPosts")
   reviews           Review[]
   SpotImage         SpotImage[]
 }
@@ -37,6 +38,7 @@ model SurfSpot {
   reviews    Review[]
   userID     User     @relation("UserPosts", fields: [userId], references: [id])
   userId     Int
+  savers     User[]     @relation("SavedPosts")
   SpotImage  SpotImage[]
 
   //there can only be one surf spot with a certain title in a city.
