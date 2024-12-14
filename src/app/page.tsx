@@ -4,7 +4,7 @@ import ContinentChanger from "@/components/contintsComp/main";
 import Uploader from "@/components/uploadCare/profilePictureUpload/uploader";
 import Image from 'next/image'
 import FloatingActionButton from "@/components/floatingButtons/floatingActionButton/floatAction";
-import AddPlace from "@/components/homepage/addplace"
+import Functionalities from "@/components/homepage/functionalities"
 import Informations from "@/components/homepage/information"
 import {useSession} from "next-auth/react";
 
@@ -19,7 +19,7 @@ export default function Home() {
               <FloatingActionButton/>
               ) : null}
               <Informations/>
-              <AddPlace/>
+              <Functionalities/>
           </div>
       </main>
     </div>

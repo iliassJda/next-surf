@@ -2,7 +2,7 @@
 // import { getServerSession } from "next-auth";
 import Mapbox from "@/components/map/mapbox";
 
-export default async function Test() {
+export default function Test() {
     // const session = await getServerSession();
 
     return (

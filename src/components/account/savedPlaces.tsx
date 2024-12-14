@@ -62,13 +62,6 @@ export default function UploadedPlaces(probs: any) {
                     {" "}
                     <i className="bi bi-geo-alt"></i>{place.city}, {place.country}
                   </p>
-                  <div className={styles.star}>
-                    <i className="bi bi-star-fill text-warning"></i>
-                    <i className="bi bi-star-fill text-warning"></i>
-                    <i className="bi bi-star-fill text-warning"></i>
-                    <i className="bi bi-star-half text-warning"></i>
-                    <i className="bi bi-star text-warning"></i>
-                  </div>
                 </div>
               </div>
               </Link> 
