@@ -45,6 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const userData = {
           email: user.email,
+          username: user.username,
           firstname: user.firstname,
           lastname: user.lastname,
           nationality: user.nationality,
@@ -62,6 +63,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.username = user.username; // Add username to the token
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.username = token.username; // Include username in the session
+      return session;
+    },
+
     async signIn({account, profile}) {
       
       const email = profile?.email as string
@@ -75,6 +87,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           await prisma.user.create({
             data: {
               email,
+              username:profile?.given_name as string || "",
               password: "",
               firstname: profile?.given_name as string || "",
               lastname: profile?.family_name as string || "",
