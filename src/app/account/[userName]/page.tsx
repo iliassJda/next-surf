@@ -15,8 +15,6 @@ import Link from "next/link";
 export default function Account(props: any) {
   const params = useParams();
   const username = params?.userName as string;
-  const { data: session, status } = useSession();
-  
   const [account, setAccount] = useState<AccountInfo>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -45,13 +43,21 @@ export default function Account(props: any) {
     void fetchAccount();
   }, [username]);
 
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <p>Checking Session</p>
+  }
+  if (status === "unauthenticated") {
+    return <p>Please Log in</p>
+  }
   // Debug logging
   console.log("Session status:", status);
   console.log("Session data:", session);
 
   if (isLoading) {
     return <p>Loading account...</p>;
-  }
+  }else{
 
   if (account === undefined) {
     notFound();
@@ -61,15 +67,8 @@ export default function Account(props: any) {
   const session_username = session?.user?.username;
   const current_username = account.username;
 
-  console.log("Session username:", session_username);
-  console.log("Current account username:", current_username);
-
   // Determine if this is the logged-in user's account
-  const isOwnAccount = session_username === current_username;
-
-  if (status === 'loading') {
-    return <p>Checking session...</p>;
-  }
+  const isOwnAccount = (current_username === session_username);
 
   // Render based on whether it's the user's own account
   return (
@@ -82,13 +81,13 @@ export default function Account(props: any) {
       </div>
       <div className={`${styles.section} px-5`}>
         <div className={styles.left_selection}>
-          <ShowProfilePicture width="150" height="150" />
+          <ShowProfilePicture width="150" height="150" account/>
           <br />
           {isOwnAccount && <Uploader />}
         </div>
         <div className={`${styles.right_section} ${styles.flex}`}>
           <div className={styles.left_section}>
-            <p className="py-1 px-2">User Name: {account.username}</p>
+            <p className="py-1 px-2">User Name: {current_username}</p>
             <p className="py-1 px-2">Nationality: {account.nationality}</p>
             {isOwnAccount && (
               <>
@@ -121,4 +120,4 @@ export default function Account(props: any) {
       <SavedPlaces />
     </div>
   );
-}
+}}
