@@ -1,35 +1,41 @@
 "use client";
-import Input from "./input";
-import LoginButton from "./followBtn";
-import React, {useEffect, useState} from 'react';
-import CountrySelection from "../selection/selection";
-import styles from "@/app/account/account.module.css";
-import { showToast } from "../toast/toast";
-import { unfollowProfile } from "@/action/follow";
-import { FollowInfo } from "@/types";
+import React, { useState } from "react";
+import styles from "@/app/account/[userName]/account.module.css";
+import { showToast } from "@/components/toast/toast";
 
-export default function unfollowBtn(probs: any) {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const currentUsername = probs.currentUsername;
-  const usernameToFollow = probs.targetUsername;
+const UnFollow = (probs: any) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const currentUsername = probs.currentUsername
+  const usernameToFollow = probs.usernameToFollow
+  const onUnFollow = probs.onUnFollow
+  const handleUnfollow = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/unfollow?currentUsername=${currentUsername}&usernameToFollow=${usernameToFollow}`,
+        { method: "POST" }
 
-  const handleunFollow = async () => {
-    const res = await unfollowProfile({currentUsername,usernameToFollow});
-        if (res.status == "error") {
-          showToast("error", res.message);
-        } else {
-          showToast("success", res.message);
-          setIsLoading(false)
-        }
+      );
+
+      if (response.ok) {
+        onUnFollow(); // Update parent state
+        showToast("success", "Unfollowed successfully!");
+      } 
+    } catch (error) {
+      showToast("error", "An unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className={styles.followButtonContainer}>
-      {!isLoading ? (
-        <p>Loading unfollow...</p> // Show a loading message while waiting
-      ) : (
-        <LoginButton  title="Unfollow" />
-      )}
-    </div>
+    <button
+      onClick={handleUnfollow}
+      disabled={isLoading}
+      className={styles.button}
+    >
+      {isLoading ? "Unfollowing..." : "Unfollow"}
+    </button>
   );
-}
+};
+
+export default UnFollow;

@@ -15,7 +15,7 @@ export async function GET(req: Request) {
 
   try {
     const isFollowing = await getIsFollowing(currentUsername, targetUsername);
-    return NextResponse.json({ isFollowing }, { status: 200 });
+    return NextResponse.json(isFollowing , { status: 200 });
   } catch (error) {
     console.error("Error checking following status:", error);
     return NextResponse.json(

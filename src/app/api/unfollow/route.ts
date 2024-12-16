@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   try {
     const url = new URL(req.url);
     const currentUsername = url.searchParams.get("currentUsername");
-    const usernameToFollow = url.searchParams.get("targetUsername");
+    const usernameToFollow = url.searchParams.get("usernameToFollow");
   
     if (!currentUsername || !usernameToFollow) {
       return NextResponse.json(

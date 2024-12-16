@@ -28,8 +28,6 @@ const followProfile = async (data: FollowInfo) => {
             followedId: userToFollow.id,
         },
     });
-
-    redirect(`/account/${usernameToFollow}`);
 };
 
 const unfollowProfile = async (data: FollowInfo) => {
@@ -57,8 +55,6 @@ const unfollowProfile = async (data: FollowInfo) => {
             followedId: userToUnfollow.id,
         },
     });
-
-    redirect(`/account/${usernameToFollow}`);
 };
 
 const getFollowingList =  async (currentUsername: string): Promise<AccountInfos> => {
@@ -85,6 +81,7 @@ const getFollowingList =  async (currentUsername: string): Promise<AccountInfos>
             firstname: true,
             lastname: true,
             nationality: true,
+            followedUsers: true,
             profilePictureCID: true,
           },
         },
@@ -119,6 +116,7 @@ const getFollowingList =  async (currentUsername: string): Promise<AccountInfos>
             firstname: true,
             lastname: true,
             nationality: true,
+            followedUsers: true,
             profilePictureCID: true,
           },
         },
