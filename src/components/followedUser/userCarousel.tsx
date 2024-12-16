@@ -38,17 +38,15 @@ export default function UserCarousel({
 
   if (userInfos.length <= 3) {
     return (
-      <div className={styles.Images}>
         <div className={styles.imagesWrapper}>
           {userInfos.map((current_account:AccountInfo, index:number) => (
             <div key={current_account.id} className={styles.imageContainer}>
             <Link href={`/account/${current_account.username}`}>
-            <ShowProfilePicture width="60" height="60"/>
+            <ShowProfilePicture width="80" height="80" email={current_account.email}/>
             </Link>
-              <p>{current_account.username}</p>
+            <p>{current_account.username}</p>
             </div>
           ))}
-        </div>
       </div>
     );
   } else {
@@ -60,18 +58,16 @@ export default function UserCarousel({
         >
           &lt;
         </button>
-        <div className={styles.Images}>
           <div className={styles.imagesWrapper}>
             {visibleImages.map((current_account:AccountInfo, index:number) => (
               <div key={current_account.id} className={styles.imageContainer}>
               <Link href={`/account/${current_account.username}`}>
-                <ShowProfilePicture width="60" height="60"/>
+                <ShowProfilePicture width="80" height="80" email={current_account.email}/>
               </Link>
                 <p>{current_account.username}</p>
               </div>
             ))}
           </div>
-        </div>
         <button 
           onClick={handleNext} 
           className={styles.btn}

@@ -11,8 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  gap: 15px;
+  gap: 5px;
   overflow: hidden; 
   padding: 10px 0;
 }
@@ -26,17 +25,9 @@
   position: relative;
 }
 
-.Images img {
-  flex: 0 0 auto;
-  width: 100%;
-  max-width: 300px;
-  min-width: 250px;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 12px;
+.imagesWrapper img {
   transition: all 0.3s ease;
-  filter:brightness(65%);
+  filter:brightness(45%);
 }
 
 .btn {
@@ -83,6 +74,7 @@
   z-index: 10;
   font-size: 1.3rem;
   padding: 5px; 
+  
 }
 
 

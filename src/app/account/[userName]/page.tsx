@@ -56,12 +56,12 @@ export default function Account(props: any) {
         setIsLoadingFollowing(false);
         return;
       }
-
+  
       try {
         const response = await fetch(
           `/api/isfollowing?currentUsername=${session.user.username}&targetUsername=${account.username}`
         );
-        const data: boolean = await response.json();
+        const data = await response.json();
         setIsFollowing(data);
       } catch (error) {
         console.error("Failed to check following status:", error);
@@ -69,11 +69,11 @@ export default function Account(props: any) {
         setIsLoadingFollowing(false);
       }
     };
-
+  
     if (!isLoadingAccount) {
       fetchFollowing();
     }
-  }, [account, session]);
+  }, [account, session, isLoadingAccount]);
 
   if (status === "loading") {
     return <p>Checking Session...</p>;
@@ -83,20 +83,16 @@ export default function Account(props: any) {
     return <p>Please log in.</p>;
   }
 
-  if (isLoadingAccount) {
+  if (isLoadingAccount && isLoadingFollowing) {
     return <p>Loading account...</p>;
   }
 
   if (!account) {
     notFound();
-    return null;
   }
 
   const isOwnAccount = session.user.username === account.username;
 
-  if (isLoadingFollowing) {
-    return <p>Loading following status...</p>;
-  }
 
   return (
     <div className={styles.container}>
@@ -105,19 +101,20 @@ export default function Account(props: any) {
       </div>
 
       <div className={`${styles.section} py-4 px-5`}>
-        {!isOwnAccount && (
-          isFollowing ? (
+        {!isOwnAccount &&
+          (isFollowing ? (
             <UnFollow
               currentUsername={session.user.username}
               usernameToFollow={account.username}
+              onUnFollow={() => setIsFollowing(false)} // Callback to update state
             />
           ) : (
             <Follow
               currentUsername={session.user.username}
               usernameToFollow={account.username}
+              onFollow={() => setIsFollowing(true)} // Callback to update state
             />
-          )
-        )}
+          ))}
       </div>
 
       <div className={`${styles.section} py-4 px-5`}>
@@ -148,7 +145,8 @@ export default function Account(props: any) {
                 className={`${styles.submit} py-2 px-2`}
                 href="/account_update"
               >
-                <i className="bi bi-pencil-square"></i> Edit Personal Information
+                <i className="bi bi-pencil-square"></i> Edit Personal
+                Information
               </Link>
             </div>
           )}
@@ -163,12 +161,13 @@ export default function Account(props: any) {
       <div className={`${styles.section} py-4 px-5`}>
         <h5>Saved Places</h5>
       </div>
-      <SavedPlaces />
+      {/* <SavedPlaces /> */}
 
       <div className={`${styles.section} py-4 px-5`}>
         <h5>Followed Users</h5>
       </div>
       <FollowedUser username={account.username} />
+      <br />
     </div>
   );
 }
