@@ -19,6 +19,13 @@ export type CountryInfo = {
     continent:string,
 }
 
+export type FollowInfo = {
+  currentUsername:string,
+  usernameToFollow:string,
+}
+
+export type FollowInfos = FollowInfo[];
+
 export type AccountInfo = {
   id:                number,
   email:             string,
@@ -27,9 +34,11 @@ export type AccountInfo = {
   firstname:         string,
   lastname:          string,
   nationality:       string,
+  followedUsers:     string[],
   profilePictureCID: string,
 }
 
+export type AccountInfos = AccountInfo[];
 
 // export type ResponsiveCarouselProps = {
 //     spotCarouselInfos: SpotCarouselInfos;

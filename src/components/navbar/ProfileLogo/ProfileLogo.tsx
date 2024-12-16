@@ -8,16 +8,18 @@ import Button from "@/components/button/letsurf/signoutButton"
 export default async function ProfileLogo(){
     const session = await auth();
     let name = "";
+    let email = "";
     if (session){
     const user = session?.user
     const userEmail = user?.email  as string;
+    email = userEmail
     const existinguser = await prisma.user.findUnique({
       where: {
         email: userEmail,
       },
     });
     if (existinguser)
-      name = existinguser.firstname;
+      name = existinguser.username;
     }
   
 
@@ -27,10 +29,10 @@ export default async function ProfileLogo(){
 
               <div className={styles.user_menu}>
                 <div className={styles.user_container}>
-                  <ShowProfilePicture width="60" height="60"/> &nbsp;&nbsp; {name}
+                  <ShowProfilePicture width="60" height="60" email={email}/> &nbsp;&nbsp; {name}
                   <ul className={styles.dropdown}>
                      <li>
-                      <Link className={styles.icon} href="/account">
+                      <Link className={styles.icon} href={`/account/${name}`}>
                         My Profile
                       </Link>
                     </li>

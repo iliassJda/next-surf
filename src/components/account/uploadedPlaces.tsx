@@ -6,7 +6,9 @@ import PlacesImg from "../../../public/johnPork.jpg";
 import {useSession} from "next-auth/react";
 import React, {useEffect,useState} from 'react';
 import {getUploadedPlaces} from './getUploadedPlaces';
+import { AccountInfo } from "../../../types";
 import Link from "next/link";
+import { AccountBalanceWallet } from "@mui/icons-material";
 
 interface Place {
     id: number;
@@ -22,11 +24,11 @@ interface Place {
     userId: number;
   }
 
-export default function UploadedPlaces(probs: any) {
-    const { data: session, status } = useSession();
-    const [places, setPlaces] = useState<Place[]>([]);
-    const user = session?.user;
-    const userMail = user?.email as string;
+export default function UploadedPlaces(account: AccountInfo) {
+    // const { data: session, status } = useSession();
+     const [places, setPlaces] = useState<Place[]>([]);
+    // const user = session?.user;
+    const userMail = account.email as string;
     useEffect(()=> {
       async function fetchData() {
         const data = await getUploadedPlaces(userMail);
@@ -49,7 +51,7 @@ export default function UploadedPlaces(probs: any) {
               <div className={`${styles.place} ${styles.section}`}>
                 <div className={styles.left_section}>
                   <Image
-                    src={place.imageURL}
+                    src={account.profilePictureCID}
                     className={styles.img_places}
                     alt="User"
                     width={200}

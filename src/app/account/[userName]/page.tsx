@@ -9,14 +9,22 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { AccountInfo } from "../../../types";
 import ShowProfilePicture from "@/components/profilePicture/showPicture/getProfilePicture";
 import Uploader from "@/components/uploadCare/profilePictureUpload/uploader";
+import FollowedUser from "@/components/followedUser/followedUser";
+import Follow from "@/components/followButtons/followBtn";
+import UnFollow from "@/components/followButtons/unfollowBtn";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Account(props: any) {
   const params = useParams();
   const username = params?.userName as string;
+
   const [account, setAccount] = useState<AccountInfo>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingAccount, setIsLoadingAccount] = useState<boolean>(true);
+  const [isFollowing, setIsFollowing] = useState<boolean>(false);
+  const [isLoadingFollowing, setIsLoadingFollowing] = useState<boolean>(true);
+
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     const fetchAccount = async () => {
@@ -24,70 +32,106 @@ export default function Account(props: any) {
         const response = await fetch(
           `/api/account?userName=${encodeURIComponent(username)}`
         );
-        const data: AccountInfo = await response.json();
-        console.log("Fetched account data:", data);
-
-        if (response.ok) {
-          setAccount(data);
-        } else {
-          notFound()
+        if (!response.ok) {
+          notFound();
+          return;
         }
+
+        const data: AccountInfo = await response.json();
+        setAccount(data);
       } catch (error) {
         console.error("Failed to fetch account:", error);
         notFound();
       } finally {
-        setIsLoading(false);
+        setIsLoadingAccount(false);
       }
     };
 
     void fetchAccount();
   }, [username]);
 
-  const { data: session, status } = useSession();
+  useEffect(() => {
+    const fetchFollowing = async () => {
+      if (!session?.user?.username || !account?.username) {
+        setIsLoadingFollowing(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `/api/isfollowing?currentUsername=${session.user.username}&targetUsername=${account.username}`
+        );
+        const data: boolean = await response.json();
+        setIsFollowing(data);
+      } catch (error) {
+        console.error("Failed to check following status:", error);
+      } finally {
+        setIsLoadingFollowing(false);
+      }
+    };
+
+    if (!isLoadingAccount) {
+      fetchFollowing();
+    }
+  }, [account, session]);
 
   if (status === "loading") {
-    return <p>Checking Session</p>
+    return <p>Checking Session...</p>;
   }
+
   if (status === "unauthenticated") {
-    return <p>Please Log in</p>
+    return <p>Please log in.</p>;
   }
-  // Debug logging
-  console.log("Session status:", status);
-  console.log("Session data:", session);
 
-  if (isLoading) {
+  if (isLoadingAccount) {
     return <p>Loading account...</p>;
-  }else{
-
-  if (account === undefined) {
-    notFound();
   }
 
-  // Safely extract session username
-  const session_username = session?.user?.username;
-  const current_username = account.username;
+  if (!account) {
+    notFound();
+    return null;
+  }
 
-  // Determine if this is the logged-in user's account
-  const isOwnAccount = (current_username === session_username);
+  const isOwnAccount = session.user.username === account.username;
 
-  // Render based on whether it's the user's own account
+  if (isLoadingFollowing) {
+    return <p>Loading following status...</p>;
+  }
+
   return (
     <div className={styles.container}>
       <div className={`${styles.section} py-4 px-5`}>
         <h2>Account</h2>
       </div>
+
+      <div className={`${styles.section} py-4 px-5`}>
+        {!isOwnAccount && (
+          isFollowing ? (
+            <UnFollow
+              currentUsername={session.user.username}
+              usernameToFollow={account.username}
+            />
+          ) : (
+            <Follow
+              currentUsername={session.user.username}
+              usernameToFollow={account.username}
+            />
+          )
+        )}
+      </div>
+
       <div className={`${styles.section} py-4 px-5`}>
         <h5>Personal Information</h5>
       </div>
       <div className={`${styles.section} px-5`}>
         <div className={styles.left_selection}>
-          <ShowProfilePicture width="150" height="150" account/>
+          <ShowProfilePicture width="150" height="150" email={account.email} />
           <br />
           {isOwnAccount && <Uploader />}
         </div>
         <div className={`${styles.right_section} ${styles.flex}`}>
           <div className={styles.left_section}>
-            <p className="py-1 px-2">User Name: {current_username}</p>
+            <p className="py-1 px-2">User Name: {account.username}</p>
             <p className="py-1 px-2">Nationality: {account.nationality}</p>
             {isOwnAccount && (
               <>
@@ -102,7 +146,7 @@ export default function Account(props: any) {
               <Link
                 key={account.id}
                 className={`${styles.submit} py-2 px-2`}
-                href="./account_update"
+                href="/account_update"
               >
                 <i className="bi bi-pencil-square"></i> Edit Personal Information
               </Link>
@@ -110,14 +154,21 @@ export default function Account(props: any) {
           )}
         </div>
       </div>
+
       <div className={`${styles.section} py-4 px-5`}>
         <h5>Uploaded Places</h5>
       </div>
-      <UploadedPlaces />
+      <UploadedPlaces account={account} />
+
       <div className={`${styles.section} py-4 px-5`}>
         <h5>Saved Places</h5>
       </div>
       <SavedPlaces />
+
+      <div className={`${styles.section} py-4 px-5`}>
+        <h5>Followed Users</h5>
+      </div>
+      <FollowedUser username={account.username} />
     </div>
   );
-}}
+}
