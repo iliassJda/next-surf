@@ -153,7 +153,7 @@ const updateProfile = async (formData: FormData) => {
     },
   });
 
-  redirect("/account");
+  redirect(`/account/${user.username}`);
 };
 
 export { register, loginManual, loginGoogle, updateProfile };

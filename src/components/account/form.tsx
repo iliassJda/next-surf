@@ -40,13 +40,13 @@ export default function Form(probs: any) {
       void fetchUserData();
 
       const handleSubmit = async (formData: FormData) => {
-        const res = await updateProfile(formData);
+       const res = await updateProfile(formData);
         if (res.status == "error") {
           showToast("error", res.message);
         } else {
           showToast("success", res.message);
         }
-      };
+      }; 
 
   return (
     <form action={handleSubmit}>

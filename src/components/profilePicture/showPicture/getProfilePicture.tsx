@@ -15,19 +15,16 @@ export default function ShowProfilePicture(probs: any) {
     const { data: session, status } = useSession();
     const user = session?.user;
     const userMail = user?.email as string;
+    const email = probs.email as string;
     const [imageURL, setImageURL] = useState<string>("/images/defaultProfile.png"); // Default image
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchProfilePicture = async () => {
             if (status === "authenticated") {
-                if(user?.image){
-                    setImageURL(user?.image);
-                }
-                else {
-                    try {
+                try {
                         console.log(userMail)
-                        const newImageURL = await getProfilePictureURLFromPrisma(userMail);
+                        const newImageURL = await getProfilePictureURLFromPrisma(email);
                         if(newImageURL !== "none") {
                             setImageURL(newImageURL);
                         }
@@ -36,7 +33,7 @@ export default function ShowProfilePicture(probs: any) {
                     } finally {
                         setIsLoading(false);
                     }
-                }
+                
             }
                 else {
                 // If not authenticated, stop loading
@@ -50,6 +47,9 @@ export default function ShowProfilePicture(probs: any) {
     if (isLoading) {
         return <div>Loading...</div>;
     }
+
+    
+   
 
     return (
         <div>

@@ -11,17 +11,29 @@ datasource db {
 }
 
 model User {
-  id                Int         @id @default(autoincrement())
-  email             String      @unique
-  username          String      @unique
+  id                Int          @id @default(autoincrement())
+  email             String       @unique
+  username          String       @unique
   password          String
   firstname         String
   lastname          String
   nationality       String
-  profilePictureCID String      @default("none")
-  posts             SurfSpot[] @relation("UserPosts")
+  profilePictureCID String       @default("none")
+  posts             SurfSpot[]   @relation("UserPosts")
   reviews           Review[]
+  followedUsers     UserFollows[] @relation("UserFollowing")
+  followingUsers    UserFollows[] @relation("UserFollowers")
   SpotImage         SpotImage[]
+}
+
+model UserFollows {
+  id                Int  @id @default(autoincrement())
+  followerId        Int
+  followedId        Int
+  follower          User @relation("UserFollowers", fields: [followerId], references: [id])
+  followed          User @relation("UserFollowing", fields: [followedId], references: [id])
+
+  @@unique([followerId, followedId]) // Prevent duplicate follow relationships
 }
 
 model SurfSpot {
