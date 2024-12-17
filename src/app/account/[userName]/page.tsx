@@ -144,7 +144,7 @@ export default function Account(props: any) {
           <br />
           {isOwnAccount && (
             <div>
-              <Uploader />
+              <Uploader/>
               <br />
               <br />
               <Link

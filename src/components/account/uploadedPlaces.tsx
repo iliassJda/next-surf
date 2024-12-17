@@ -42,8 +42,8 @@ export default function UploadedPlaces(probs: any) {
           ) : (
             <div>
             {places.map((place, index:number) => (   
-              <div key={index} className={`${styles.place} ${styles.section}`}>
               <Link className={styles.nope} href={`/places/${place.country}/${place.city}/${place.title}/${place.longitude}/${place.latitude}`}>
+              <div key={index} className={`${styles.place} ${styles.section}`}>
                 <div className={styles.left_section}>
                   <Image
                     src={place.imageURL}
@@ -60,8 +60,8 @@ export default function UploadedPlaces(probs: any) {
                     <i className="bi bi-geo-alt"></i>{place.city}, {place.country}
                   </p>
                 </div>
-              </Link> 
               </div>
+              </Link> 
               ))}
               </div>
           )}
