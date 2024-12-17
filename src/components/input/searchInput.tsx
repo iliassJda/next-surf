@@ -2,7 +2,7 @@
 
 import styles from "./input.module.css";
 import SearchLogo from "../navbar/Searchlogo/logo";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 import { useState, useEffect } from "react";
 
@@ -11,11 +11,35 @@ export default function SearchBar() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams?.get("q") || "";
   const [inputValue, setInputValue] = useState(searchQuery);
+  const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 820);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleVisibility = () => {
+    if (!isLargeScreen) setIsVisible((prev) => !prev);
+  };
+
+  useEffect(() => {
+    setInputValue(searchQuery); // Synchronize input with the query parameter on mount or URL update
+  }, [searchQuery]);
+
+  useEffect(() => {
+    // if (pathname !== "/search") return;
+
     const handler = setTimeout(() => {
+      // console.log(inputValue, searchQuery);
       if (inputValue !== searchQuery) {
         const encodedQuery = encodeURIComponent(inputValue);
+
         router.push(`/search?q=${encodedQuery}`);
       }
     }, 300); // 300ms debounce
@@ -35,17 +59,22 @@ export default function SearchBar() {
   // };
 
   return (
-    <div id={styles.search_div}>
-      <input
-        // value={query}
-        value={inputValue}
-        // onChange={(event) => setQuery(event.currentTarget.value)}
-        onChange={(event) => setInputValue(event.currentTarget.value)}
-        type="text"
-        id={styles.search_bar}
-        placeholder="Search a place to surf"
-      />
-      <SearchLogo />
+    <div id={isVisible ? styles.prova : styles.search_div}>
+      <>
+        {(isLargeScreen || (isLargeScreen == false && isVisible == true)) && (
+          <input
+            // value={query}
+            value={inputValue}
+            // onChange={(event) => setQuery(event.currentTarget.value)}
+            onChange={(event) => setInputValue(event.currentTarget.value)}
+            type="text"
+            id={styles.search_bar}
+            placeholder="Search a place to surf"
+            className={styles.small_screen}
+          />
+        )}
+      </>
+      <SearchLogo onClick={toggleVisibility} />
     </div>
   );
 }

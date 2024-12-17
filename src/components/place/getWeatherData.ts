@@ -3,7 +3,6 @@
 
 export async function getWeatherData(latitude: number, longitude: number, params: Array<any>, startDate: string, endDate: string) {
 
-
     const url = new URL('https://api.stormglass.io/v2/weather/point');
     url.searchParams.append('lat', latitude.toString());
     url.searchParams.append('lng', longitude.toString());

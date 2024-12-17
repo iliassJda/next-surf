@@ -8,13 +8,14 @@ import { signIn, auth } from "@/lib/auth";
 const register = async (formData: FormData) => {
   const firstname = formData.get("firstname") as string;
   const lastname = formData.get("lastname") as string;
+  const username = formData.get("username") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const nationality = formData.get("nationality") as string;
 
   if (!firstname || !lastname || !email || !password) {
     return {
-      status: "error",
+      toast: "error",
       message: "Please fill all the fields.",
     };
   }
@@ -25,10 +26,23 @@ const register = async (formData: FormData) => {
     },
   });
 
+  const existingusername = await prisma.user.findUnique({
+    where: {
+      username: username,
+    },
+  });
+
   if (existinguser) {
     return {
-      status: "error",
-      message: `User ${firstname} with ${email} already exists!`,
+      toast: "error",
+      message: `User with email: "${email}" already exists!`,
+    };
+  }
+
+  if (existingusername) {
+    return {
+      toast: "error",
+      message: `User with username: "${username}" already exists!`,
     };
   }
 
@@ -37,6 +51,7 @@ const register = async (formData: FormData) => {
   await prisma.user.create({
     data: {
       email,
+      username,
       password: hashedpassword,
       firstname,
       lastname,
@@ -48,16 +63,14 @@ const register = async (formData: FormData) => {
 };
 
 const loginGoogle = async () => {
-
   // await signIn("google", { redirect: false })
-  const res = await signIn("google", { redirectTo: "/" })
+  const res = await signIn("google", { redirectTo: "/" });
 
   return {
-    status: "success",
+    toast: "success",
     message: "Successfully logged in!",
   };
-
-}
+};
 
 const loginManual = async (formData: FormData) => {
   const email = formData.get("email") as string;
@@ -65,9 +78,9 @@ const loginManual = async (formData: FormData) => {
 
   if (!email || !password) {
     return {
-      status: "error",
-      message: "Please fill in your email and password"
-    }
+      toast: "error",
+      message: "Please fill in your email and password",
+    };
   }
 
   const user = await prisma.user.findUnique({
@@ -78,7 +91,7 @@ const loginManual = async (formData: FormData) => {
 
   if (!user) {
     return {
-      status: "error",
+      toast: "error",
       message: "User does not exist. Please register first!",
     };
   }
@@ -87,7 +100,7 @@ const loginManual = async (formData: FormData) => {
 
   if (!valid) {
     return {
-      status: "error",
+      toast: "error",
       message: "Password is not valid",
     };
   }
@@ -96,21 +109,18 @@ const loginManual = async (formData: FormData) => {
     redirectTo: "/",
     email,
     password,
-  })
-
-
+  });
 
   return {
-    status: "success",
+    toast: "success",
     message: "Successfully logged in!",
   };
 };
 
 const updateProfile = async (formData: FormData) => {
   const session = await auth();
-  const user = session?.user
+  const user = session?.user;
   const email = user?.email as string;
-
   const firstname = formData.get("firstname") as string;
   const lastname = formData.get("lastname") as string;
   const nationality = formData.get("nationality") as string;
@@ -124,11 +134,10 @@ const updateProfile = async (formData: FormData) => {
     },
   });
 
-  if (password == "" && existinguser)
-    password = existinguser.password
+  if (password == "" && existinguser) password = existinguser.password;
   else if (password !== verpassword) {
     return {
-      status: "error",
+      toast: "error",
       message: `Passwords doesn't match!`,
     };
   }
@@ -144,7 +153,95 @@ const updateProfile = async (formData: FormData) => {
     },
   });
 
-  redirect("/account");
+  redirect(`/account/${user.username}`);
 };
 
-export { register, loginManual, loginGoogle, updateProfile };
+const getUser = async (userEmail: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: userEmail,
+    },
+  });
+
+  console.log("From server: ", user);
+  return user;
+};
+
+const SavePlace = async (
+  userId: number,
+  latitude: string,
+  longitude: string
+) => {
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      saved: {
+        connect: {
+          latitude_longitude: {
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+          },
+        },
+      },
+    },
+    include: {
+      saved: true,
+    },
+  });
+};
+
+const UnsavePlace = async (
+  userId: number,
+  latitude: string,
+  longitude: string
+) => {
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      saved: {
+        disconnect: {
+          latitude_longitude: {
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+          },
+        },
+      },
+    },
+    include: {
+      saved: true,
+    },
+  });
+};
+
+const isPlaceSaved = async (
+  userId: number,
+  latitude: string,
+  longitude: string
+) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+      saved: {
+        some: {
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+        },
+      },
+    },
+    include: {
+      saved: true,
+    },
+  });
+  return !!user;
+};
+
+export {
+  register,
+  loginManual,
+  loginGoogle,
+  updateProfile,
+  getUser,
+  SavePlace,
+  UnsavePlace,
+  isPlaceSaved,
+};

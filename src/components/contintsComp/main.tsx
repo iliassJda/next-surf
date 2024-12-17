@@ -12,17 +12,17 @@ export default function ContinentChanger() {
   function handleCLick(newIndex: number): void{
     switch (newIndex) {
         case 0:
-            redirect("/asia");
+            redirect("/continent/asia");
         case 1:
-            redirect("/europe");
+            redirect("/continent/europe");
         case 2:
-            redirect("/north-america");
+            redirect("/continent/northamerica");
         case 3:
-            redirect("/south-america");
+            redirect("/continent/southamerica");
         case 4:
-            redirect("/oceania");
+            redirect("/continent/oceania");
         case 5:
-            redirect("/africa");
+            redirect("/continent/africa");
 
     }
   }

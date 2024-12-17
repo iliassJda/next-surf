@@ -4,15 +4,19 @@ import { PrismaClient } from '@prisma/client';
 import prisma from "@/lib/db";
 
 
-
-async function getSurfSpotsFromPrisma(countryName: string){
-    const allSpots = await prisma.post.findMany({
+async function getSurfSpotsFromPrisma(continentname: string){
+    const allSpots = await prisma.surfSpot.findMany({
         where: {
-            userID: countryName,
+            continent: continentname,
         },
         select: {
             title: true,
-            content: true,
+            country:true,
+            city:true,
+            longitude:true,
+            latitude:true,
+            imageURL: true,
+            id:true,
         },
     });
     try {
@@ -31,11 +35,11 @@ async function getSurfSpotsFromPrisma(countryName: string){
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
-    const country = searchParams.get("country");
+    const continentname = searchParams.get("continentName");
 
-    if (!country) {
+    if (!continentname) {
         return NextResponse.json(
-            { error: "Email parameter is required" },
+            { error: "Continent parameter is required" },
             { status: 400 }
         );
     }
@@ -43,13 +47,13 @@ export async function GET(request: NextRequest) {
     try {
         // @ts-ignore
 
-        let userProfilePictureURL = await getSurfSpotsFromPrisma(country)
+        let surfSpots = await getSurfSpotsFromPrisma(continentname)
 
-        return NextResponse.json(userProfilePictureURL, {status: 200});
+        return NextResponse.json(surfSpots, {status: 200});
     } catch (e) {
         return NextResponse.json(
-            {error: "get profile picture request failed"},
-            {status: 500}
+            {error: "get surf spot request failed"},
+            {status: 501}
         );
     }
 

@@ -8,23 +8,23 @@ import CountrySelection from "../selection/selection";
 
 import { register } from "@/action/user";
 
-import { showToast } from "../toast/toast";
+import { doToast } from "../toast/toast";
 
 export default function RegisterForum() {
   const handleSubmit = async (formData: FormData) => {
     const res = await register(formData);
-    console.log("im here!");
-    if (res.status == "error") {
-      showToast("error", res.message);
-    } else {
-      showToast("success", res.message);
-    }
+    // console.log("im here!");
+    doToast(res);
   };
 
   return (
     <form action={handleSubmit} className={styles.myForm}>
       <div className={styles.inputContainer}>
         <Input type="email" placeholder="EMAIL" isRequired={true} />
+      </div>
+
+      <div className={styles.inputContainer}>
+        <Input type="username" placeholder="USERNAME" isRequired={true} />
       </div>
 
       <div className={styles.inputContainer}>
@@ -48,7 +48,7 @@ export default function RegisterForum() {
       </div>
 
       <div className={styles.inputContainer}>
-        <CountrySelection className={selectionstyles.rounded}/>
+        <CountrySelection className={selectionstyles.rounded} />
       </div>
 
       <RegisterButton title="Let's Surf" />

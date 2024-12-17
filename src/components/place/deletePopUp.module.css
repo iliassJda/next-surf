@@ -1,0 +1,58 @@
+/* modal.module.css */
+
+.popUpOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    color: black;
+}
+
+.popUpContent {
+    padding: 20px;
+    border-radius: 20px;
+    width: 300px;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.popUpActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.popUpActions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+}
+
+.cancelButton {
+    background-color: #f0f0f0;
+}
+
+.deleteButton {
+    background-color: #f5422f;
+    color: white;
+}
+
+
+
+.buttonIcon{
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}

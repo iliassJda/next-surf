@@ -1,366 +1,485 @@
-"use client"
+"use client";
 
+import { SetStateAction, useEffect, useRef, useState } from "react";
+import { getWeatherData } from "@/components/place/getWeatherData";
+import Styles from "@/components/place/place.module.css";
+import * as React from "react";
+import WavesIcon from "@mui/icons-material/Waves";
+import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
+import AirIcon from "@mui/icons-material/Air";
+import WaterIcon from "@mui/icons-material/Water";
+import NorthEastIcon from "@mui/icons-material/NorthEast";
 
+import RemoveReview from "../button/removeReview/removeReview";
 
-import {SetStateAction, useEffect, useState} from "react";
-import {getWeatherData} from "@/components/place/getWeatherData";
-import Styles from "@/components/place/place.module.css"
-import * as React from 'react';
-import WavesIcon from '@mui/icons-material/Waves';
-import WaterDropIcon from '@mui/icons-material/WaterDrop';
-import ThermostatIcon from '@mui/icons-material/Thermostat';
-import AirIcon from '@mui/icons-material/Air';
-import WaterIcon from '@mui/icons-material/Water';
-import NorthEastIcon from '@mui/icons-material/NorthEast';
+import ReviewButton from "../button/review/review";
 
-import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 
+import Map from "@/components/place/map";
 
-import EastIcon from '@mui/icons-material/East';
+import HeightIcon from "@mui/icons-material/Height";
 
-import WestIcon from '@mui/icons-material/West';
-
-import HeightIcon from '@mui/icons-material/Height';
-
-import Map from "@/components/place/map"
-
-import BootstrapCarouselWithoutArrows from "@/components/place/carousel"
+import BootstrapCarouselWithoutArrows from "@/components/place/carousel";
+import SurfingIcon from "@mui/icons-material/Surfing";
 
 import GetDirectionIcon from "@/components/place/directionArrow";
+import { getReviews } from "@/action/review";
+import { getUser, SavePlace, isPlaceSaved, UnsavePlace } from "@/action/user";
+import { Review } from "@prisma/client";
 
-export default function Spot({country, city, title, longitude, latitude}: {
-    country: string,
-    city: string,
-    title: string,
-    longitude: number,
-    latitude: number
+import {
+  getSpotImages,
+  handleSpotImage,
+} from "@/components/place/handleSpotImage";
+import Button2 from "@/components/materialUIButtons/button2";
+import Style from "@/components/uploadCare/profilePictureUpload/upload.module.css";
+import { uploadFile } from "@uploadcare/upload-client";
+import { showToast } from "@/components/toast/toast";
+import { useSession } from "next-auth/react";
+
+import SpotDelete from "@/components/place/postDeletePopUp";
+import prisma from "@/lib/db";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import { User } from "next-auth";
+
+import { verifyUser } from "@/components/place/verifyUser";
+
+import { amber } from "@mui/material/colors";
+
+export default function Spot({
+  country,
+  city,
+  title,
+  longitude,
+  latitude,
+}: {
+  country: string;
+  city: string;
+  title: string;
+  longitude: number;
+  latitude: number;
 }) {
+  const [waterTemperatures, setWaterTemperatures] = useState([]);
+  const [airTemperatures, setAirTemperatures] = useState([]);
+  const [swellDirections, setSwellDirections] = useState([]);
+  const [swellHeights, setSwellHeights] = useState([]);
+  const [waveDirections, setWaveDirections] = useState([]);
+  const [waveHeights, setWaveHeights] = useState([]);
+  const [wavePeriods, setWavePeriods] = useState([]);
+  const [windWaveDirections, setWindWaveDirections] = useState([]);
+  const [windDirections, setWindDirections] = useState([]);
+  const [windSpeeds, setWindSpeeds] = useState([]);
+  const [precipitations, setPrecipitations] = useState([]);
+  const [imageUrls, setImageUrl] = useState([]);
 
-    const [waterTemperatures, setWaterTemperatures] = useState([]);
-    const [airTemperatures, setAirTemperatures] = useState([]);
-    const [swellDirections, setSwellDirections] = useState([]);
-    const [swellHeights, setSwellHeights] = useState([]);
-    const [waveDirections, setWaveDirections] = useState([]);
-    const [waveHeights, setWaveHeights] = useState([]);
-    const [wavePeriods, setWavePeriods] = useState([]);
-    const [windWaveDirections, setWindWaveDirections] = useState([]);
-    const [windDirections, setWindDirections] = useState([]);
-    const [windSpeeds, setWindSpeeds] = useState([]);
-    const [precipitations, setPrecipitations] = useState([]);
-    const [imageUrl, setImageUrl] = useState('/images/defaultProfile.png');
+  const [username, setUsername] = useState(() => {
+    const savedState = sessionStorage.getItem("username");
+    return savedState !== null ? JSON.parse(savedState) : false;
+  });
 
-    const startDate = new Date()
-    //*1000 because in milliseconds
-    const endDate = new Date(new Date(startDate).getTime() + 24 * 60 * 60 * 1000);
+  const [userId, setUserId] = useState(() => {
+    const savedState = sessionStorage.getItem("userId");
+    return savedState !== null ? JSON.parse(savedState) : false;
+  });
 
-    const start = new Date().toISOString()
-    const end = new Date(new Date(start).getTime() + 24 * 60 * 60 * 1000).toISOString()
+  const [reviews, setReviews] = useState([]);
+  const [spotRating, setSpotRating] = useState(0);
+  const [saved, setSaved] = useState(false);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { data: session, status } = useSession();
+  const user = session?.user;
+  const userEmail = user?.email;
 
-    function getHours() {
-        const hours: number[] = [];
+  const start = new Date().toISOString();
 
+  const [adminUser, setAdminUser] = useState(() => {
+    const savedState = sessionStorage.getItem("adminStatus");
+    return savedState !== null ? JSON.parse(savedState) : false;
+  });
 
-        for (
-            let currentDate = startDate;
-            currentDate < endDate;
-            currentDate.setHours(currentDate.getHours() + 1)
-        ) {
-            const currentHour = currentDate.getHours();
+  useEffect(() => {
+    const reviews = async () => {
+      const data = await getReviews(city, title);
+      setReviews(data?.review);
+      setSpotRating(data?.spotRating as number);
+    };
 
-            hours.push(currentHour);
+    const user = async () => {
+      const user = session?.user;
+      const userEmail = user?.email;
+      if (userEmail) {
+        const newUser = await getUser(userEmail as string);
+        console.log(
+          "This is what the current user ID should be: ",
+          newUser?.id
+        );
+        sessionStorage.setItem("username", JSON.stringify(newUser?.username));
+        setUsername(newUser?.username);
+        // console.log("This is the current user ID: ", userId);
+        sessionStorage.setItem("userId", JSON.stringify(newUser?.id));
+        setUsername(newUser?.id);
+      }
+    };
 
+    const weatherData = async () => {
+      const data = await getWeatherData(
+          latitude,
+        longitude,
+        [
+          "waterTemperature",
+          "airTemperature",
+          "swellDirection",
+          "swellHeight",
+          "waveDirection",
+          "waveHeight",
+          "wavePeriod",
+          "windWaveDirection",
+          "windDirection",
+          "windSpeed",
+          "precipitation",
+        ],
+        start,
+        start
+      );
 
-        }
-        return hours;
+      setWaterTemperatures(
+        data.hours?.map(
+          (hour: {
+            waterTemperature: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.waterTemperature?.noaa || []
+        ) || []
+      );
+
+      setAirTemperatures(
+        data.hours?.map(
+          (hour: {
+            airTemperature: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.airTemperature?.noaa || []
+        ) || []
+      );
+
+      setSwellDirections(
+        data.hours?.map(
+          (hour: {
+            swellDirection: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.swellDirection?.noaa || []
+        ) || []
+      );
+
+      setSwellHeights(
+        data.hours?.map(
+          (hour: {
+            swellHeight: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.swellHeight?.noaa || []
+        ) || []
+      );
+
+      setWaveDirections(
+        data.hours?.map(
+          (hour: {
+            waveDirection: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.waveDirection?.noaa || []
+        ) || []
+      );
+
+      setWaveHeights(
+        data.hours?.map(
+          (hour: {
+            waveHeight: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.waveHeight?.noaa || []
+        ) || []
+      );
+
+      setWavePeriods(
+        data.hours?.map(
+          (hour: {
+            wavePeriod: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.wavePeriod?.noaa || []
+        ) || []
+      );
+
+      setWindWaveDirections(
+        data.hours?.map(
+          (hour: {
+            windWaveDirection: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.windWaveDirection?.noaa || []
+        ) || []
+      );
+
+      setWindDirections(
+        data.hours?.map(
+          (hour: {
+            windDirection: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.windDirection?.noaa || []
+        ) || []
+      );
+
+      setWindSpeeds(
+        data.hours?.map(
+          (hour: {
+            windSpeed: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.windSpeed?.noaa || []
+        ) || []
+      );
+
+      setPrecipitations(
+        data.hours?.map(
+          (hour: {
+            precipitation: {
+              noaa: any;
+              value: any;
+            };
+          }) => hour?.precipitation?.noaa || []
+        ) || []
+      );
+    };
+
+    const getImageUrl = async () => {
+      const imageUrls = await getSpotImages(city, title);
+      // @ts-ignore
+      setImageUrl(
+        imageUrls.map((imageUrl) => {
+          if (imageUrl.imageURL === "none") {
+            return "/images/defaultProfile.png";
+          } else {
+            return imageUrl.imageURL;
+          }
+        })
+      );
+    };
+
+    const isAdmin = async () => {
+      if (await verifyUser(city, title, userEmail as string)) {
+        sessionStorage.setItem("adminStatus", JSON.stringify(true));
+        setAdminUser(true);
+      } else {
+        sessionStorage.setItem("adminStatus", JSON.stringify(false));
+        setAdminUser(false);
+      }
+    };
+
+    void weatherData();
+    void getImageUrl();
+    void reviews();
+    void isAdmin();
+    void user();
+  }, []);
+
+  const handleSave = async () => {
+    if (!saved) {
+      const res = await SavePlace(userId, latitude, longitude);
+      setSaved(true);
     }
+    if (saved) {
+      const res = await UnsavePlace(userId, latitude, longitude);
+      setSaved(false);
+    }
+  };
+  useEffect(() => {
+    const isSaved = async () => {
+      if (await isPlaceSaved(userId, latitude, longitude)) setSaved(true);
+      else setSaved(false);
+    };
+    isSaved();
+  }, [userId, latitude, longitude]);
 
-    useEffect(() => {
-
-        const weatherData = async () => {
-            const data = await getWeatherData(longitude, latitude,
-                [
-                    "waterTemperature",
-                    "airTemperature",
-                    "swellDirection",
-                    "swellHeight",
-                    "waveDirection",
-                    "waveHeight",
-                    "wavePeriod",
-                    "windWaveDirection",
-                    "windDirection",
-                    "windSpeed",
-                    "precipitation"
-                ],
-                start, start);
-
-            setWaterTemperatures(data.hours?.map((hour: {
-                waterTemperature: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.waterTemperature?.noaa || []) || []);
-
-            setAirTemperatures(data.hours?.map((hour: {
-                airTemperature: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.airTemperature?.noaa || []) || []);
-
-            setSwellDirections(data.hours?.map((hour: {
-                swellDirection: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.swellDirection?.noaa || []) || []);
-
-            setSwellHeights(data.hours?.map((hour: {
-                swellHeight: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.swellHeight?.noaa || []) || []);
-
-            setWaveDirections(data.hours?.map((hour: {
-                waveDirection: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.waveDirection?.noaa || []) || []);
-
-            setWaveHeights(data.hours?.map((hour: {
-                waveHeight: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.waveHeight?.noaa || []) || []);
-
-            setWavePeriods(data.hours?.map((hour: {
-                wavePeriod: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.wavePeriod?.noaa || []) || []);
-
-            setWindWaveDirections(data.hours?.map((hour: {
-                windWaveDirection: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.windWaveDirection?.noaa || []) || []);
-
-            setWindDirections(data.hours?.map((hour: {
-                windDirection: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.windDirection?.noaa || []) || []);
-
-            setWindSpeeds(data.hours?.map((hour: {
-                windSpeed: {
-                    noaa: any;
-                    value: any;
-                };
-            }) => hour?.windSpeed?.noaa || []) || []);
-
-            setPrecipitations(data.hours?.map((hour : {
-                precipitation: {
-                    noaa: any;
-                    value: any;
-                }
-            }) => hour?.precipitation?.noaa || []) || []);
-
-        }
-
-
-        void weatherData()
-       // void getImageUrl()
-
-
-    }, []);
-
-
-
-    const hourLabels = getHours();
-
-    console.log(latitude, longitude);
-
-    const reviews = [
-        {
-            author: "SurfBrah23",
-            rating: 4.5,
-            text: "Awesome waves, perfect for intermediate surfers. Great beach break with consistent swells. Water was clean and the view is incredible.",
-            date: "2023-11-15"
-        },
-        {
-            author: "OceanRider",
-            rating: 5,
-            text: "Absolutely stunning location! The waves were epic and the local surf community is super friendly. Definitely coming back.",
-            date: "2023-12-02"
-        },
-        {
-            author: "WindChaser",
-            rating: 3.5,
-            text: "Decent spot, but can get crowded during peak season. Wind conditions were tricky, but still managed to catch some good rides.",
-            date: "2024-01-10"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-
-        {
-            author: "BeachLover",
-            rating: 4,
-            text: "Beautiful scenery, clean beach, and consistent waves. Parking can be a bit challenging, but overall a great surf destination.",
-            date: "2023-10-25"
-        },
-        {
-            author: "SaltySurfer",
-            rating: 4.5,
-            text: "Perfect for longboarding. Gentle waves in the morning, more challenging breaks later in the day. Highly recommend for all skill levels.",
-            date: "2024-02-14"
-        }
-    ];
-
-
-    return (
-        <div className={Styles.mainContainer}>
-            <div className={Styles.titleContainer}>
-                <h1>{title}</h1>
-            </div>
-            <div className={Styles.map}>
-                <Map city={city} country={country} title={title} longitude={longitude} latitude={latitude} />
-            </div>
-            <div className={Styles.twoCardContainer}>
-
-                <div className={Styles.weatherImages}>
-
-                    <div className={Styles.weatherData}>
-                        <div className={Styles.dataGroup}>
-                            <div className={Styles.waterData}>
-                                <div><WaterDropIcon/>Water Temperature: {waterTemperatures} °C</div>
-                                <div><WaterDropIcon/>Precipitation: {precipitations} mm/h</div>
-                            </div>
-
-                            <div className={Styles.airData}>
-                                <div><ThermostatIcon/>Temperature: {airTemperatures} °C</div>
-                                <GetDirectionIcon degrees={windDirections[0]} text={"Wind Direction"}/>
-                                <div><AirIcon/>Wind Speed:{windSpeeds} m/s</div>
-                                </div>
-                        </div>
-
-                        <div className={Styles.waveData}>
-                                <div className={Styles.directionData}>
-                                    <GetDirectionIcon degrees={swellDirections[0]} text={"Swell Direction"}/>
-                                    <GetDirectionIcon degrees={waveDirections[0]} text={"Wave Direction"}/>
-                                    <GetDirectionIcon degrees={windWaveDirections[0]} text={"Wind Wave Direction"}/>
-                                </div>
-                                <div className={Styles.heights}>
-                                    <div><HourglassBottomIcon/>Wave Period: {wavePeriods}s</div>
-                                    <div><HeightIcon/>Wave Height: {waveHeights}m</div>
-                                    <div><HeightIcon/>Swell Height: {swellHeights}m</div>
-                                </div>
-
-                        </div>
-
-
-                    </div>
-
-                    <div className={Styles.greyContainer}>
-                        <BootstrapCarouselWithoutArrows></BootstrapCarouselWithoutArrows>
-                    </div>
-                </div>
-                <div className={`${Styles.greyContainer} ${Styles.reviewContainer}`}>
-                    {reviews.map((review, index) => (
-                        <div key={index} className={Styles.singleReview}>
-                            <div className={Styles.reviewHeader}>
-                                <span className={Styles.reviewAuthor}>{review.author}</span>
-                                <span className={Styles.reviewRating}>{review.rating}/5</span>
-                            </div>
-                            <p className={Styles.reviewText}>{review.text}</p>
-                            <div className={Styles.reviewFooter}>
-                                <span className={Styles.reviewDate}>{review.date}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+  return (
+    <div className={Styles.mainContainer}>
+      <div className={Styles.titleContainer}>
+        <div className={Styles.ratingContainer}>
+          <h1>
+            {title} | {spotRating} <SurfingIcon fontSize="large" />
+          </h1>
         </div>
-    )
+        <div className={Styles.SaveAndDelete}>
+          <div className={Styles.saveContainer} onClick={handleSave}>
+            {saved ? (
+              <i className="bi bi-bookmark-fill"> Remove</i>
+            ) : (
+              <i className="bi bi-bookmark"> Save</i>
+            )}
+          </div>
+          {adminUser && session ? (
+            <SpotDelete
+              spotCity={city}
+              spotTitle={title}
+              longitude={longitude}
+              latitude={latitude}
+            ></SpotDelete>
+          ) : null}
+        </div>
+      </div>
+      <div className={Styles.map}>
+        <Map
+          city={city}
+          country={country}
+          title={title}
+          longitude={longitude}
+          latitude={latitude}
+        />
+      </div>
+      <div className={Styles.twoCardContainer}>
+        <div className={Styles.weatherImages}>
+          <div className={Styles.weatherData}>
+              <div className={Styles.dataGroup}>
+                  <div className={Styles.waterData}>
+                      <div>
+                          <WaterDropIcon/>
+                          Water Temperature: {waterTemperatures} °C
+                      </div>
+                      <div>
+                          <WaterDropIcon/>
+                          Precipitation: {precipitations} mm/h
+                      </div>
+                  </div>
+                  <div className={Styles.airData}>
+                      <div>
+                          <ThermostatIcon/>
+                          Temperature: {airTemperatures} °C
+                      </div>
+                      <GetDirectionIcon
+                          degrees={windDirections[0]}
+                          text={"Wind Direction"}
+                      />
+                      <div>
+                          <AirIcon/>
+                          Wind Speed:{windSpeeds} m/s
+                      </div>
+                  </div>
+              </div>
+              <div className={Styles.waveData}>
+                  <div className={Styles.directionData}>
+                      <GetDirectionIcon
+                          degrees={swellDirections[0]}
+                          text={"Swell Direction"}
+                      />
+                      <GetDirectionIcon
+                          degrees={waveDirections[0]}
+                          text={"Wave Direction"}
+                      />
+                      <GetDirectionIcon
+                          degrees={windWaveDirections[0]}
+                          text={"Wind Wave Direction"}
+                      />
+                  </div>
+                  <div className={Styles.heights}>
+                <div>
+                  <HourglassBottomIcon />
+                  Wave Period: {wavePeriods}s
+                </div>
+                <div>
+                  <HeightIcon />
+                  Wave Height: {waveHeights}m
+                </div>
+                <div>
+                  <HeightIcon />
+                  Swell Height: {swellHeights}m
+                </div>
+              </div>
+            </div>
+            <div className={Styles.greyContainer}>
+              <BootstrapCarouselWithoutArrows
+                imageURLS={imageUrls}
+              ></BootstrapCarouselWithoutArrows>
+              <input
+                className={Style.input}
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={async (event) => {
+                  const file = event.target.files?.[0];
+                  if (!file) return;
+
+                  try {
+                    // Upload the file to Uploadcare
+                    const uploadedFile = await uploadFile(file, {
+                      publicKey: process.env
+                        .NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
+                    });
+
+                    // Construct the file URL
+                    const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
+                    await handleSpotImage(city, title, userEmail, fileUrl);
+
+                    showToast("success", "Image Uploaded Successfully");
+                  } catch (err) {
+                    console.log(err);
+                  }
+                }}
+              />
+              {session ? (
+                <button
+                  className={Styles.customButton}
+                  onClick={() => {
+                    fileInputRef.current?.click();
+                  }}
+                >
+                  Upload your experience!
+                </button>
+              ) : null}
+            </div>
+          </div>
+        </div>
+        {/* ${Styles.greyContainer} */}
+        <div className={Styles.reviewContainer}>
+          <h1>Reviews</h1>
+          <div className={` ${Styles.commentsContainer}`}>
+            {reviews.map((review: Review, index) => (
+              <div key={index} className={Styles.singleReview}>
+                <div className={Styles.reviewHeader}>
+                  <div className={Styles.reviewTopRow}>
+                    {review.username}
+                    {username == review.username ? (
+                      <RemoveReview reviewId={review.id} />
+                    ) : null}
+                  </div>{" "}
+                  <br />
+                  <span className={Styles.reviewRating}>{review.rating}/5</span>
+                </div>
+                <p className={Styles.reviewText}>{review.description}</p>
+                {/* <div className={Styles.reviewFooter}>
+                  <span className={Styles.reviewDate}>{review.date}</span>
+                </div> */}
+              </div>
+            ))}
+          </div>
+          {session ? <ReviewButton title={title} city={city} /> : null}
+        </div>
+      </div>
+    </div>
+  );
 }

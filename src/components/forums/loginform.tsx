@@ -6,26 +6,20 @@ import GoogleButton from "../button/google/google";
 import styles from "./forum.module.css";
 import { loginManual, loginGoogle } from "@/action/user";
 import { signIn } from "@/lib/auth";
+import router from "next/navigation";
 
-import { showToast } from "../toast/toast";
-import {router} from "next/client";
+import { doToast } from "../toast/toast";
 
 export default function LoginForum() {
   const handleManualSubmit = async (formData: FormData) => {
     const response = await loginManual(formData);
 
-    if (response.status == "success") {
-      showToast("success", response.message);
-      await router.push("/")
-        
-    } else {
-      showToast("error", response.message);
-    }
+    doToast(response);
   };
 
   const handleGoogleSubmit = async () => {
-    const response = await loginGoogle()
-  }
+    const response = await loginGoogle();
+  };
 
   return (
     <div className={styles.myForm}>
@@ -38,9 +32,8 @@ export default function LoginForum() {
       </form>
 
       <form action={handleGoogleSubmit}>
-        <GoogleButton/>
+        <GoogleButton />
       </form>
-      
     </div>
   );
 }
