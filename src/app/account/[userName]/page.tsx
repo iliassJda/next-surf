@@ -14,6 +14,7 @@ import Follow from "@/components/followButtons/followBtn";
 import UnFollow from "@/components/followButtons/unfollowBtn";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { getUser } from "@/components/account/getUser";
 
 export default function Account(props: any) {
   const params = useParams();
@@ -23,9 +24,10 @@ export default function Account(props: any) {
   const [isLoadingAccount, setIsLoadingAccount] = useState<boolean>(true);
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
   const [isLoadingFollowing, setIsLoadingFollowing] = useState<boolean>(true);
-
+  const [sessionUser, setUser] = useState<AccountInfo>();
+  
   const { data: session, status } = useSession();
-
+  
   useEffect(() => {
     const fetchAccount = async () => {
       try {
@@ -50,16 +52,26 @@ export default function Account(props: any) {
     void fetchAccount();
   }, [username]);
 
+   useEffect(() => {
+    async function fetchData() {
+      const data = await getUser(session.user.email);
+      setUser(data || []); // Safely update state here
+    }
+    if (session) {
+      fetchData();
+    }
+  }, [session]);
+
   useEffect(() => {
     const fetchFollowing = async () => {
-      if (!session?.user?.username || !account?.username) {
+      if (!sessionUser?.username || !account?.username) {
         setIsLoadingFollowing(false);
         return;
       }
 
       try {
         const response = await fetch(
-          `/api/isfollowing?currentUsername=${session.user.username}&targetUsername=${account.username}`
+          `/api/isfollowing?currentUsername=${sessionUser.username}&targetUsername=${account.username}`
         );
         const data = await response.json();
         setIsFollowing(data);
@@ -73,8 +85,8 @@ export default function Account(props: any) {
     if (!isLoadingAccount) {
       fetchFollowing();
     }
-  }, [account, session, isLoadingAccount]);
-
+  }, [account, isLoadingAccount,sessionUser]);
+  
   if (status === "loading") {
     return <p>Checking Session...</p>;
   }
@@ -83,15 +95,22 @@ export default function Account(props: any) {
     return <p>Please log in.</p>;
   }
 
+  
   if (isLoadingAccount && isLoadingFollowing) {
     return <p>Loading account...</p>;
   }
 
+  
+
   if (!account) {
     notFound();
   }
+  
+  
+ 
 
-  const isOwnAccount = session.user.username === account.username;
+  const sessionUsername = sessionUser?.username
+  const isOwnAccount = sessionUsername === account.username;
 
   return (
     <div className={styles.container}>

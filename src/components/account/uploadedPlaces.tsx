@@ -40,7 +40,7 @@ export default function UploadedPlaces(probs: any) {
           {places.length === 0 ? (
             <p> No Place uploaded </p>
           ) : (
-            <>
+            <div>
             {places.map((place) => (   
               <Link className={styles.nope} href={`/places/${place.country}/${place.city}/${place.title}/${place.longitude}/${place.latitude}`}>
               <div className={`${styles.place} ${styles.section}`}>
@@ -63,7 +63,7 @@ export default function UploadedPlaces(probs: any) {
               </div>
               </Link> 
               ))}
-              </>
+              </div>
           )}
         </div>
     );
