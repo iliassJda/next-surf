@@ -4,9 +4,7 @@ import React, { use, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import FloatingActionButton from "@/components/floatingButtons/floatingActionButton/floatAction";
 
-export default function PlacePage({
-  params,
-}: {
+export interface PlacePageProps {
   params: {
     country: string;
     city: string;
@@ -14,7 +12,9 @@ export default function PlacePage({
     longitude: number;
     latitude: number;
   };
-}) {
+}
+
+export default function PlacePage({ params }: PlacePageProps) {
   const [country, setCountry] = useState<string>();
   const [city, setCity] = useState<string>();
   const [title, setTitle] = useState<string>();
