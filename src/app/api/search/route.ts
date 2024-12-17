@@ -15,18 +15,36 @@ export async function GET(req: NextRequest) {
       throw new Error("Invalid Request");
     }
 
-    const posts = await prisma.surfSpot.findMany({
-      where: {
-        title: {
-          contains: query.toLowerCase(),
-        },
-      },
-      // include: {
-      //   userID: true,
-      // },
-    });
+    // const posts = await prisma.surfSpot.findMany({
+    //   where: {
+    //     title: {
+    //       contains: query.toLowerCase(),
+    //     },
+    //   },
+    //   // include: {
+    //   //   userID: true,
+    //   // },
+    // });
 
-    return NextResponse.json({ posts });
+    const result = await prisma.$transaction([
+      prisma.surfSpot.findMany({
+        where: {
+          title: {
+            contains: query.toLowerCase(),
+          },
+        },
+      }),
+
+      prisma.user.findMany({
+        where: {
+          username: {
+            contains: query.toLowerCase(),
+          },
+        },
+      }),
+    ]);
+
+    return NextResponse.json({ spots: result[0], users: result[1] });
   } catch (error) {
     return NextResponse.json(
       { error: "There has been an issue" },

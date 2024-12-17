@@ -8,7 +8,7 @@ import { signIn, auth } from "@/lib/auth";
 const register = async (formData: FormData) => {
   const firstname = formData.get("firstname") as string;
   const lastname = formData.get("lastname") as string;
-  const username = formData.get("username") as string
+  const username = formData.get("username") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const nationality = formData.get("nationality") as string;
@@ -167,23 +167,28 @@ const getUser = async (userEmail: string) => {
   return user;
 };
 
-const SavePlace = async (userId: number, latitude: string, longitude: string) => {
+const SavePlace = async (
+  username: string,
+  latitude: string,
+  longitude: string
+) => {
   await prisma.user.update({
-    where: { id: userId },
+    where: { username: username },
     data: {
       saved: {
         connect: {
           latitude_longitude: {
             latitude: parseFloat(latitude),
-            longitude: parseFloat(longitude)
-          }
+            longitude: parseFloat(longitude),
+          },
         },
-      }
+      },
     },
     include: {
       saved: true,
-    }
+    },
   });
+};
 
 }
 

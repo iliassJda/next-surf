@@ -67,7 +67,7 @@ model Review {
   surfSpotId    Int
   user          User     @relation(fields: [userId], references: [id])
   userId        Int
-  userFirstName String
+  username      String
 }
 
 model SpotImage {
