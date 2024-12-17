@@ -36,6 +36,12 @@ export default function Map() {
   const [latitude, setLatitude] = useState<number>(0);
   const markerRef = useRef<mapboxgl.Marker | null>(null); //used to remove previous marker.
 
+  const [loaded, setLoaded] = useState(false);
+  const [dimensions, setDimensions] = useState({
+    width: 0,
+    height: 0
+  });
+
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
 
   const map = useRef(null);
@@ -46,10 +52,7 @@ export default function Map() {
 
 
 
-  const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
-  });
+
 
 
   function getUserLocation() {
@@ -79,23 +82,27 @@ export default function Map() {
   }
 
   useEffect(() => {
-    // Handle window resize
-    const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
+    if(typeof window !== "undefined") {
+      const handleResize = () => {
+        setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
 
-      if (map.current) {
-        map.current.resize();
-      }
-    };
+        setLoaded(true);
 
-    window.addEventListener('resize', handleResize);
+        if (map.current) {
+          map.current.resize();
+        }
+      };
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+      handleResize()
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
 
@@ -103,7 +110,7 @@ export default function Map() {
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
-    //remove mapbox logo, only right once works.
+    //remove mapbox logo, only left one works.
     const style = document.createElement("style");
     style.innerHTML = `
           .mapboxgl-ctrl-attrib.mapboxgl-compact {
@@ -282,6 +289,10 @@ export default function Map() {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  if(!loaded){
+    return  <div>Loading...</div>;
   }
 
   return (

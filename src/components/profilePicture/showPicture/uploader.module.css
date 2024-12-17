@@ -1,4 +1,14 @@
 .Image {
+<<<<<<< HEAD
     border-radius: 50%;
 }
 
+=======
+  border-radius: 50%;
+  width: 100%;
+  max-width: 50px;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+>>>>>>> fec4df4603a9867fcb64717e806a47b89ed3156a

@@ -2,6 +2,7 @@
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { Review, SurfSpot } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 const updateSpotRating = async (spot: SurfSpot) => {
   // const reviews = await prisma.review;
@@ -48,6 +49,7 @@ const postReview = async (
 ) => {
   try {
     const session = await auth();
+    // const session = await useSession();
     const email = session?.user?.email;
     // console.log("ik ben hier");
     const rating = formData.get("rating");
@@ -74,18 +76,17 @@ const postReview = async (
         toast: "error",
       };
     }
+    console.log("test ik ben hier");
 
     const review = await prisma.review.create({
       data: {
         rating: Number(rating),
         description: text,
         surfSpotId: spot?.id,
-        userId: user?.id,
-        userFirstName: user.firstname,
+        userId: user.id,
+        username: user.username,
       },
     });
-
-    // console.log("test ik ben hier");
 
     void updateSpotRating(spot);
 

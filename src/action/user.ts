@@ -8,7 +8,7 @@ import { signIn, auth } from "@/lib/auth";
 const register = async (formData: FormData) => {
   const firstname = formData.get("firstname") as string;
   const lastname = formData.get("lastname") as string;
-  const username = formData.get("username") as string
+  const username = formData.get("username") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const nationality = formData.get("nationality") as string;
@@ -25,7 +25,7 @@ const register = async (formData: FormData) => {
       email: email,
     },
   });
-  
+
   const existingusername = await prisma.user.findUnique({
     where: {
       username: username,
@@ -167,7 +167,11 @@ const getUser = async (userEmail: string) => {
   return user;
 };
 
-const SavePlace = async (userId: number, latitude: string, longitude: string) => {
+const SavePlace = async (
+  userId: number,
+  latitude: string,
+  longitude: string
+) => {
   await prisma.user.update({
     where: { id: userId },
     data: {
@@ -175,16 +179,69 @@ const SavePlace = async (userId: number, latitude: string, longitude: string) =>
         connect: {
           latitude_longitude: {
             latitude: parseFloat(latitude),
-            longitude: parseFloat(longitude)
-          }
+            longitude: parseFloat(longitude),
+          },
         },
-      }
+      },
     },
     include: {
       saved: true,
-    }
+    },
   });
+};
 
-}
+const UnsavePlace = async (
+  userId: number,
+  latitude: string,
+  longitude: string
+) => {
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      saved: {
+        disconnect: {
+          latitude_longitude: {
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+          },
+        },
+      },
+    },
+    include: {
+      saved: true,
+    },
+  });
+};
 
-export { register, loginManual, loginGoogle, updateProfile, getUser, SavePlace };
+const isPlaceSaved = async (
+  userId: number,
+  latitude: string,
+  longitude: string
+) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+      saved: {
+        some: {
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+        },
+      },
+    },
+    include: {
+      saved: true,
+    },
+  });
+  return !!user;
+};
+
+export {
+  register,
+  loginManual,
+  loginGoogle,
+  updateProfile,
+  getUser,
+  SavePlace,
+  UnsavePlace,
+  isPlaceSaved,
+};

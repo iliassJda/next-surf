@@ -26,7 +26,7 @@ import SurfingIcon from "@mui/icons-material/Surfing";
 
 import GetDirectionIcon from "@/components/place/directionArrow";
 import { getReviews } from "@/action/review";
-import { getUser, SavePlace } from "@/action/user";
+import { getUser, SavePlace, isPlaceSaved, UnsavePlace } from "@/action/user";
 import { Review } from "@prisma/client";
 
 import {
@@ -42,14 +42,12 @@ import { useSession } from "next-auth/react";
 import SpotDelete from "@/components/place/postDeletePopUp";
 import prisma from "@/lib/db";
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import {User} from "next-auth";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { User } from "next-auth";
 
-import {verifyUser} from "@/components/place/verifyUser";
+import { verifyUser } from "@/components/place/verifyUser";
 
-import {amber} from "@mui/material/colors";
-
-
+import { amber } from "@mui/material/colors";
 
 export default function Spot({
   country,
@@ -77,13 +75,19 @@ export default function Spot({
   const [precipitations, setPrecipitations] = useState([]);
   const [imageUrls, setImageUrl] = useState([]);
 
+  const [username, setUsername] = useState(() => {
+    const savedState = sessionStorage.getItem("username");
+    return savedState !== null ? JSON.parse(savedState) : false;
+  });
+
   const [userId, setUserId] = useState(() => {
-    const savedState = sessionStorage.getItem("userID");
+    const savedState = sessionStorage.getItem("userId");
     return savedState !== null ? JSON.parse(savedState) : false;
   });
 
   const [reviews, setReviews] = useState([]);
   const [spotRating, setSpotRating] = useState(0);
+  const [saved, setSaved] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { data: session, status } = useSession();
@@ -92,13 +96,10 @@ export default function Spot({
 
   const start = new Date().toISOString();
 
-
   const [adminUser, setAdminUser] = useState(() => {
     const savedState = sessionStorage.getItem("adminStatus");
     return savedState !== null ? JSON.parse(savedState) : false;
   });
-
-
 
   useEffect(() => {
     const reviews = async () => {
@@ -116,17 +117,18 @@ export default function Spot({
           "This is what the current user ID should be: ",
           newUser?.id
         );
-        sessionStorage.setItem("userID", JSON.stringify(newUser?.id as number));
-        setUserId(newUser?.id as number);
+        sessionStorage.setItem("username", JSON.stringify(newUser?.username));
+        setUsername(newUser?.username);
         // console.log("This is the current user ID: ", userId);
+        sessionStorage.setItem("userId", JSON.stringify(newUser?.id));
+        setUsername(newUser?.id);
       }
     };
 
-
     const weatherData = async () => {
       const data = await getWeatherData(
+          latitude,
         longitude,
-        latitude,
         [
           "waterTemperature",
           "airTemperature",
@@ -269,7 +271,7 @@ export default function Spot({
     const getImageUrl = async () => {
       const imageUrls = await getSpotImages(city, title);
       // @ts-ignore
-        setImageUrl(
+      setImageUrl(
         imageUrls.map((imageUrl) => {
           if (imageUrl.imageURL === "none") {
             return "/images/defaultProfile.png";
@@ -290,7 +292,7 @@ export default function Spot({
       }
     };
 
-    //void weatherData();
+    void weatherData();
     void getImageUrl();
     void reviews();
     void isAdmin();
@@ -298,26 +300,39 @@ export default function Spot({
   }, []);
 
   const handleSave = async () => {
-    const res = await SavePlace(userId, latitude, longitude);
+    if (!saved) {
+      const res = await SavePlace(userId, latitude, longitude);
+      setSaved(true);
+    }
+    if (saved) {
+      const res = await UnsavePlace(userId, latitude, longitude);
+      setSaved(false);
+    }
   };
+  useEffect(() => {
+    const isSaved = async () => {
+      if (await isPlaceSaved(userId, latitude, longitude)) setSaved(true);
+      else setSaved(false);
+    };
+    isSaved();
+  }, [userId, latitude, longitude]);
 
   return (
     <div className={Styles.mainContainer}>
       <div className={Styles.titleContainer}>
-        <h1>{title} : </h1>
-        
         <div className={Styles.ratingContainer}>
-          {spotRating === 0 ? (
-            <p>There is no rating yet</p>
-          ) : (
-            <>
-              <h1>
-                {spotRating} <SurfingIcon fontSize="large" />
-              </h1>
-            </>
-            // <span>2</span>
-          )}
-
+          <h1>
+            {title} | {spotRating} <SurfingIcon fontSize="large" />
+          </h1>
+        </div>
+        <div className={Styles.SaveAndDelete}>
+          <div className={Styles.saveContainer} onClick={handleSave}>
+            {saved ? (
+              <i className="bi bi-bookmark-fill"> Remove</i>
+            ) : (
+              <i className="bi bi-bookmark"> Save</i>
+            )}
+          </div>
           {adminUser && session ? (
             <SpotDelete
               spotCity={city}
@@ -326,9 +341,6 @@ export default function Spot({
               latitude={latitude}
             ></SpotDelete>
           ) : null}
-        </div>
-        <div className={Styles.saveContainer} onClick={handleSave}> 
-          Save&ensp;<i className="bi bi-bookmark"></i>
         </div>
       </div>
       <div className={Styles.map}>
@@ -343,34 +355,48 @@ export default function Spot({
       <div className={Styles.twoCardContainer}>
         <div className={Styles.weatherImages}>
           <div className={Styles.weatherData}>
-            <div className={Styles.dataGroup}>
-              <div className={Styles.waterData}>
-                <div>
-                  <WaterDropIcon />
-                  Water Temperature: {waterTemperatures} °C
-                </div>
-                <div>
-                  <WaterDropIcon />
-                  Precipitation: {precipitations} mm/h
-                </div>
+              <div className={Styles.dataGroup}>
+                  <div className={Styles.waterData}>
+                      <div>
+                          <WaterDropIcon/>
+                          Water Temperature: {waterTemperatures} °C
+                      </div>
+                      <div>
+                          <WaterDropIcon/>
+                          Precipitation: {precipitations} mm/h
+                      </div>
+                  </div>
+                  <div className={Styles.airData}>
+                      <div>
+                          <ThermostatIcon/>
+                          Temperature: {airTemperatures} °C
+                      </div>
+                      <GetDirectionIcon
+                          degrees={windDirections[0]}
+                          text={"Wind Direction"}
+                      />
+                      <div>
+                          <AirIcon/>
+                          Wind Speed:{windSpeeds} m/s
+                      </div>
+                  </div>
               </div>
-            </div>
-            <div className={Styles.waveData}>
-              <div className={Styles.directionData}>
-                <GetDirectionIcon
-                  degrees={swellDirections[0]}
-                  text={"Swell Direction"}
-                />
-                <GetDirectionIcon
-                  degrees={waveDirections[0]}
-                  text={"Wave Direction"}
-                />
-                <GetDirectionIcon
-                  degrees={windWaveDirections[0]}
-                  text={"Wind Wave Direction"}
-                />
-              </div>
-              <div className={Styles.heights}>
+              <div className={Styles.waveData}>
+                  <div className={Styles.directionData}>
+                      <GetDirectionIcon
+                          degrees={swellDirections[0]}
+                          text={"Swell Direction"}
+                      />
+                      <GetDirectionIcon
+                          degrees={waveDirections[0]}
+                          text={"Wave Direction"}
+                      />
+                      <GetDirectionIcon
+                          degrees={windWaveDirections[0]}
+                          text={"Wind Wave Direction"}
+                      />
+                  </div>
+                  <div className={Styles.heights}>
                 <div>
                   <HourglassBottomIcon />
                   Wave Period: {wavePeriods}s
@@ -395,30 +421,36 @@ export default function Spot({
                 accept="image/*"
                 ref={fileInputRef}
                 onChange={async (event) => {
-                    const file = event.target.files?.[0];
-                    if (!file) return;
+                  const file = event.target.files?.[0];
+                  if (!file) return;
 
-                    try {
-                        // Upload the file to Uploadcare
-                        const uploadedFile = await uploadFile(file, {
-                            publicKey: process.env
-                                .NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
-                        });
-                    } catch (error) {
-                        console.error(error);
-                    }
-                }
-                }
-                />
-              <div className={Styles.customButton}>
-                <Button2
-                  title={"Upload your experience!"}
+                  try {
+                    // Upload the file to Uploadcare
+                    const uploadedFile = await uploadFile(file, {
+                      publicKey: process.env
+                        .NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
+                    });
+
+                    // Construct the file URL
+                    const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
+                    await handleSpotImage(city, title, userEmail, fileUrl);
+
+                    showToast("success", "Image Uploaded Successfully");
+                  } catch (err) {
+                    console.log(err);
+                  }
+                }}
+              />
+              {session ? (
+                <button
                   className={Styles.customButton}
                   onClick={() => {
                     fileInputRef.current?.click();
                   }}
-                ></Button2>
-              </div>
+                >
+                  Upload your experience!
+                </button>
+              ) : null}
             </div>
           </div>
         </div>
@@ -430,12 +462,10 @@ export default function Spot({
               <div key={index} className={Styles.singleReview}>
                 <div className={Styles.reviewHeader}>
                   <div className={Styles.reviewTopRow}>
-                    {review.userFirstName}
-                    {userId == review.userId ? (
+                    {review.username}
+                    {username == review.username ? (
                       <RemoveReview reviewId={review.id} />
-                    ) : (
-                      <div>not yours</div>
-                    )}
+                    ) : null}
                   </div>{" "}
                   <br />
                   <span className={Styles.reviewRating}>{review.rating}/5</span>
@@ -447,7 +477,7 @@ export default function Spot({
               </div>
             ))}
           </div>
-          <ReviewButton title={title} city={city} />
+          {session ? <ReviewButton title={title} city={city} /> : null}
         </div>
       </div>
     </div>
