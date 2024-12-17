@@ -144,13 +144,13 @@ export default function Account(props: any) {
           <br />
           {isOwnAccount && (
             <div>
-              <Uploader/>
+              <Uploader />
               <br />
               <br />
               <Link
                 key={account.id}
                 className={`${styles.submit} py-2 px-2`}
-                href={`/account_update?username=${sessionUser?.username}`}
+                href="/account_update"
               >
                 <i className="bi bi-pencil-square"></i> Edit Personal
                 Information

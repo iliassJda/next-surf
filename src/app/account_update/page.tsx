@@ -5,15 +5,11 @@ import UpdateButton from "@/components/account/button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useSession } from "next-auth/react";
-import { AccountInfo } from "@/types";
-import { getUser } from "@/components/account/getUser";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { AccountInfo } from "@/types";
+import { getUser } from "@/action/user";
 
 export default function Account(probs: any) {
-  const params = useParams();
-  const username = params?.username as string;
-  
   const { data: session, status } = useSession();
   const [sessionUser, setUser] = useState<AccountInfo>();
     
@@ -26,7 +22,6 @@ export default function Account(probs: any) {
         fetchData();
       }
     }, [session]);
-
   if (status === "loading") {
     return <p>Checking Session</p>
   }
@@ -51,7 +46,7 @@ export default function Account(probs: any) {
             <Form />
           </div>
         </div>
-        <a className={styles.x} href={`/account/${username}`}> <i className="bi bi-x-circle"></i> </a>
+        <a className={styles.x} href={`/account/${sessionUser?.username}`}> <i className="bi bi-x-circle"></i> </a>
       </div>
     </>
   );

@@ -153,7 +153,7 @@ const updateProfile = async (formData: FormData) => {
     },
   });
 
-  redirect(`/account/${user.username}`);
+  redirect(`/account/${existinguser.username}`);
 };
 
 const getUser = async (userEmail: string) => {
