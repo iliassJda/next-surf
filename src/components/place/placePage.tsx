@@ -385,70 +385,80 @@ export default function Spot({
                 </div>
               </div>
             </div>
-            <div className={Styles.greyContainer}>
-              <BootstrapCarouselWithoutArrows
-                imageURLS={imageUrls}
-              ></BootstrapCarouselWithoutArrows>
-              <input
-                className={Style.input}
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={async (event) => {
-                    const file = event.target.files?.[0];
-                    if (!file) return;
+              <div className={Styles.greyContainer}>
+                  <BootstrapCarouselWithoutArrows
+                      imageURLS={imageUrls}
+                  ></BootstrapCarouselWithoutArrows>
+                  <input
+                      className={Style.input}
+                      type="file"
+                      accept="image/*"
+                      ref={fileInputRef}
+                      onChange={async (event) => {
 
-                    try {
-                        // Upload the file to Uploadcare
-                        const uploadedFile = await uploadFile(file, {
-                            publicKey: process.env
-                                .NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
-                        });
-                    } catch (error) {
-                        console.error(error);
-                    }
-                }
-                }
-                />
-              <div className={Styles.customButton}>
-                <Button2
-                  title={"Upload your experience!"}
-                  className={Styles.customButton}
-                  onClick={() => {
-                    fileInputRef.current?.click();
-                  }}
-                ></Button2>
+                          const file = event.target.files?.[0];
+                          if (!file) return;
+
+
+                          try {
+                              // Upload the file to Uploadcare
+                              const uploadedFile = await uploadFile(
+                                  file,
+                                  {
+                                      publicKey: process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
+                                  }
+                              );
+
+                              // Construct the file URL
+                              const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
+                              await handleSpotImage(city, title, userEmail, fileUrl)
+
+                              showToast("success", "Image Uploaded Successfully");
+
+                          } catch (err) {
+                              console.log(err);
+                          }
+                      }}
+                  />
+                  {session ? (
+                      <button className={Styles.customButton}
+                               onClick={() => {
+                                   fileInputRef.current?.click();
+                               }}>
+                          Upload your experience!
+                      </button>
+                  ): (null)}
               </div>
-            </div>
           </div>
         </div>
-        {/* ${Styles.greyContainer} */}
-        <div className={Styles.reviewContainer}>
-          <h1>Reviews</h1>
-          <div className={` ${Styles.commentsContainer}`}>
-            {reviews.map((review: Review, index) => (
-              <div key={index} className={Styles.singleReview}>
-                <div className={Styles.reviewHeader}>
-                  <div className={Styles.reviewTopRow}>
-                    {review.userFirstName}
-                    {userId == review.userId ? (
-                      <RemoveReview reviewId={review.id} />
-                    ) : (
-                      <div>not yours</div>
-                    )}
-                  </div>{" "}
-                  <br />
-                  <span className={Styles.reviewRating}>{review.rating}/5</span>
-                </div>
-                <p className={Styles.reviewText}>{review.description}</p>
-                {/* <div className={Styles.reviewFooter}>
+          {/* ${Styles.greyContainer} */}
+          <div className={Styles.reviewContainer}>
+              <h1>Reviews</h1>
+              <div className={` ${Styles.commentsContainer}`}>
+                  {reviews.map((review: Review, index) => (
+                      <div key={index} className={Styles.singleReview}>
+                          <div className={Styles.reviewHeader}>
+                              <div className={Styles.reviewTopRow}>
+                                  {review.userFirstName}
+                                  {userId == review.userId ? (
+                                      <RemoveReview reviewId={review.id}/>
+                                  ) : (
+                                      <div>not yours</div>
+                                  )}
+                              </div>
+                              {" "}
+                              <br/>
+                              <span className={Styles.reviewRating}>{review.rating}/5</span>
+                          </div>
+                          <p className={Styles.reviewText}>{review.description}</p>
+                          {/* <div className={Styles.reviewFooter}>
                   <span className={Styles.reviewDate}>{review.date}</span>
                 </div> */}
+                      </div>
+                  ))}
               </div>
-            ))}
+              <ReviewButton title={title} city={city}/>
           </div>
-          <ReviewButton title={title} city={city} />
-        </div>
       </div>
     </div>
   );
