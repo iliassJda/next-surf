@@ -12,11 +12,11 @@ function DeletePopUp({ isOpen, onClose, onConfirm }: any){
     if (!isOpen) return null;
 
     return (
-        <div className={Styles.modalOverlay}>
-            <div className={Styles.modalContent}>
+        <div className={Styles.popUpOverlay}>
+            <div className={Styles.popUpContent}>
                 <h2>Confirm Delete</h2>
                 <p>Are you sure you want to delete this surf spot?</p>
-                <div className={Styles.modalActions}>
+                <div className={Styles.popUpActions}>
                     <button onClick={onClose} className={Styles.cancelButton} >Cancel</button>
                     <button onClick={onConfirm} className={Styles.deleteButton}>Delete</button>
                 </div>

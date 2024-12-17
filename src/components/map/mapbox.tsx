@@ -138,17 +138,17 @@ export default function Map() {
       const spots = await getExistingSurfSpots();
 
       spots.forEach(
-        (spot: {
-          longitude: number;
-          latitude: number;
-          country: any;
-          title: string;
-        }) => {
-          const newMarker = new mapboxgl.Marker({
-            color: "#0B314D",
-            draggable: false,
-          });
-          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+          (spot: {
+            longitude: number;
+            latitude: number;
+            country: any;
+            title: string;
+          }) => {
+            const newMarker = new mapboxgl.Marker({
+              color: "#0B314D",
+              draggable: false,
+            });
+            const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
                               <div>
                                 <h3>Surf Spot</h3>
                                 <p>Longitude: ${spot.longitude.toFixed(4)}</p>
@@ -158,10 +158,10 @@ export default function Map() {
                                 <a href="/places/${spot.country}/${spot.city}/${spot.title}/${spot.longitude}/${spot.latitude}">View Details</a>
                               </div>
                             `);
-          const lngLat = [spot.longitude, spot.latitude];
-          newMarker.setPopup(popup);
-          newMarker.setLngLat(lngLat).addTo(map.current);
-        }
+            const lngLat = [spot.longitude, spot.latitude];
+            newMarker.setPopup(popup);
+            newMarker.setLngLat(lngLat).addTo(map.current);
+          }
       );
     });
 
@@ -169,8 +169,8 @@ export default function Map() {
     map.current.on("click", async (event) => {
       const features = map.current.queryRenderedFeatures(event.point);
       const isMarkerClicked = features.some(
-        (feature: { layer: { type: string } }) =>
-          feature.layer.type === "symbol"
+          (feature: { layer: { type: string } }) =>
+              feature.layer.type === "symbol"
       );
 
       if (!isMarkerClicked) {
@@ -188,9 +188,9 @@ export default function Map() {
         setLongitude(event.lngLat.lng);
 
         const locationData = await getLocationData(
-          event.lngLat.lng,
-          event.lngLat.lat,
-          mapboxgl.accessToken
+            event.lngLat.lng,
+            event.lngLat.lat,
+            mapboxgl.accessToken
         );
 
         setContinent(locationData.continent);
@@ -225,9 +225,9 @@ export default function Map() {
 
           //I can't use the updated values because they are not available yet.
           const locationDataOnDrag = await getLocationData(
-            longer[0],
-            longer[1],
-            mapboxgl.accessToken
+              longer[0],
+              longer[1],
+              mapboxgl.accessToken
           );
           setCountry(locationDataOnDrag.country);
           setCity(locationDataOnDrag.city);
@@ -260,9 +260,9 @@ export default function Map() {
   async function searchLocation() {
     try {
       const mapResponse = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          location
-        )}.json?access_token=${mapboxgl.accessToken}`
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+              location
+          )}.json?access_token=${mapboxgl.accessToken}`
       );
       const data = await mapResponse.json();
       let placeZoom;
@@ -285,118 +285,118 @@ export default function Map() {
   }
 
   return (
-    <div className={Styles.page}>
-      {session ? (
-        <div className={Styles.greyContainer}>
-          <div
-            ref={mapContainerRef}
-            style={{
-              width: "100%",
-              height: `${dimensions.height * 0.40}px`, // 70% of viewport height
-              maxWidth: '100%',
-              borderRadius: "20px",
-            }}
-          >
-
-          </div>
-
-          <div className={Styles.inputContainer}>
-
-
-              <InputGroup className={Styles.locationInput}>
-                <Form.Control
-                  type="text"
-
-                  onKeyDown={async (e) => {
-                    if (e.key === "Enter") {
-                      await searchLocation();
-                    }
+      <div className={Styles.page}>
+        {session ? (
+            <div className={Styles.greyContainer}>
+              <div
+                  ref={mapContainerRef}
+                  style={{
+                    width: "100%",
+                    height: `${dimensions.height * 0.40}px`, // 70% of viewport height
+                    maxWidth: '100%',
+                    borderRadius: "20px",
                   }}
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Enter location and pin it (e.g., Pipeline)"
-                />
-                <Button
-                  variant="secondary"
-                  id="button-addon2"
-                  onClick={searchLocation}
-                >
-                  Search
-                </Button>
-              </InputGroup>
-              <Button2 title="Find me" onClick={getUserLocation} > </Button2>
-
-
-
-
-              <div className={Style.container}>
-                <input
-                  className={Style.input}
-                  type="file"
-                  accept="image/*"
-                  ref={fileInputRef}
-                  onChange={async (event) => {
-                    setFile(event.target.files[0]);
-                    setFileName(event.target.files[0].name);
-                  }}
-                />
-
-
-
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter title (e.g., Pipeline)"
-                    onChange={(e) => {
-                      setTitle(e.target.value);
-                    }}
-                  />
-                </InputGroup>
-
-                <Button2
-                    title={getTitle() || "Select picture"}
-                    onClick={() => {
-                      fileInputRef.current?.click();
-                    }}
-                ></Button2>
-
+              >
 
               </div>
 
-              <Button2
-                title={"upload"}
-                onClick={async () => {
-                  if (city && country && title) {
-                    console.log(continent);
-                    await externalUploader(
-                      continent as string,
-                      country as string,
-                      city as string,
-                      title as string,
-                      longitude,
-                      latitude,
-                      file,
-                      userEmail
-                    );
-                  } else {
-                    doToast({
-                      status: "error",
-                      message: "please provide a valid location",
-                    });
-                  }
-                }}
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  marginRight: "10px",
-                  marginBottom: "10px",
-                }}
-              ></Button2>
-            </div>
+              <div className={Styles.inputContainer}>
 
-        </div>
-      ) : null}
-    </div>
+
+                <InputGroup className={Styles.locationInput}>
+                  <Form.Control
+                      type="text"
+
+                      onKeyDown={async (e) => {
+                        if (e.key === "Enter") {
+                          await searchLocation();
+                        }
+                      }}
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                      placeholder="Enter location and pin it (e.g., Pipeline)"
+                  />
+                  <Button
+                      variant="secondary"
+                      id="button-addon2"
+                      onClick={searchLocation}
+                  >
+                    Search
+                  </Button>
+                </InputGroup>
+                <Button2 title="Find me" onClick={getUserLocation} > </Button2>
+
+
+
+
+                <div className={Style.container}>
+                  <input
+                      className={Style.input}
+                      type="file"
+                      accept="image/*"
+                      ref={fileInputRef}
+                      onChange={async (event) => {
+                        setFile(event.target.files[0]);
+                        setFileName(event.target.files[0].name);
+                      }}
+                  />
+
+
+
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter title (e.g., Pipeline)"
+                        onChange={(e) => {
+                          setTitle(e.target.value);
+                        }}
+                    />
+                  </InputGroup>
+
+                  <Button2
+                      title={getTitle() || "Select picture"}
+                      onClick={() => {
+                        fileInputRef.current?.click();
+                      }}
+                  ></Button2>
+
+
+                </div>
+
+                <Button2
+                    title={"upload"}
+                    onClick={async () => {
+                      if (city && country && title) {
+                        console.log(continent);
+                        await externalUploader(
+                            continent as string,
+                            country as string,
+                            city as string,
+                            title as string,
+                            longitude,
+                            latitude,
+                            file,
+                            userEmail
+                        );
+                      } else {
+                        doToast({
+                          status: "error",
+                          message: "please provide a valid location",
+                        });
+                      }
+                    }}
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      right: 0,
+                      marginRight: "10px",
+                      marginBottom: "10px",
+                    }}
+                ></Button2>
+              </div>
+
+            </div>
+        ) : null}
+      </div>
   );
 }

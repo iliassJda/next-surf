@@ -103,12 +103,8 @@ export default function Spot({
   useEffect(() => {
     const reviews = async () => {
       const data = await getReviews(city, title);
-
-
       setReviews(data?.review);
       setSpotRating(data?.spotRating as number);
-
-      setReviews(data);
     };
 
     const user = async () => {
@@ -273,7 +269,7 @@ export default function Spot({
     const getImageUrl = async () => {
       const imageUrls = await getSpotImages(city, title);
       // @ts-ignore
-      setImageUrl(
+        setImageUrl(
         imageUrls.map((imageUrl) => {
           if (imageUrl.imageURL === "none") {
             return "/images/defaultProfile.png";
@@ -414,13 +410,6 @@ export default function Spot({
                 }
                 }
                 />
-                <div className={Styles.customButton}>
-                    <Button2 title={"Upload your experience!"}
-                             style={{ width: "100%" }}
-                              onClick={() => {
-                        fileInputRef.current?.click();
-                    }}></Button2>
-                </div>
               <div className={Styles.customButton}>
                 <Button2
                   title={"Upload your experience!"}
