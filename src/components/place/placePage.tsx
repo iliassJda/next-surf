@@ -345,9 +345,9 @@ export default function Spot({
           ) : null}
         </div>
         <div className={Styles.saveContainer} onClick={handleSave}>
-          Save&ensp;{saved ?
-            (<i className="bi bi-bookmark-fill"></i>)
-            : (<i className="bi bi-bookmark"></i>)
+          {saved ?
+            (<i className="bi bi-bookmark-fill"> Remove</i>)
+            : (<i className="bi bi-bookmark"> Save</i>)
           }
         </div>
       </div>
