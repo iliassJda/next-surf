@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import useSWR from "swr";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 import styles from "./search.module.css";
 import { SurfSpot, User } from "@prisma/client";
@@ -26,13 +27,14 @@ export default function Search() {
   const searchQuery = search ? search.get("q") : null;
   const encodedSearchQuery = encodeURI(searchQuery || "");
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const { data, isLoading } = useSWR(
     `/api/search?q=${encodedSearchQuery}`,
     fetchPosts
   );
 
-  console.log(data?.users || "No users");
+  // console.log(data?.users || "No users");
 
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
@@ -85,21 +87,27 @@ export default function Search() {
                 </div>
               ))}
               ;
-              {data.users.map((post: User) => (
-                <div key={post.id} className={styles.post}>
-                  <h2>{post.username}</h2>
-                  <Link href={`/account/${post.username}`} replace>
-                    <img
-                      className={styles.roundedProfile}
-                      src={post.profilePictureCID}
-                      alt="Profile Picture"
-                      width={400}
-                      height={200}
-                    />
-                  </Link>
-                  <hr className={styles.seperator} />
-                </div>
-              ))}
+              {data.users
+                .filter((post: User) => post.email !== session?.user?.email)
+                .map((post: User) => (
+                  <div key={post.id} className={styles.post}>
+                    <h2>{post.username}</h2>
+                    <Link href={`/account/${post.username}`} replace>
+                      <img
+                        className={styles.roundedProfile}
+                        src={
+                          post.profilePictureCID !== "none"
+                            ? post.profilePictureCID
+                            : "/images/defaultProfile.png"
+                        }
+                        alt="Profile Picture"
+                        width={400}
+                        height={200}
+                      />
+                    </Link>
+                    <hr className={styles.seperator} />
+                  </div>
+                ))}
             </>
           )}
           {/* <hr className={styles.seperator} /> */}
