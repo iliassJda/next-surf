@@ -122,13 +122,13 @@ export default function Account(props: any) {
         {!isOwnAccount &&
           (isFollowing ? (
             <UnFollow
-              currentUsername={session.user.username}
+              currentUsername={sessionUsername}
               usernameToFollow={account.username}
               onUnFollow={() => setIsFollowing(false)} // Callback to update state
             />
           ) : (
             <Follow
-              currentUsername={session.user.username}
+              currentUsername={sessionUsername}
               usernameToFollow={account.username}
               onFollow={() => setIsFollowing(true)} // Callback to update state
             />
