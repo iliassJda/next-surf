@@ -150,7 +150,7 @@ export default function Account(props: any) {
               <Link
                 key={account.id}
                 className={`${styles.submit} py-2 px-2`}
-                href="/account_update"
+                href={`/account_update?username=${sessionUser?.username}`}
               >
                 <i className="bi bi-pencil-square"></i> Edit Personal
                 Information

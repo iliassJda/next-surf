@@ -8,8 +8,12 @@ import { useSession } from "next-auth/react";
 import { AccountInfo } from "@/types";
 import { getUser } from "@/components/account/getUser";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 export default function Account(probs: any) {
+  const params = useParams();
+  const username = params?.username as string;
+  
   const { data: session, status } = useSession();
   const [sessionUser, setUser] = useState<AccountInfo>();
     
@@ -47,7 +51,7 @@ export default function Account(probs: any) {
             <Form />
           </div>
         </div>
-        <a className={styles.x} href={`/account/${sessionUser?.username}`}> <i className="bi bi-x-circle"></i> </a>
+        <a className={styles.x} href={`/account/${username}`}> <i className="bi bi-x-circle"></i> </a>
       </div>
     </>
   );

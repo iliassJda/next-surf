@@ -42,8 +42,8 @@ export default function UploadedPlaces(probs: any) {
           ) : (
             <div>
             {places.map((place, index:number) => (   
-              <Link className={styles.nope} href={`/places/${place.country}/${place.city}/${place.title}/${place.longitude}/${place.latitude}`}>
-              <div key={index} className={`${styles.place} ${styles.section}`}>
+              <Link  key={index} className={styles.nope} href={`/places/${place.country}/${place.city}/${place.title}/${place.longitude}/${place.latitude}`}>
+              <div className={`${styles.place} ${styles.section}`}>
                 <div className={styles.left_section}>
                   <Image
                     src={place.imageURL}
