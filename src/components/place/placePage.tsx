@@ -39,14 +39,17 @@ import { uploadFile } from "@uploadcare/upload-client";
 import { showToast } from "@/components/toast/toast";
 import { useSession } from "next-auth/react";
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import { User } from "next-auth";
-
-import { verifyUser } from "@/components/place/verifyUser";
-
 import SpotDelete from "@/components/place/postDeletePopUp";
-import { amber } from "@mui/material/colors";
 import prisma from "@/lib/db";
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import {User} from "next-auth";
+
+import {verifyUser} from "@/components/place/verifyUser";
+
+import {amber} from "@mui/material/colors";
+
+
 
 export default function Spot({
   country,
@@ -89,17 +92,23 @@ export default function Spot({
 
   const start = new Date().toISOString();
 
+
   const [adminUser, setAdminUser] = useState(() => {
     const savedState = sessionStorage.getItem("adminStatus");
     return savedState !== null ? JSON.parse(savedState) : false;
   });
 
+
+
   useEffect(() => {
     const reviews = async () => {
       const data = await getReviews(city, title);
 
+
       setReviews(data?.review);
       setSpotRating(data?.spotRating as number);
+
+      setReviews(data);
     };
 
     const user = async () => {
@@ -390,26 +399,28 @@ export default function Spot({
                 accept="image/*"
                 ref={fileInputRef}
                 onChange={async (event) => {
-                  const file = event.target.files?.[0];
-                  if (!file) return;
+                    const file = event.target.files?.[0];
+                    if (!file) return;
 
-                  try {
-                    // Upload the file to Uploadcare
-                    const uploadedFile = await uploadFile(file, {
-                      publicKey: process.env
-                        .NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
-                    });
-
-                    // Construct the file URL
-                    const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
-                    await handleSpotImage(city, title, userEmail, fileUrl);
-
-                    showToast("success", "Image Uploaded Successfully");
-                  } catch (err) {
-                    console.log(err);
-                  }
-                }}
-              />
+                    try {
+                        // Upload the file to Uploadcare
+                        const uploadedFile = await uploadFile(file, {
+                            publicKey: process.env
+                                .NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
+                        });
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+                }
+                />
+                <div className={Styles.customButton}>
+                    <Button2 title={"Upload your experience!"}
+                             style={{ width: "100%" }}
+                              onClick={() => {
+                        fileInputRef.current?.click();
+                    }}></Button2>
+                </div>
               <div className={Styles.customButton}>
                 <Button2
                   title={"Upload your experience!"}
