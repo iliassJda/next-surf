@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/placePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/uploadSurfSpot/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/uploadSurfSpot/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/map/mapbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/mapbox.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
