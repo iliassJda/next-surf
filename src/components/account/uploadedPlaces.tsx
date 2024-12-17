@@ -23,7 +23,7 @@ interface Place {
 
 export default function UploadedPlaces(probs: any) {
     const [places, setPlaces] = useState<Place[]>([]);
-    const userMail = probs.accountEmail;
+    const userMail = probs.accountemail;
     useEffect(()=> {
       async function fetchData() {
         const data = await getUploadedPlaces(userMail);
@@ -38,7 +38,7 @@ export default function UploadedPlaces(probs: any) {
     return(
         <div className={`${styles.scrollable} ${styles.places}`}>
           {places.length === 0 ? (
-            <p> You have not upload any place {userMail} :-&#40;</p>
+            <p> No Place uploaded </p>
           ) : (
             <>
             {places.map((place) => (   

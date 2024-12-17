@@ -2,3 +2,6 @@
     padding: 10px;
     justify-content: center;
 }
+.container p{
+    margin-left: 10%;
+}

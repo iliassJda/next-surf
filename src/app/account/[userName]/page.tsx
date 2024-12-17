@@ -158,12 +158,14 @@ export default function Account(props: any) {
         <h5>Uploaded Places</h5>
       </div>
       <UploadedPlaces accountemail={account.email} />
-
-      <div className={`${styles.section} py-4 px-5`}>
-        <h5>Saved Places</h5>
-      </div>
-      <SavedPlaces />
-
+      {isOwnAccount && (
+        <div>
+          <div className={`${styles.section} py-4 px-5`}>
+            <h5>Saved Places</h5>
+          </div>
+          <SavedPlaces />
+        </div>
+      )}
       <div className={`${styles.section} py-4 px-5`}>
         <h5>Followed Users</h5>
       </div>
