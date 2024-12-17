@@ -27,7 +27,6 @@
   justify-content: space-between;
   min-width: 80px;
   font-size: 25px;
-  border: 1px solid white;
   border-radius: 15px;
   padding: 5px;
   margin-bottom: 8px;
@@ -244,7 +243,7 @@
 }
 
 
-.buttonIcon{
+.buttonIcon {
   background: none;
   border: none;
   cursor: pointer;

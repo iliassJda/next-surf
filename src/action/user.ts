@@ -25,7 +25,7 @@ const register = async (formData: FormData) => {
       email: email,
     },
   });
-  
+
   const existingusername = await prisma.user.findUnique({
     where: {
       username: username,
@@ -187,4 +187,43 @@ const SavePlace = async (userId: number, latitude: string, longitude: string) =>
 
 }
 
-export { register, loginManual, loginGoogle, updateProfile, getUser, SavePlace };
+const UnsavePlace = async (userId: number, latitude: string, longitude: string) => {
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      saved: {
+        disconnect: {
+          latitude_longitude: {
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude)
+          }
+        },
+      }
+    },
+    include: {
+      saved: true,
+    }
+  });
+
+}
+
+const isPlaceSaved = async (userId: number, latitude: string, longitude: string) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+      saved: {
+        some: {
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude)
+        }
+      }
+    },
+    include: {
+      saved: true,
+    }
+  })
+  return !!user
+}
+
+
+export { register, loginManual, loginGoogle, updateProfile, getUser, SavePlace, UnsavePlace, isPlaceSaved };
