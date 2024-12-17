@@ -76,7 +76,12 @@ export default function Spot({
   const [imageUrls, setImageUrl] = useState([]);
 
   const [username, setUsername] = useState(() => {
-    const savedState = sessionStorage.getItem("userID");
+    const savedState = sessionStorage.getItem("username");
+    return savedState !== null ? JSON.parse(savedState) : false;
+  });
+
+  const [userId, setUserId] = useState(() => {
+    const savedState = sessionStorage.getItem("userId");
     return savedState !== null ? JSON.parse(savedState) : false;
   });
 
@@ -115,6 +120,8 @@ export default function Spot({
         sessionStorage.setItem("username", JSON.stringify(newUser?.username));
         setUsername(newUser?.username);
         // console.log("This is the current user ID: ", userId);
+        sessionStorage.setItem("userId", JSON.stringify(newUser?.id));
+        setUsername(newUser?.id);
       }
     };
 
@@ -320,7 +327,11 @@ export default function Spot({
         </div>
         <div className={Styles.SaveAndDelete}>
           <div className={Styles.saveContainer} onClick={handleSave}>
-            Save&ensp;<i className="bi bi-bookmark"></i>
+            {saved ? (
+              <i className="bi bi-bookmark-fill"> Remove</i>
+            ) : (
+              <i className="bi bi-bookmark"> Save</i>
+            )}
           </div>
           {adminUser && session ? (
             <SpotDelete
@@ -330,13 +341,6 @@ export default function Spot({
               latitude={latitude}
             ></SpotDelete>
           ) : null}
-        </div>
-        <div className={Styles.saveContainer} onClick={handleSave}>
-          {saved ? (
-            <i className="bi bi-bookmark-fill"> Remove</i>
-          ) : (
-            <i className="bi bi-bookmark"> Save</i>
-          )}
         </div>
       </div>
       <div className={Styles.map}>

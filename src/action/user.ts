@@ -168,12 +168,12 @@ const getUser = async (userEmail: string) => {
 };
 
 const SavePlace = async (
-  username: string,
+  userId: number,
   latitude: string,
   longitude: string
 ) => {
   await prisma.user.update({
-    where: { username: username },
+    where: { id: userId },
     data: {
       saved: {
         connect: {
@@ -190,9 +190,11 @@ const SavePlace = async (
   });
 };
 
-}
-
-const UnsavePlace = async (userId: number, latitude: string, longitude: string) => {
+const UnsavePlace = async (
+  userId: number,
+  latitude: string,
+  longitude: string
+) => {
   await prisma.user.update({
     where: { id: userId },
     data: {
@@ -200,35 +202,46 @@ const UnsavePlace = async (userId: number, latitude: string, longitude: string) 
         disconnect: {
           latitude_longitude: {
             latitude: parseFloat(latitude),
-            longitude: parseFloat(longitude)
-          }
+            longitude: parseFloat(longitude),
+          },
         },
-      }
+      },
     },
     include: {
       saved: true,
-    }
+    },
   });
+};
 
-}
-
-const isPlaceSaved = async (userId: number, latitude: string, longitude: string) => {
+const isPlaceSaved = async (
+  userId: number,
+  latitude: string,
+  longitude: string
+) => {
   const user = await prisma.user.findFirst({
     where: {
       id: userId,
       saved: {
         some: {
           latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude)
-        }
-      }
+          longitude: parseFloat(longitude),
+        },
+      },
     },
     include: {
       saved: true,
-    }
-  })
-  return !!user
-}
+    },
+  });
+  return !!user;
+};
 
-
-export { register, loginManual, loginGoogle, updateProfile, getUser, SavePlace, UnsavePlace, isPlaceSaved };
+export {
+  register,
+  loginManual,
+  loginGoogle,
+  updateProfile,
+  getUser,
+  SavePlace,
+  UnsavePlace,
+  isPlaceSaved,
+};
