@@ -308,15 +308,16 @@ export default function Spot({
       setSaved(false);
     }
   };
+  useEffect(() => {
+    const isSaved = async () => {
+      if (await isPlaceSaved(userId, latitude, longitude))
+        setSaved(true)
+      else
+        setSaved(false)
+    };
+    isSaved();
+  }, [userId, latitude, longitude])
 
-  const isSaved = async () => {
-    if (await isPlaceSaved(userId, latitude, longitude))
-      setSaved(true)
-    else
-      setSaved(false)
-  }
-
-  void isSaved();
 
   return (
     <div className={Styles.mainContainer}>
