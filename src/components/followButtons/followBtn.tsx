@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "@/app/account/[userName]/account.module.css";
+import styles from "@/app/account/account.module.css";
 import { showToast } from "@/components/toast/toast";
 import { followProfile } from "@/action/follow";
 import { redirect } from "next/navigation";
@@ -37,7 +37,7 @@ const Follow = (probs:any) => {
     <button
       onClick={handleFollow}
       disabled={isLoading}
-      className={styles.button}
+      className={styles.submit}
     >
       {isLoading ? "Following..." : "Follow"}
     </button>

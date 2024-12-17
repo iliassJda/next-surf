@@ -28,13 +28,11 @@
   align-items: center;
   padding: 10px;
   width: 100%;
-  font-family: "Kaushan Script";
 }
 
 .places {
   margin-left: 10%;
   width: 100%;
-  font-family: "Kaushan Script";
 }
 
 .left_section {
@@ -173,4 +171,21 @@
 .nope {
   outline: none;
   text-decoration: none;
+}
+
+@media screen and (max-width: 640px) {
+  
+
+  .locationInput{
+      width: 60%;
+  }
+
+}
+
+@media screen and (min-width: 641px) and (max-width: 1007px) {
+  
+
+  .locationInput{
+      width: 80%;
+  }
 }

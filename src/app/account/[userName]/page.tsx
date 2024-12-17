@@ -1,7 +1,7 @@
 "use client";
 import { notFound, useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import styles from "@/app/account/[userName]/account.module.css";
+import styles from "@/app/account/account.module.css";
 import UploadedPlaces from "@/components/account/uploadedPlaces";
 import SavedPlaces from "@/components/account/savedPlaces";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -56,7 +56,7 @@ export default function Account(props: any) {
         setIsLoadingFollowing(false);
         return;
       }
-  
+
       try {
         const response = await fetch(
           `/api/isfollowing?currentUsername=${session.user.username}&targetUsername=${account.username}`
@@ -69,7 +69,7 @@ export default function Account(props: any) {
         setIsLoadingFollowing(false);
       }
     };
-  
+
     if (!isLoadingAccount) {
       fetchFollowing();
     }
@@ -92,7 +92,6 @@ export default function Account(props: any) {
   }
 
   const isOwnAccount = session.user.username === account.username;
-
 
   return (
     <div className={styles.container}>
@@ -124,7 +123,21 @@ export default function Account(props: any) {
         <div className={styles.left_selection}>
           <ShowProfilePicture width="150" height="150" email={account.email} />
           <br />
-          {isOwnAccount && <Uploader />}
+          {isOwnAccount && (
+            <div>
+              <Uploader />
+              <br />
+              <br />
+              <Link
+                key={account.id}
+                className={`${styles.submit} py-2 px-2`}
+                href="/account_update"
+              >
+                <i className="bi bi-pencil-square"></i> Edit Personal
+                Information
+              </Link>
+            </div>
+          )}
         </div>
         <div className={`${styles.right_section} ${styles.flex}`}>
           <div className={styles.left_section}>
@@ -138,18 +151,6 @@ export default function Account(props: any) {
               </>
             )}
           </div>
-          {isOwnAccount && (
-            <div className={`${styles.right_section} mt-3`}>
-              <Link
-                key={account.id}
-                className={`${styles.submit} py-2 px-2`}
-                href="/account_update"
-              >
-                <i className="bi bi-pencil-square"></i> Edit Personal
-                Information
-              </Link>
-            </div>
-          )}
         </div>
       </div>
 
@@ -161,7 +162,7 @@ export default function Account(props: any) {
       <div className={`${styles.section} py-4 px-5`}>
         <h5>Saved Places</h5>
       </div>
-      {/* <SavedPlaces /> */}
+      <SavedPlaces />
 
       <div className={`${styles.section} py-4 px-5`}>
         <h5>Followed Users</h5>

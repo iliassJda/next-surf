@@ -1,6 +1,6 @@
 "use client";
 import prisma from "@/lib/db";
-import styles from "@/app/account/account.module.css";
+import styles from "./followedUser.module.css";
 import {useSession} from "next-auth/react";
 import React, {useEffect,useState} from 'react';
 import UserCarousel from "@/components/followedUser/userCarousel";
@@ -40,7 +40,7 @@ export default  function Following(probs: any) {
     }
 
     return(
-        <div className={`${styles.scrollable} ${styles.places}`}>
+        <div className={styles.container}>
           {accountInfos.length === 0 ? (
             <p> Doesn't follow anyone</p>
           ) : (        

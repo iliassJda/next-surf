@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import styles from "@/app/account/[userName]/account.module.css";
+import styles from "@/app/account/account.module.css";
 import { showToast } from "@/components/toast/toast";
 
 const UnFollow = (probs: any) => {
@@ -31,7 +31,7 @@ const UnFollow = (probs: any) => {
     <button
       onClick={handleUnfollow}
       disabled={isLoading}
-      className={styles.button}
+      className={styles.submit}
     >
       {isLoading ? "Unfollowing..." : "Unfollow"}
     </button>
