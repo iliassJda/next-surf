@@ -1,4 +1,4 @@
-import styles from "@/app/account/account.module.css";
+import styles from "@/app/account_update/account_update.module.css";
 
 
 

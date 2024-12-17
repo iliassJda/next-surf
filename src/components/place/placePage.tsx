@@ -26,7 +26,7 @@ import SurfingIcon from "@mui/icons-material/Surfing";
 
 import GetDirectionIcon from "@/components/place/directionArrow";
 import { getReviews } from "@/action/review";
-import { getUser, SavePlace } from "@/action/user";
+import { getUser, SavePlace, isPlaceSaved, UnsavePlace } from "@/action/user";
 import { Review } from "@prisma/client";
 
 import {
@@ -43,11 +43,11 @@ import SpotDelete from "@/components/place/postDeletePopUp";
 import prisma from "@/lib/db";
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import {User} from "next-auth";
+import { User } from "next-auth";
 
-import {verifyUser} from "@/components/place/verifyUser";
+import { verifyUser } from "@/components/place/verifyUser";
 
-import {amber} from "@mui/material/colors";
+import { amber } from "@mui/material/colors";
 
 
 
@@ -84,6 +84,7 @@ export default function Spot({
 
   const [reviews, setReviews] = useState([]);
   const [spotRating, setSpotRating] = useState(0);
+  const [saved, setSaved] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { data: session, status } = useSession();
@@ -269,7 +270,7 @@ export default function Spot({
     const getImageUrl = async () => {
       const imageUrls = await getSpotImages(city, title);
       // @ts-ignore
-        setImageUrl(
+      setImageUrl(
         imageUrls.map((imageUrl) => {
           if (imageUrl.imageURL === "none") {
             return "/images/defaultProfile.png";
@@ -298,14 +299,31 @@ export default function Spot({
   }, []);
 
   const handleSave = async () => {
-    const res = await SavePlace(userId, latitude, longitude);
+    if (!saved) {
+      const res = await SavePlace(userId, latitude, longitude);
+      setSaved(true);
+    }
+    if (saved) {
+      const res = await UnsavePlace(userId, latitude, longitude);
+      setSaved(false);
+    }
   };
+  useEffect(() => {
+    const isSaved = async () => {
+      if (await isPlaceSaved(userId, latitude, longitude))
+        setSaved(true)
+      else
+        setSaved(false)
+    };
+    isSaved();
+  }, [userId, latitude, longitude])
+
 
   return (
     <div className={Styles.mainContainer}>
       <div className={Styles.titleContainer}>
         <h1>{title} : </h1>
-        
+
         <div className={Styles.ratingContainer}>
           {spotRating === 0 ? (
             <p>There is no rating yet</p>
@@ -327,8 +345,11 @@ export default function Spot({
             ></SpotDelete>
           ) : null}
         </div>
-        <div className={Styles.saveContainer} onClick={handleSave}> 
-          Save&ensp;<i className="bi bi-bookmark"></i>
+        <div className={Styles.saveContainer} onClick={handleSave}>
+          {saved ?
+            (<i className="bi bi-bookmark-fill"> Remove</i>)
+            : (<i className="bi bi-bookmark"> Save</i>)
+          }
         </div>
       </div>
       <div className={Styles.map}>
@@ -385,80 +406,80 @@ export default function Spot({
                 </div>
               </div>
             </div>
-              <div className={Styles.greyContainer}>
-                  <BootstrapCarouselWithoutArrows
-                      imageURLS={imageUrls}
-                  ></BootstrapCarouselWithoutArrows>
-                  <input
-                      className={Style.input}
-                      type="file"
-                      accept="image/*"
-                      ref={fileInputRef}
-                      onChange={async (event) => {
+            <div className={Styles.greyContainer}>
+              <BootstrapCarouselWithoutArrows
+                imageURLS={imageUrls}
+              ></BootstrapCarouselWithoutArrows>
+              <input
+                className={Style.input}
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={async (event) => {
 
-                          const file = event.target.files?.[0];
-                          if (!file) return;
+                  const file = event.target.files?.[0];
+                  if (!file) return;
 
 
-                          try {
-                              // Upload the file to Uploadcare
-                              const uploadedFile = await uploadFile(
-                                  file,
-                                  {
-                                      publicKey: process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
-                                  }
-                              );
+                  try {
+                    // Upload the file to Uploadcare
+                    const uploadedFile = await uploadFile(
+                      file,
+                      {
+                        publicKey: process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
+                      }
+                    );
 
-                              // Construct the file URL
-                              const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
-                              await handleSpotImage(city, title, userEmail, fileUrl)
+                    // Construct the file URL
+                    const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
+                    await handleSpotImage(city, title, userEmail, fileUrl)
 
-                              showToast("success", "Image Uploaded Successfully");
+                    showToast("success", "Image Uploaded Successfully");
 
-                          } catch (err) {
-                              console.log(err);
-                          }
-                      }}
-                  />
-                  {session ? (
-                      <button className={Styles.customButton}
-                               onClick={() => {
-                                   fileInputRef.current?.click();
-                               }}>
-                          Upload your experience!
-                      </button>
-                  ): (null)}
-              </div>
+                  } catch (err) {
+                    console.log(err);
+                  }
+                }}
+              />
+              {session ? (
+                <button className={Styles.customButton}
+                  onClick={() => {
+                    fileInputRef.current?.click();
+                  }}>
+                  Upload your experience!
+                </button>
+              ) : (null)}
+            </div>
           </div>
         </div>
-          {/* ${Styles.greyContainer} */}
-          <div className={Styles.reviewContainer}>
-              <h1>Reviews</h1>
-              <div className={` ${Styles.commentsContainer}`}>
-                  {reviews.map((review: Review, index) => (
-                      <div key={index} className={Styles.singleReview}>
-                          <div className={Styles.reviewHeader}>
-                              <div className={Styles.reviewTopRow}>
-                                  {review.userFirstName}
-                                  {userId == review.userId ? (
-                                      <RemoveReview reviewId={review.id}/>
-                                  ) : (
-                                      <div>not yours</div>
-                                  )}
-                              </div>
-                              {" "}
-                              <br/>
-                              <span className={Styles.reviewRating}>{review.rating}/5</span>
-                          </div>
-                          <p className={Styles.reviewText}>{review.description}</p>
-                          {/* <div className={Styles.reviewFooter}>
+        {/* ${Styles.greyContainer} */}
+        <div className={Styles.reviewContainer}>
+          <h1>Reviews</h1>
+          <div className={` ${Styles.commentsContainer}`}>
+            {reviews.map((review: Review, index) => (
+              <div key={index} className={Styles.singleReview}>
+                <div className={Styles.reviewHeader}>
+                  <div className={Styles.reviewTopRow}>
+                    {review.userFirstName}
+                    {userId == review.userId ? (
+                      <RemoveReview reviewId={review.id} />
+                    ) : (
+                      <div>not yours</div>
+                    )}
+                  </div>
+                  {" "}
+                  <br />
+                  <span className={Styles.reviewRating}>{review.rating}/5</span>
+                </div>
+                <p className={Styles.reviewText}>{review.description}</p>
+                {/* <div className={Styles.reviewFooter}>
                   <span className={Styles.reviewDate}>{review.date}</span>
                 </div> */}
-                      </div>
-                  ))}
               </div>
-              <ReviewButton title={title} city={city}/>
+            ))}
           </div>
+          <ReviewButton title={title} city={city} />
+        </div>
       </div>
     </div>
   );
