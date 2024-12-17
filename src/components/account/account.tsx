@@ -49,7 +49,7 @@ export default function Account({ showForm, toggleForm }: { showForm: boolean; t
               <h4>Name of the place</h4>
               <p>
                 {" "}
-                <i className="bi bi-geo-alt"></i>Oostende, Belgium
+                <i className="bi bi-geo-alt"></i>
               </p>
               <div className={styles.star}>
                 <i className="bi bi-star-fill text-warning"></i>
