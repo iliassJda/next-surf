@@ -127,7 +127,7 @@ export default function Spot({
 
     const weatherData = async () => {
       const data = await getWeatherData(
-          latitude,
+        latitude,
         longitude,
         [
           "waterTemperature",
@@ -311,8 +311,10 @@ export default function Spot({
   };
   useEffect(() => {
     const isSaved = async () => {
-      if (await isPlaceSaved(userId, latitude, longitude)) setSaved(true);
-      else setSaved(false);
+      if (userId || typeof userId == 'number') {
+        if (await isPlaceSaved(userId, latitude, longitude)) setSaved(true);
+        else setSaved(false);
+      }
     };
     isSaved();
   }, [userId, latitude, longitude]);
@@ -355,48 +357,48 @@ export default function Spot({
       <div className={Styles.twoCardContainer}>
         <div className={Styles.weatherImages}>
           <div className={Styles.weatherData}>
-              <div className={Styles.dataGroup}>
-                  <div className={Styles.waterData}>
-                      <div>
-                          <WaterDropIcon/>
-                          Water Temperature: {waterTemperatures} °C
-                      </div>
-                      <div>
-                          <WaterDropIcon/>
-                          Precipitation: {precipitations} mm/h
-                      </div>
-                  </div>
-                  <div className={Styles.airData}>
-                      <div>
-                          <ThermostatIcon/>
-                          Temperature: {airTemperatures} °C
-                      </div>
-                      <GetDirectionIcon
-                          degrees={windDirections[0]}
-                          text={"Wind Direction"}
-                      />
-                      <div>
-                          <AirIcon/>
-                          Wind Speed:{windSpeeds} m/s
-                      </div>
-                  </div>
+            <div className={Styles.dataGroup}>
+              <div className={Styles.waterData}>
+                <div>
+                  <WaterDropIcon />
+                  Water Temperature: {waterTemperatures} °C
+                </div>
+                <div>
+                  <WaterDropIcon />
+                  Precipitation: {precipitations} mm/h
+                </div>
               </div>
-              <div className={Styles.waveData}>
-                  <div className={Styles.directionData}>
-                      <GetDirectionIcon
-                          degrees={swellDirections[0]}
-                          text={"Swell Direction"}
-                      />
-                      <GetDirectionIcon
-                          degrees={waveDirections[0]}
-                          text={"Wave Direction"}
-                      />
-                      <GetDirectionIcon
-                          degrees={windWaveDirections[0]}
-                          text={"Wind Wave Direction"}
-                      />
-                  </div>
-                  <div className={Styles.heights}>
+              <div className={Styles.airData}>
+                <div>
+                  <ThermostatIcon />
+                  Temperature: {airTemperatures} °C
+                </div>
+                <GetDirectionIcon
+                  degrees={windDirections[0]}
+                  text={"Wind Direction"}
+                />
+                <div>
+                  <AirIcon />
+                  Wind Speed:{windSpeeds} m/s
+                </div>
+              </div>
+            </div>
+            <div className={Styles.waveData}>
+              <div className={Styles.directionData}>
+                <GetDirectionIcon
+                  degrees={swellDirections[0]}
+                  text={"Swell Direction"}
+                />
+                <GetDirectionIcon
+                  degrees={waveDirections[0]}
+                  text={"Wave Direction"}
+                />
+                <GetDirectionIcon
+                  degrees={windWaveDirections[0]}
+                  text={"Wind Wave Direction"}
+                />
+              </div>
+              <div className={Styles.heights}>
                 <div>
                   <HourglassBottomIcon />
                   Wave Period: {wavePeriods}s
