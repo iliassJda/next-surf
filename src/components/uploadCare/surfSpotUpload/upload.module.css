@@ -1,3 +1,5 @@
+
+/*get input field outside of the screen such that only the upload button shows*/
 .input{
     border: 0;
     clip: rect(0 0 0 0);

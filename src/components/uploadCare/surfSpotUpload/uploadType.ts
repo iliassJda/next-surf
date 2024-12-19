@@ -19,8 +19,6 @@ export async function externalUploader(
     const data = new FormData();
     data.append("continent", continent);
     data.append("country", country);
-    //trimmed because getting a unique surf spot back requires matching these fields, once they are in a url and contain white spaces they have symbol between them
-    //which makes them not usable.
     data.append("city", city);
     data.append("title", title);
     data.append("longitude", longitude as unknown as string); //will be cast to a string.
@@ -36,19 +34,23 @@ export async function externalUploader(
 
     const postID = response.postMessage;
     if (postID >= 0) {
+
+      //upload file to uploadcare.
       const uploadedFile = await uploadFile(file, {
         publicKey: process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY as string,
       });
       const newData = new FormData();
+
       // Construct the file URL
       const fileUrl = `https://ucarecdn.com/${uploadedFile.uuid}/`;
       newData.append("fileUrl", fileUrl);
       newData.append("postsID", postID);
 
-      const uploadRequest = await fetch("/api/uploadCare/updateSurfSpot", {
+      await fetch("/api/uploadCare/updateSurfSpot", {
         method: "POST",
         body: newData,
       });
+
       doToast({ toast: "success", message: "Surf spot uploaded successfully" });
     } else {
       throw error;

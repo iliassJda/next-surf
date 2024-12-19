@@ -10,8 +10,8 @@ import styles from "@/app/account/account.module.css";
 
 
 export default function Uploader() {
+    //use ref. use the upload button to upload the picture. The input field will be outside of the screen. This is a hack.
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [uploading, setUploading] = useState(false);
     const { data: session, status } = useSession();
     const user = session?.user
     const userEmail = user?.email as string;
@@ -28,7 +28,6 @@ export default function Uploader() {
                     const file = event.target.files?.[0];
                     if (!file) return;
 
-                    setUploading(true);
 
                     try {
                         // Upload the file to Uploadcare
@@ -56,9 +55,7 @@ export default function Uploader() {
 
                     } catch (err) {
                         console.log(err);
-                    } finally {
-                        setUploading(false);
-                    }}}
+                    } }}
             />
             <a
                 className={`${styles.submit} py-2 px-2`}

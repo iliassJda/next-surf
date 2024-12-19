@@ -18,6 +18,8 @@ export default function GetDirectionIcon( {degrees, text}: {
     degrees: number,
     text: string,
 }){
+
+    //get correct direction from degrees supplied by stormglass. Return correct arrow based on the direction.
     const degreesToDirection = (degrees: number) => {
         const directions = [
             { name: 'N', min: 337.5, max: 22.5 },

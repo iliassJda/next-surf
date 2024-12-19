@@ -2,6 +2,8 @@
 import countryContinents from "../../../public/temporary.json"
 
 
+
+//returns the location when a user clicks on the map and it places a marker.
 export async function getLocationData(longitude: number | undefined, latitude: number | undefined, accessToken: string): Promise<any> {
     let continent: string | undefined = ""
     let country = ""
@@ -47,7 +49,7 @@ export async function getLocationData(longitude: number | undefined, latitude: n
 }
 
 
-
+//checks if a place a user typed is a country.
 export function submittedCountry(placeName: string){
     const placeIsCountry = countryContinents.items.countries.find(
         (item: { country: string; }) => item.country.toLowerCase() === placeName.toLowerCase()

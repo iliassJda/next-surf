@@ -24,7 +24,7 @@ export default function Map() {
   const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
 
 
-  const [center, setCenter] = useState<[number, number]>([0, 0]);
+  const center = [0, 0];//center of the map
   const [location, setLocation] = useState("");//location the user typed as input or clicked on the map
   const [continent, setContinent] = useState<string>();//current continent, used in the info of a marker and to save to the database.
   const [country, setCountry] = useState<string>();//for marker and database
@@ -191,7 +191,7 @@ export default function Map() {
 
         setLatitude(event.lngLat.lat);
         setLongitude(event.lngLat.lng);
-        ``
+``
         //get location based on longitude and latitude. use the location result to update the relevant states.
         const locationData = await getLocationData(
             event.lngLat.lng,

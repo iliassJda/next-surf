@@ -1,5 +1,5 @@
 "use client";
-import Spot from "@/components/place/placePage";
+import Spot from "@/components/place/placeComponent/placePage";
 import React, { use, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import FloatingActionButton from "@/components/floatingButtons/floatingActionButton/floatAction";

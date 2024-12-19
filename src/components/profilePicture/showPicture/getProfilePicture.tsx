@@ -9,7 +9,7 @@ import Bron from "/images/defaultProfile.png"
 import Styles from "@/components/profilePicture/showPicture/uploader.module.css"
 import {getProfilePictureURLFromPrisma} from "@/components/profilePicture/showPicture/getter";
 
-
+//gets the profile picture url from the database and display the image.
 export default function ShowProfilePicture(probs: any) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { data: session, status } = useSession();

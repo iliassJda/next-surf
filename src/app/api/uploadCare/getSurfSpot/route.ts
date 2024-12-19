@@ -3,30 +3,6 @@ import prisma from "@/lib/db";
 
 
 
-async function getSurfSpotPrisma(longitude: number, latitude: number) {
-
-    try {
-        const existingSurfSpot = await prisma.surfSpot.findUnique({
-            where: {
-                longitude: longitude,
-                latitude: latitude,
-            },
-        });
-
-        return {
-            country: existingSurfSpot.country,
-            latitude: existingSurfSpot.latitude,
-            longitude: existingSurfSpot.longitude,
-        }
-
-    }
-    catch (error){
-        return NextResponse.json(
-            {error: "prisma can't find CID"},
-            {status: 500}
-        );
-    }
-}
 
 async function getAllSurfSpotsPrisma() {
 

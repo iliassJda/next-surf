@@ -1,30 +1,27 @@
 "use client";
 
-import { SetStateAction, useEffect, useRef, useState } from "react";
-import { getWeatherData } from "@/components/place/getWeatherData";
-import Styles from "@/components/place/place.module.css";
+import { useEffect, useRef, useState } from "react";
+import { getWeatherData } from "@/components/place/weather/getWeatherData";
+import Styles from "@/components/place/placeComponent/place.module.css";
 import * as React from "react";
-import WavesIcon from "@mui/icons-material/Waves";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import AirIcon from "@mui/icons-material/Air";
-import WaterIcon from "@mui/icons-material/Water";
-import NorthEastIcon from "@mui/icons-material/NorthEast";
 
-import RemoveReview from "../button/removeReview/removeReview";
+import RemoveReview from "../../button/removeReview/removeReview";
 
-import ReviewButton from "../button/review/review";
+import ReviewButton from "../../button/review/review";
 
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 
-import Map from "@/components/place/map";
+import Map from "@/components/place/map/map";
 
 import HeightIcon from "@mui/icons-material/Height";
 
-import BootstrapCarouselWithoutArrows from "@/components/place/carousel";
+import BootstrapCarouselWithoutArrows from "@/components/place/carousel/carousel";
 import SurfingIcon from "@mui/icons-material/Surfing";
 
-import GetDirectionIcon from "@/components/place/directionArrow";
+import GetDirectionIcon from "@/components/place/weather/directionArrow";
 import { getReviews } from "@/action/review";
 import { getUser, SavePlace, isPlaceSaved, UnsavePlace } from "@/action/user";
 import { Review } from "@prisma/client";
@@ -32,22 +29,18 @@ import { Review } from "@prisma/client";
 import {
   getSpotImages,
   handleSpotImage,
-} from "@/components/place/handleSpotImage";
-import Button2 from "@/components/materialUIButtons/button2";
+}
+
+from "@/components/place/placeComponent/serverActions/handleSpotImage";
 import Style from "@/components/uploadCare/profilePictureUpload/upload.module.css";
 import { uploadFile } from "@uploadcare/upload-client";
 import { showToast } from "@/components/toast/toast";
 import { useSession } from "next-auth/react";
 
-import SpotDelete from "@/components/place/postDeletePopUp";
-import prisma from "@/lib/db";
+import SpotDelete from "@/components/place/placeComponent/postDeletePopUp";
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import { User } from "next-auth";
+import { verifyUser } from "@/components/place/placeComponent/serverActions/verifyUser";
 
-import { verifyUser } from "@/components/place/verifyUser";
-
-import { amber } from "@mui/material/colors";
 
 export default function Spot({
   country,
@@ -62,6 +55,7 @@ export default function Spot({
   longitude: number;
   latitude: number;
 }) {
+  //states for all relevant weather information
   const [waterTemperatures, setWaterTemperatures] = useState([]);
   const [airTemperatures, setAirTemperatures] = useState([]);
   const [swellDirections, setSwellDirections] = useState([]);
@@ -74,6 +68,7 @@ export default function Spot({
   const [windSpeeds, setWindSpeeds] = useState([]);
   const [precipitations, setPrecipitations] = useState([]);
   const [imageUrls, setImageUrl] = useState([]);
+
 
   const [username, setUsername] = useState(() => {
     const savedState = sessionStorage.getItem("username");
@@ -89,18 +84,25 @@ export default function Spot({
   const [spotRating, setSpotRating] = useState(0);
   const [saved, setSaved] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);//used for experience upload.
+
+  //only user that have an account can upload their experience, save a place or post a review. Based on session.
   const { data: session, status } = useSession();
   const user = session?.user;
   const userEmail = user?.email;
 
-  const start = new Date().toISOString();
 
+  const start = new Date().toISOString();//date used for fetching weather data of today.
+
+  //used to check if a user is the owner of a place. If this is the case they can delete the place.
   const [adminUser, setAdminUser] = useState(() => {
     const savedState = sessionStorage.getItem("adminStatus");
     return savedState !== null ? JSON.parse(savedState) : false;
   });
 
+
+  //get all information that is displayed on the page
   useEffect(() => {
     const reviews = async () => {
       const data = await getReviews(city, title);
@@ -125,6 +127,7 @@ export default function Spot({
       }
     };
 
+    //get weather data from stormglass' API.
     const weatherData = async () => {
       const data = await getWeatherData(
         latitude,
@@ -145,7 +148,7 @@ export default function Spot({
         start,
         start
       );
-
+      //change all the states that hold weather information.
       setWaterTemperatures(
         data.hours?.map(
           (hour: {
@@ -268,6 +271,7 @@ export default function Spot({
       );
     };
 
+    //get all the experiences uploaded by users.
     const getImageUrl = async () => {
       const imageUrls = await getSpotImages(city, title);
       // @ts-ignore
@@ -282,6 +286,8 @@ export default function Spot({
       );
     };
 
+
+    //if user is the admin of this page => change that state.
     const isAdmin = async () => {
       if (await verifyUser(city, title, userEmail as string)) {
         sessionStorage.setItem("adminStatus", JSON.stringify(true));

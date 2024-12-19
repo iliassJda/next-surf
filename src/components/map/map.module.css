@@ -14,10 +14,6 @@
     width: 30%;
 }
 
-.map{
-    border-radius: 20px;
-}
-
 .locationData{
     display: flex;
     flex-direction: column;
@@ -29,7 +25,6 @@
     border-radius: 20px;
     margin-top: 20px;
 }
-
 
 
 .greyContainer {

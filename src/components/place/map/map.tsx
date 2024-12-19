@@ -7,15 +7,14 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import {useSession} from "next-auth/react";
 
 
-
+//same map but only one marker is shown, the one of the current place. The location data of the place is supplied by
 export default function Map({ country, city, title, longitude, latitude }: { country: string, city:string, title:string,longitude: number, latitude: number }) {
     const mapContainerRef = useRef<HTMLDivElement>(null);
     const zoom = 1;
     const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
-    const [center, setCenter] = useState<[number, number]>([0, 0]);
+    const center = [0, 0];
 
     const [dimensions, setDimensions] = useState({
-        width: window.innerWidth,
         height: window.innerHeight
     });
 
@@ -29,7 +28,6 @@ export default function Map({ country, city, title, longitude, latitude }: { cou
         // Handle window resize
         const handleResize = () => {
             setDimensions({
-                width: window.innerWidth,
                 height: window.innerHeight
             });
 
@@ -50,7 +48,7 @@ export default function Map({ country, city, title, longitude, latitude }: { cou
     useEffect(() => {
         if (!mapContainerRef.current) return;
 
-        //remove mapbox logo, only right once works.
+        //remove mapbox logo, only left one works.
         const style = document.createElement('style');
         style.innerHTML = `
           .mapboxgl-ctrl-attrib.mapboxgl-compact {
@@ -70,13 +68,11 @@ export default function Map({ country, city, title, longitude, latitude }: { cou
         // @ts-ignore
         map.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/streets-v12', // Map style
-            center: center, // Initial map center [lng, lat]
-            zoom, // Initial zoom level
+            style: 'mapbox://styles/mapbox/streets-v12',
+            center: center,
+            zoom,
             config: {
-                // Initial configuration for the Mapbox Standard style set above. By default, its ID is `basemap`.
                 basemap: {
-                    // Here, we're setting the light preset to `night`.
                     lightPreset: 'night'
                 }
             }

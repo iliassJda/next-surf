@@ -1,6 +1,6 @@
 
 
-
+//return all existing surf spots in the database
 export async function getExistingSurfSpots(){
     try {
        const getSpotsResponse = await fetch(`/api/uploadCare/getSurfSpot?${new URLSearchParams({

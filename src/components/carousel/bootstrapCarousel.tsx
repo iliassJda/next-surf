@@ -10,6 +10,7 @@ import {Skeleton} from "@mui/material";
 import Link from "next/link";
 
 export default function BootstrapCarousel(){
+    //all of these states are used to have a link to the correct place page. Initially they are empty but after getting the most popular spots they will contain the information for each spot that is popular enough to be shown.
     const [index, setIndex] = useState(0);
     const [images, setImages] = useState<string[]>([]);
     const [titles, setTitles] = useState<string[]>([]);
@@ -19,15 +20,21 @@ export default function BootstrapCarousel(){
     const [longitudes, setLongitudes] = useState<number[]>([]);
     const [loaded, setLoaded] = useState(false);
 
+    //if user presses on one of the bars or the arrows, change the index to the correct one.
     const handleSelect = (selectedIndex: number, e: Record<string, unknown> | null) => {
         setIndex(selectedIndex);
     };
 
+
+    //get the most popular spots on mount of the page.
     useEffect(() => {
         const getImages = async () => {
             try {
+                //most popular spots
                 const spots = await getMostPopularSpots(12)
+                //Afterward change the states accordingly.
                 const imageUrls = spots.map((spot: { imageURL: string }) =>{
+                    //fallback, default picture.
                 if(spot.imageURL === "none") {
                     return "/images/defaultProfile.png"
                 }
@@ -56,7 +63,8 @@ export default function BootstrapCarousel(){
             }
         };
         void getImages();
-    }, []);
+
+    }, []);//empty cause has to run on mount
 
     return (
         <div className={styles.carousel}>
