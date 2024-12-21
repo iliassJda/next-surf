@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/getUserName.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/uploadCare/getSurfSpot/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/uploadCare/getSurfSpot/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/map/getExistingSpots.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/getExistingSpots.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/placeComponent/place.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/place.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/placeComponent/placePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/placePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/verifyUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/verifyUser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/uploadCare/uploadSurfSpot/route.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +78,8 @@
       <workItem from="1733739682866" duration="928000" />
       <workItem from="1734435635139" duration="1431000" />
       <workItem from="1734613557600" duration="11490000" />
-      <workItem from="1734783724589" duration="7615000" />
+      <workItem from="1734783724589" duration="8902000" />
+      <workItem from="1734806235553" duration="2914000" />
     </task>
     <servers />
   </component>
