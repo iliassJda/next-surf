@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Id,
-  toast,
-  ToastContainer,
-  ToastContent,
-  ToastOptions,
-} from "react-toastify";
+import { toast, ToastContent } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,11 +22,9 @@ const showToast = (type: ToastType, content: ToastContent) => {
 const doToast = (response: any) => {
   if (response.toast == "success") {
     showToast("success", response.message);
-    // router.redirect("/")
   } else {
     showToast("error", response.message);
   }
 };
 
 export { doToast, showToast };
-

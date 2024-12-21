@@ -1,10 +1,10 @@
 import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
-import StarIcon from "@mui/icons-material/Star";
 import SurfingIcon from "@mui/icons-material/Surfing";
 import { styled } from "@mui/material/styles";
 
+// All the diferent values that can be given for a review
 const labels: { [index: string]: string } = {
   0.5: "Just stay home",
   1: "Flat",
@@ -18,6 +18,7 @@ const labels: { [index: string]: string } = {
   5: "We Surfing or what??",
 };
 
+// styling for when hovering and when not
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
     color: "cornflowerblue",
@@ -31,6 +32,7 @@ function getLabelText(value: number) {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
 
+// This was based on MUI library for rating. https://mui.com/material-ui/react-rating/
 export default function HoverRating() {
   const [value, setValue] = React.useState<number | null>(2);
   const [hover, setHover] = React.useState(-1);
@@ -51,7 +53,6 @@ export default function HoverRating() {
         precision={0.5}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
-          console.log(newValue);
           setValue(newValue);
         }}
         onChangeActive={(event, newHover) => {

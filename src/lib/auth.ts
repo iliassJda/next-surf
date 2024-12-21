@@ -17,11 +17,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "password", type: "password" },
       },
       authorize: async (credentials) => {
-        // It says there is an error but everything works fine. Don't know what is wrong
         const email = (credentials.email as string) || undefined;
         const password = (credentials.password as string) || undefined;
-
-        console.log(`email: ${email}, password: ${password}`);
 
         if (!email || !password) {
           return new CredentialsSignin(
@@ -73,11 +70,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
 
-    async signIn({account, profile}) {
-      
-      const email = profile?.email as string
+    async signIn({ account, profile }) {
+      const email = profile?.email as string;
 
-      if (account?.provider === "google"){
+      if (account?.provider === "google") {
         const newUser = await prisma.user.findUnique({
           where: { email },
         });
@@ -86,7 +82,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           await prisma.user.create({
             data: {
               email,
-              username:profile?.given_name as string || "",
+              username: (profile?.given_name as string) || "",
               password: "",
               firstname: (profile?.given_name as string) || "",
               lastname: (profile?.family_name as string) || "",

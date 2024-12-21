@@ -5,20 +5,22 @@ import LoginButton from "@/components/button/letsurf/loginButton";
 import GoogleButton from "../button/google/google";
 import styles from "./forum.module.css";
 import { loginManual, loginGoogle } from "@/action/user";
-import { signIn } from "@/lib/auth";
-import router from "next/navigation";
 
 import { doToast } from "../toast/toast";
 
 export default function LoginForum() {
+  // Login with credentials
   const handleManualSubmit = async (formData: FormData) => {
     const response = await loginManual(formData);
 
+    // Shows a pop-up when an error is being made.
     doToast(response);
   };
 
+  // Login with Google
   const handleGoogleSubmit = async () => {
-    const response = await loginGoogle();
+    await loginGoogle();
+    // Here is no DoToast since Google has it's own error handling.
   };
 
   return (

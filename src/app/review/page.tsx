@@ -17,8 +17,6 @@ export default function Review() {
   const titleQuery = search ? search.get("title") : null;
   const cityQuery = search ? search.get("city") : null;
 
-  //   const session = await auth();
-
   const router = useRouter();
 
   const handleClick = async (formData: FormData) => {

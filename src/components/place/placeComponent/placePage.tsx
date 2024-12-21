@@ -29,9 +29,7 @@ import { Review } from "@prisma/client";
 import {
   getSpotImages,
   handleSpotImage,
-}
-
-from "@/components/place/placeComponent/serverActions/handleSpotImage";
+} from "@/components/place/placeComponent/serverActions/handleSpotImage";
 import Style from "@/components/uploadCare/profilePictureUpload/upload.module.css";
 import { uploadFile } from "@uploadcare/upload-client";
 import { showToast } from "@/components/toast/toast";
@@ -41,9 +39,8 @@ import SpotDelete from "@/components/place/placeComponent/postDeletePopUp";
 
 import { verifyUser } from "@/components/place/placeComponent/serverActions/verifyUser";
 
-import {getUserName} from "@/components/place/placeComponent/serverActions/getUserName";
+import { getUserName } from "@/components/place/placeComponent/serverActions/getUserName";
 import Link from "next/link";
-
 
 export default function Spot({
   country,
@@ -74,7 +71,6 @@ export default function Spot({
 
   const [spotUserName, setSpotUserName] = useState("not found");
 
-
   const [username, setUsername] = useState(() => {
     const savedState = sessionStorage.getItem("username");
     return savedState !== null ? JSON.parse(savedState) : false;
@@ -89,23 +85,20 @@ export default function Spot({
   const [spotRating, setSpotRating] = useState(0);
   const [saved, setSaved] = useState(false);
 
-
-  const fileInputRef = useRef<HTMLInputElement>(null);//used for experience upload.
+  const fileInputRef = useRef<HTMLInputElement>(null); //used for experience upload.
 
   //only user that have an account can upload their experience, save a place or post a review. Based on session.
   const { data: session, status } = useSession();
   const user = session?.user;
   const userEmail = user?.email;
 
-
-  const start = new Date().toISOString();//date used for fetching weather data of today.
+  const start = new Date().toISOString(); //date used for fetching weather data of today.
 
   //used to check if a user is the owner of a place. If this is the case they can delete the place.
   const [adminUser, setAdminUser] = useState(() => {
     const savedState = sessionStorage.getItem("adminStatus");
     return savedState !== null ? JSON.parse(savedState) : false;
   });
-
 
   //get all information that is displayed on the page
   useEffect(() => {
@@ -115,15 +108,13 @@ export default function Spot({
       setSpotRating(data?.spotRating as number);
     };
 
+    // Keep the user for checking whether one is connected or not.
     const user = async () => {
       const user = session?.user;
       const userEmail = user?.email;
       if (userEmail) {
         const newUser = await getUser(userEmail as string);
-        console.log(
-          "This is what the current user ID should be: ",
-          newUser?.id
-        );
+
         sessionStorage.setItem("username", JSON.stringify(newUser?.username));
         setUsername(newUser?.username);
         // console.log("This is the current user ID: ", userId);
@@ -291,7 +282,6 @@ export default function Spot({
       );
     };
 
-
     //if user is the admin of this page => change that state.
     const isAdmin = async () => {
       if (await verifyUser(city, title, userEmail as string)) {
@@ -303,17 +293,17 @@ export default function Spot({
       }
     };
 
-    const usernameOfPost = async () =>{
+    const usernameOfPost = async () => {
       const user = await getUserName(city, title);
-      setSpotUserName(user.username)
-    }
+      setSpotUserName(user.username);
+    };
 
     void weatherData();
     void getImageUrl();
     void reviews();
     void isAdmin();
     void user();
-    void usernameOfPost()
+    void usernameOfPost();
   }, []);
 
   const handleSave = async () => {
@@ -328,7 +318,7 @@ export default function Spot({
   };
   useEffect(() => {
     const isSaved = async () => {
-      if (userId || typeof userId == 'number') {
+      if (userId || typeof userId == "number") {
         if (await isPlaceSaved(userId, latitude, longitude)) setSaved(true);
         else setSaved(false);
       }
@@ -342,11 +332,16 @@ export default function Spot({
         <div className={Styles.ratingContainer}>
           <div className={Styles.leftTextContainer}>
             <div>
-              <Link href={`/account/${spotUserName}`} className={Styles.nextLink}><h1>{spotUserName}</h1></Link>
+              <Link
+                href={`/account/${spotUserName}`}
+                className={Styles.nextLink}
+              >
+                <h1>{spotUserName}</h1>
+              </Link>
             </div>
             <div>
               <h2>
-                {title} | {spotRating} <SurfingIcon fontSize="large"/>
+                {title} | {spotRating} <SurfingIcon fontSize="large" />
               </h2>
             </div>
           </div>
@@ -480,7 +475,6 @@ export default function Spot({
             </div>
           </div>
         </div>
-        {/* ${Styles.greyContainer} */}
         <div className={Styles.reviewContainer}>
           <h1>Reviews</h1>
           <div className={` ${Styles.commentsContainer}`}>
@@ -497,9 +491,6 @@ export default function Spot({
                   <span className={Styles.reviewRating}>{review.rating}/5</span>
                 </div>
                 <p className={Styles.reviewText}>{review.description}</p>
-                {/* <div className={Styles.reviewFooter}>
-                  <span className={Styles.reviewDate}>{review.date}</span>
-                </div> */}
               </div>
             ))}
           </div>

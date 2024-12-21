@@ -11,7 +11,6 @@ export default function SearchBar() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams?.get("q") || "";
   const [inputValue, setInputValue] = useState(searchQuery);
-  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
 
@@ -32,11 +31,9 @@ export default function SearchBar() {
     setInputValue(searchQuery); // Synchronize input with the query parameter on mount or URL update
   }, [searchQuery]);
 
+  // This serves as a debounce. So whenever a user is typing in the searchbar, after 300ms of inactivity the querry is sent. That way it is much more user friendly since the user doesn't have to press enter or press on a search button.
   useEffect(() => {
-    // if (pathname !== "/search") return;
-
     const handler = setTimeout(() => {
-      // console.log(inputValue, searchQuery);
       if (inputValue !== searchQuery) {
         const encodedQuery = encodeURIComponent(inputValue);
 
@@ -47,25 +44,12 @@ export default function SearchBar() {
     return () => clearTimeout(handler); // Cleanup on unmount or input change
   }, [inputValue, searchQuery, router]);
 
-  // const onSearch = (event: React.FormEvent) => {
-  //   event.preventDefault();
-  //   //console.log(query);
-  //   //const encodedQuery = encodeURI(query);
-  //   //router.push(`search?q=${encodedQuery}`);
-
-  //   // const [query, setQuery] = useState("");
-
-  //   // console.log("Current Query", encodedQuery);
-  // };
-
   return (
     <div id={isVisible ? styles.prova : styles.search_div}>
       <>
         {(isLargeScreen || (isLargeScreen == false && isVisible == true)) && (
           <input
-            // value={query}
             value={inputValue}
-            // onChange={(event) => setQuery(event.currentTarget.value)}
             onChange={(event) => setInputValue(event.currentTarget.value)}
             type="text"
             id={styles.search_bar}

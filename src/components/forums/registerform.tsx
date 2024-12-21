@@ -11,9 +11,10 @@ import { register } from "@/action/user";
 import { doToast } from "../toast/toast";
 
 export default function RegisterForum() {
+  // Register with credentials
   const handleSubmit = async (formData: FormData) => {
     const res = await register(formData);
-    // console.log("im here!");
+    // Shows a pop-up when an error is being made.
     doToast(res);
   };
 
