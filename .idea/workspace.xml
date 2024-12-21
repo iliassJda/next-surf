@@ -5,45 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/map/tep.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/getUserName.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/uploadCare/getSurfSpot/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/uploadCare/getSurfSpot/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/places/[country]/[city]/[title]/[longitude]/[latitude]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/places/[country]/[city]/[title]/[longitude]/[latitude]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/buttonGrid/buttonGrid.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/buttonGrid/buttonGrid.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/bootstrapCarousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/carousel/carousel.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/carousel.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/carousel/getMostPopular.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/carousel/getMostPopular.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contintsComp/main.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contintsComp/main.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contintsComp/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contintsComp/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/floatingButtons/floatingActionButton/floatAction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/floatingButtons/floatingActionButton/floatAction.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/floatingButtons/floatingActionButton/floating.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/floatingButtons/floatingActionButton/floating.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/map/getExistingSpots.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/getExistingSpots.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/map/getLocationData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/getLocationData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/map/map.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/map.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/map/mapbox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/map/mapbox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/materialUIButtons/button2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/materialUIButtons/button2.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/materialUIButtons/buttonStyle.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/materialUIButtons/buttonStyle.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/carousel.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/carousel/carousel.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/carousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/carousel/carousel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/deletePopUp.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/deletePopUp.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/deleteSpot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/deleteSpot.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/directionArrow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/weather/directionArrow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/getPlaceImage.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/getWeatherData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/weather/getWeatherData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/handleSpotImage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/handleSpotImage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/map/map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/place.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/place.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/placePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/placePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/postDeletePopUp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/postDeletePopUp.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/verifyUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/verifyUser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/place/windDirectionPlot.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profilePicture/showPicture/getProfilePicture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/profilePictureUpload/upload.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/profilePictureUpload/upload.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/profilePictureUpload/uploader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/profilePictureUpload/uploader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/upload.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/upload.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/place/placeComponent/place.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/place.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/place/placeComponent/placePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/placePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/verifyUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/place/placeComponent/serverActions/verifyUser.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +83,7 @@
       <workItem from="1733739682866" duration="928000" />
       <workItem from="1734435635139" duration="1431000" />
       <workItem from="1734613557600" duration="11490000" />
+      <workItem from="1734783724589" duration="7615000" />
     </task>
     <servers />
   </component>

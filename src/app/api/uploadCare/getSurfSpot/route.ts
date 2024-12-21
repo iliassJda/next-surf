@@ -24,7 +24,7 @@ async function getAllSurfSpotsPrisma() {
     }
     catch (error){
         return NextResponse.json(
-            {error: "prisma can't find CID"},
+            {error: "prisma can't find surf spots"},
             {status: 500}
         );
     }
@@ -33,31 +33,15 @@ async function getAllSurfSpotsPrisma() {
 
 
 export async function GET(request: NextRequest) {
-    const { searchParams } = new URL(request.url);
-    const longitude = parseFloat(searchParams.get("longitude") as string);
-    const latitude = parseFloat(searchParams.get("latitude") as string);
-    const allOrOne = searchParams.get("allOrOne");
+    try {
+        const spots = await getAllSurfSpotsPrisma()
+        return NextResponse.json(spots, {status: 200});
+    }catch (e) {
+        return NextResponse.json(
+            {error: "get all spots failed"},
+            {status: 500}
+        )}
 
-    if(allOrOne === "all"){
-        try {
-            const spots = await getAllSurfSpotsPrisma()
-            return NextResponse.json(spots, {status: 200});
-        }catch (e) {
-            return NextResponse.json(
-                {error: "get all spots failed"},
-                {status: 500}
-            )}
-    }
-    else if(allOrOne === "one"){
-        try {
-            console.log("get one spot")
-            return NextResponse.json("succeeded", {status: 200});
-        }catch (e) {
-            return NextResponse.json(
-                {error: "get one spot failed"},
-                {status: 500}
-            )}
-        }
 
 
 }

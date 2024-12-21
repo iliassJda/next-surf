@@ -41,6 +41,9 @@ import SpotDelete from "@/components/place/placeComponent/postDeletePopUp";
 
 import { verifyUser } from "@/components/place/placeComponent/serverActions/verifyUser";
 
+import {getUserName} from "@/components/place/placeComponent/serverActions/getUserName";
+import Link from "next/link";
+
 
 export default function Spot({
   country,
@@ -68,6 +71,8 @@ export default function Spot({
   const [windSpeeds, setWindSpeeds] = useState([]);
   const [precipitations, setPrecipitations] = useState([]);
   const [imageUrls, setImageUrl] = useState([]);
+
+  const [spotUserName, setSpotUserName] = useState("not found");
 
 
   const [username, setUsername] = useState(() => {
@@ -298,11 +303,17 @@ export default function Spot({
       }
     };
 
+    const usernameOfPost = async () =>{
+      const user = await getUserName(city, title);
+      setSpotUserName(user.username)
+    }
+
     void weatherData();
     void getImageUrl();
     void reviews();
     void isAdmin();
     void user();
+    void usernameOfPost()
   }, []);
 
   const handleSave = async () => {
@@ -329,9 +340,16 @@ export default function Spot({
     <div className={Styles.mainContainer}>
       <div className={Styles.titleContainer}>
         <div className={Styles.ratingContainer}>
-          <h1>
-            {title} | {spotRating} <SurfingIcon fontSize="large" />
-          </h1>
+          <div className={Styles.leftTextContainer}>
+            <div>
+              <Link href={`/account/${spotUserName}`} className={Styles.nextLink}><h1>{spotUserName}</h1></Link>
+            </div>
+            <div>
+              <h2>
+                {title} | {spotRating} <SurfingIcon fontSize="large"/>
+              </h2>
+            </div>
+          </div>
         </div>
         <div className={Styles.SaveAndDelete}>
           <div className={Styles.saveContainer} onClick={handleSave}>

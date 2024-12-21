@@ -1,3 +1,8 @@
+.nextLink{
+  text-decoration: none;
+  color: white;
+}
+
 .greyContainer {
   display: flex;
   flex-direction: column;
@@ -94,6 +99,8 @@
   overscroll-behavior-y: contain;
   color: white;
 }
+
+
 
 .weatherData {
   display: flex;
