@@ -12,7 +12,6 @@ import { SurfSpot, User } from "@prisma/client";
 import { Skeleton } from "@mui/material";
 
 const fetchPosts = async (url: string) => {
-  // console.log("yo thest");
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -29,19 +28,16 @@ export default function Search() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
+  // Client side rendering of the fetching of data
   const { data, isLoading } = useSWR(
     `/api/search?q=${encodedSearchQuery}`,
     fetchPosts
   );
 
-  // console.log(data?.users || "No users");
-
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         router.back(); // Goes to the previous page
-        // Or if you prefer:
-        // router.push('/previous-route');
       }
     };
 
@@ -52,15 +48,8 @@ export default function Search() {
     return () => {
       window.removeEventListener("keydown", handleEscapeKey);
     };
-  }, []); // Empty dependency array means this runs once on component mount
+  }, []);
 
-  // if (!data?.posts) {
-  //   return null;
-  // }
-
-  // console.log(`these are the users: ${data.users}`);
-
-  // console.log("Search Params", data.posts);
   return (
     <div className={styles.page}>
       <Skeleton />
@@ -110,12 +99,8 @@ export default function Search() {
                 ))}
             </>
           )}
-          {/* <hr className={styles.seperator} /> */}
         </div>
       </div>
     </div>
   );
-  {
-    /* {isLoading ? <div>Still loading</div> : <div>Here is the data {data}</div>} */
-  }
 }
