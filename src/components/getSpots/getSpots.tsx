@@ -6,7 +6,7 @@ import data from "../../../public/temporary.json";
 import { SurfSpot,SurfSpots,CountryInfo} from "../../types"
 import { NormalizeName} from  "../../globalFunc"
 import styles from './getSpots.module.css'
-
+//We get all surfspots of all country and make a carousel of them here
 export default function ShowSurfSpots({
   continent
 }: {
@@ -14,7 +14,7 @@ export default function ShowSurfSpots({
 }) {
   const [surfSpots, setsurfSpots] = useState<SurfSpots>([]); 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  //fetch all surfspots in a continent
   useEffect(() => {
     const fetchSurfSpots = async () => {
       try {
@@ -48,17 +48,17 @@ export default function ShowSurfSpots({
   if (surfSpots.length === 0) {
     return <p>No Spots Registered</p>; 
   }else{
-
+  //get all countries(name,continent) in a continent 
   const countries = data.items.countries.filter(
     (c: CountryInfo) => NormalizeName(c.continent) === NormalizeName(continent)
   );
-
+  // countries to only have there name 
   const countryNames = countries.map((c:CountryInfo)=>c.country)
-
+  // map countryNames to make a list of of surfspots(list of surfspot) in each country
   const countriesSpots = countryNames
     .map((c:string) => surfSpots.filter((s:SurfSpot)=>NormalizeName(s.country) === NormalizeName(c)))
     .filter((c:SurfSpots) => c.length !== 0);
-
+  // display a carousel for each country with their spots
   return (
     <ul className={styles.ul}>
       {countriesSpots.map((countrySpots:SurfSpots) => (

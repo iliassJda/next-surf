@@ -1,3 +1,4 @@
+// File of type used Relating Surfspots & Following feature
 export type SurfSpot = {
     title: string,
     country:string,
@@ -9,10 +10,6 @@ export type SurfSpot = {
   };
 
 export type SurfSpots = SurfSpot[];
-
-// export type SpotCarouselInfo = Pick<SurfSpot, 'title' | 'imageURL' | 'country' | 'city' | 'longitude' | 'latitude'>;
-
-// export type SpotCarouselInfos = SpotCarouselInfo[];
 
 export type CountryInfo = {
     country:string,
@@ -39,7 +36,3 @@ export type AccountInfo = {
 }
 
 export type AccountInfos = AccountInfo[];
-
-// export type ResponsiveCarouselProps = {
-//     spotCarouselInfos: SpotCarouselInfos;
-//   }

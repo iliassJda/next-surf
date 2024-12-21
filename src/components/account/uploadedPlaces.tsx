@@ -20,7 +20,7 @@ interface Place {
     meanRating: number;
     userId: number;
   }
-
+// Uploaded Places shows all the places searched user has uploaded 
 export default function UploadedPlaces(probs: any) {
     const [places, setPlaces] = useState<Place[]>([]);
     const userMail = probs.accountemail;

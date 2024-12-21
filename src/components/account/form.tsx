@@ -15,7 +15,6 @@ export default function Form(probs: any) {
   const [nationality, setNationality] = useState("");
   const { data: session, status } = useSession();
   const user = session?.user;
-  const userName = user?.username as string;
   const userMail = user?.email as string;
 
   const fetchUserData = async () => {

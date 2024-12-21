@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import styles from "@/app/account/account.module.css";
-import PlacesImg from "../../../public/johnPork.jpg";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { getSavedPlaces } from "./getSavedPlaces";
@@ -22,7 +21,7 @@ interface Place {
   userId: number;
 }
 
-export default function UploadedPlaces(probs: any) {
+export default function SavedPlaces(probs: any) {
   const { data: session, status } = useSession();
   const [places, setPlaces] = useState<Place[]>([]);
   const user = session?.user;
@@ -37,6 +36,7 @@ export default function UploadedPlaces(probs: any) {
     }
   }, [userMail]);
 
+  // Saved Places displays all the places that the user has saved
   return (
     <div className={`${styles.scrollable} ${styles.places}`}>
       {places.length === 0 ? (

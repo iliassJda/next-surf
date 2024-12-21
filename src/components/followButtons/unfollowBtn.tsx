@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "@/app/account/account.module.css";
 import { showToast } from "@/components/toast/toast";
 
+// Button to let logged-in user unfollow another user which page we are visiting
 const UnFollow = (probs: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const currentUsername = probs.currentUsername

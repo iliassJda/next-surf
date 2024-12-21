@@ -25,9 +25,11 @@ export default function Account(props: any) {
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
   const [isLoadingFollowing, setIsLoadingFollowing] = useState<boolean>(true);
   const [sessionUser, setUser] = useState<AccountInfo>();
-  
+
   const { data: session, status } = useSession();
-  
+
+  // The account page needs information about the currently logged-in user and the user whose profile is being viewed.
+  // First Fetch all information of profile being viewed
   useEffect(() => {
     const fetchAccount = async () => {
       try {
@@ -39,7 +41,7 @@ export default function Account(props: any) {
           return;
         }
 
-        const data: AccountInfo = await response.json();
+        const data: AccountInfo = await response.json(); // data fetchen and assign type AccountInfo to help its usage
         setAccount(data);
       } catch (error) {
         console.error("Failed to fetch account:", error);
@@ -52,16 +54,18 @@ export default function Account(props: any) {
     void fetchAccount();
   }, [username]);
 
-   useEffect(() => {
+  // Then Fetch all information of logged-in user
+  useEffect(() => {
     async function fetchData() {
       const data = await getUser(session.user.email);
-      setUser(data || []); // Safely update state here
+      setUser(data || []);
     }
     if (session) {
       fetchData();
     }
   }, [session]);
 
+  // Check if logged-in user is following the profile being viewed
   useEffect(() => {
     const fetchFollowing = async () => {
       if (!sessionUser?.username || !account?.username) {
@@ -85,8 +89,10 @@ export default function Account(props: any) {
     if (!isLoadingAccount) {
       fetchFollowing();
     }
-  }, [account, isLoadingAccount,sessionUser]);
-  
+  }, [account, isLoadingAccount, sessionUser]);
+
+  // if's are here to wait for everything to load/get checked before rendering page
+
   if (status === "loading") {
     return <p>Checking Session...</p>;
   }
@@ -95,23 +101,20 @@ export default function Account(props: any) {
     return <p>Please log in.</p>;
   }
 
-  
   if (isLoadingAccount && isLoadingFollowing) {
     return <p>Loading account...</p>;
   }
 
-  
-
   if (!account) {
     notFound();
   }
-  
-  
- 
 
-  const sessionUsername = sessionUser?.username
+  // use unique username, to check if it's the user's own account or not. Instead of using email or id
+  const sessionUsername = sessionUser?.username;
   const isOwnAccount = sessionUsername === account.username;
 
+  // User page contains a different components depending on if it's the user's own account or not
+  // for own account, No possibilty to follow/unfollow ourselfs & we show more information (email, saved places , etc) and ability to modify some of them
   return (
     <div className={styles.container}>
       <div className={`${styles.section} py-4 px-5`}>
@@ -121,13 +124,13 @@ export default function Account(props: any) {
       <div className={`${styles.section} py-4 px-5`}>
         {!isOwnAccount &&
           (isFollowing ? (
-            <UnFollow
+            <UnFollow //unfollowBtn
               currentUsername={sessionUsername}
               usernameToFollow={account.username}
               onUnFollow={() => setIsFollowing(false)} // Callback to update state
             />
           ) : (
-            <Follow
+            <Follow //followBtn
               currentUsername={sessionUsername}
               usernameToFollow={account.username}
               onFollow={() => setIsFollowing(true)} // Callback to update state
@@ -140,7 +143,7 @@ export default function Account(props: any) {
       </div>
       <div className={`${styles.section} px-5`}>
         <div className={styles.left_selection}>
-          <ShowProfilePicture width="150" height="150" email={account.email} />
+          <ShowProfilePicture width="150" height="150" img={account.profilePictureCID} />
           <br />
           {isOwnAccount && (
             <div>

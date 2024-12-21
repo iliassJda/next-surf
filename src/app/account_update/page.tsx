@@ -12,11 +12,11 @@ import { getUser } from "@/action/user";
 export default function Account(probs: any) {
   const { data: session, status } = useSession();
   const [sessionUser, setUser] = useState<AccountInfo>();
-    
+  //when updating we want to go back to our account page therefore we need to get username 
   useEffect(() => {
       async function fetchData() {
         const data = await getUser(session.user.email);
-        setUser(data || []); // Safely update state here
+        setUser(data || []); 
       }
       if (session) {
         fetchData();

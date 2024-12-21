@@ -6,7 +6,8 @@ import {
   AccountInfos,
   AccountInfo,
 } from "../../types";
-
+//User Carousel Is similar to country carousel but is adapted to show profiles picture which redirects you
+//to the profile page of the user.
 export default function UserCarousel({
   userInfos
 }:{
@@ -35,7 +36,7 @@ export default function UserCarousel({
   };
 
   const visibleImages = getVisibleImages();
-
+  //if there is 3 or less users we show them directly else we show them as a carousel
   if (userInfos.length <= 3) {
     return (
       <div className={styles.Images}>
@@ -43,7 +44,7 @@ export default function UserCarousel({
           {userInfos.map((current_account:AccountInfo, index:number) => (
             <div key={current_account.id} className={styles.imageContainer}>
             <Link href={`/account/${current_account.username}`}>
-            <ShowProfilePicture width="100" height="100" email={current_account.email}/>
+            <ShowProfilePicture width="70" height="70" img={current_account.profilePictureCID}/>
             </Link>
             <p>{current_account.username}</p>
             </div>
@@ -65,7 +66,7 @@ export default function UserCarousel({
             {visibleImages.map((current_account:AccountInfo, index:number) => (
               <div key={current_account.id} className={styles.imageContainer}>
               <Link href={`/account/${current_account.username}`}>
-                <ShowProfilePicture width="80" height="80" email={current_account.email}/>
+                <ShowProfilePicture width="60" height="60" img={current_account.profilePictureCID}/>
               </Link>
                 <p>{current_account.username}</p>
               </div>

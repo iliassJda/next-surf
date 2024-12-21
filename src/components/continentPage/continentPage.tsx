@@ -6,11 +6,13 @@ import GetSpots from '../getSpots/getSpots';
 import styles from './continentPage.module.css'
 import { NormalizeName,NormalizeURLName } from '../../globalFunc'
 
+
+// continent page is the content that a page for a continent should
 const ContinentPage = () => {
   const params = useParams();
   const continent = params?.continentName as string;
   const filteredContinents = data.items.continent.filter(
-    (c:string) => NormalizeName(c) === NormalizeURLName(continent)
+    (c:string) => NormalizeName(c) === NormalizeURLName(continent) //Normalize name to be able to get the correct page, even when user write eUrope for example
   );
  
   const filteredContinent = filteredContinents[0] 
@@ -20,7 +22,7 @@ const ContinentPage = () => {
   }
   console.log(continent)  
   console.log(filteredContinent)  
-
+  
   return (
     <div className={styles.page}>
       <h1>{filteredContinent}</h1>

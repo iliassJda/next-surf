@@ -6,7 +6,7 @@ import { showToast } from "@/components/toast/toast";
 import { followProfile } from "@/action/follow";
 import { redirect } from "next/navigation";
 
-
+// Button to let logged-in user follow another user which page we are visiting
 const Follow = (probs:any) => {
   const [isLoading, setIsLoading] = useState(false);
   const currentUsername = probs.currentUsername
@@ -18,8 +18,7 @@ const Follow = (probs:any) => {
       const response = await fetch(`/api/follow?currentUsername=${currentUsername}&usernameToFollow=${usernameToFollow}`,
         {method:"POST"}
       );
-      //const response = await followProfile({currentUsername, usernameToFollow})
-
+      
       if (response.ok) {
        showToast("success", "Followed successfully!");
        onFollow(); // Update parent state
