@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/lib/db";
 
+// get the user information from the userMail
 export async function getUser(userMail: string) {
     try {
         if (userMail) {

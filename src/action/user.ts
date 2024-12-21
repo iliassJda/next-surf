@@ -127,7 +127,7 @@ const loginManual = async (formData: FormData) => {
     message: "Successfully logged in!",
   };
 };
-
+//used in the account update when submit the updation form
 const updateProfile = async (formData: FormData) => {
   const session = await auth();
   const user = session?.user;
@@ -180,12 +180,13 @@ const getUser = async (userEmail: string) => {
 
   return user;
 };
-
+//function used to connect a place to a user with the save connection
 const SavePlace = async (
   userId: number,
   latitude: string,
   longitude: string
 ) => {
+  //we update the saved field in users adding the place with a specific lat, long that are unique in the SurfSpot relation
   await prisma.user.update({
     where: { id: userId },
     data: {
@@ -203,7 +204,7 @@ const SavePlace = async (
     },
   });
 };
-
+//function used to disconnect a place and a user that have a save connection
 const UnsavePlace = async (
   userId: number,
   latitude: string,
@@ -226,7 +227,7 @@ const UnsavePlace = async (
     },
   });
 };
-
+//check if the place with a specifc lat, long is already a saved place for a user
 const isPlaceSaved = async (
   userId: number,
   latitude: string,

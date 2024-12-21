@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/lib/db";
 
+//function to get the uploaded place for the logged user
 export async function getUploadedPlaces(userMail: string) {
     try {
         if (userMail) {

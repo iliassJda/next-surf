@@ -16,7 +16,7 @@ export default function Form(probs: any) {
   const { data: session, status } = useSession();
   const user = session?.user;
   const userMail = user?.email as string;
-
+  // get the information about the user and save them
   const fetchUserData = async () => {
     try {
       if (userMail) {
@@ -38,6 +38,7 @@ export default function Form(probs: any) {
   }
   void fetchUserData();
 
+  // update the user with the data insert in the form
   const handleSubmit = async (formData: FormData) => {
     const res = await updateProfile(formData);
     if (res.status == "error") {

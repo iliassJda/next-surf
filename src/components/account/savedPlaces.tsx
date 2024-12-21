@@ -20,7 +20,7 @@ interface Place {
   meanRating: number;
   userId: number;
 }
-
+// Saved Places displays all the places that the user has saved
 export default function SavedPlaces(probs: any) {
   const { data: session, status } = useSession();
   const [places, setPlaces] = useState<Place[]>([]);
@@ -36,7 +36,6 @@ export default function SavedPlaces(probs: any) {
     }
   }, [userMail]);
 
-  // Saved Places displays all the places that the user has saved
   return (
     <div className={`${styles.scrollable} ${styles.places}`}>
       {places.length === 0 ? (
@@ -49,7 +48,7 @@ export default function SavedPlaces(probs: any) {
               className={styles.nope}
               href={`/places/${place.country}/${place.city}/${place.title}/${place.longitude}/${place.latitude}`}
             >
-              <div  className={`${styles.place} ${styles.section}`}>
+              <div className={`${styles.place} ${styles.section}`}>
                 <div className={styles.left_section}>
                   <Image
                     src={place.imageURL}

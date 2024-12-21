@@ -13,7 +13,7 @@ export default function SearchBar() {
   const [inputValue, setInputValue] = useState(searchQuery);
   const [isVisible, setIsVisible] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
-
+  // modify the navbar based on the width of the screen
   useEffect(() => {
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth >= 820);
@@ -22,7 +22,7 @@ export default function SearchBar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  // if the screen is small the seach button change the navbar: visible search bar or visible logo and account
   const toggleVisibility = () => {
     if (!isLargeScreen) setIsVisible((prev) => !prev);
   };
@@ -47,7 +47,9 @@ export default function SearchBar() {
   return (
     <div id={isVisible ? styles.prova : styles.search_div}>
       <>
+
         {(isLargeScreen || (isLargeScreen == false && isVisible == true)) && (
+          // the search bar is visible if the screen is large or if the screen is small and the option selected is the searchbar
           <input
             value={inputValue}
             onChange={(event) => setInputValue(event.currentTarget.value)}

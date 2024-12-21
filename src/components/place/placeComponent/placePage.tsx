@@ -305,7 +305,7 @@ export default function Spot({
     void user();
     void usernameOfPost();
   }, []);
-
+  // the user save and unsave the place
   const handleSave = async () => {
     if (!saved) {
       const res = await SavePlace(userId, latitude, longitude);
@@ -316,6 +316,7 @@ export default function Spot({
       setSaved(false);
     }
   };
+  // check if the user has saved the place or not
   useEffect(() => {
     const isSaved = async () => {
       if (userId || typeof userId == "number") {
@@ -349,8 +350,10 @@ export default function Spot({
         <div className={Styles.SaveAndDelete}>
           <div className={Styles.saveContainer} onClick={handleSave}>
             {saved ? (
+              //if saved
               <i className="bi bi-bookmark-fill"> Remove</i>
             ) : (
+              //if not saved
               <i className="bi bi-bookmark"> Save</i>
             )}
           </div>
