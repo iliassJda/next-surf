@@ -38,7 +38,7 @@ export default function Form(probs: any) {
   }
   void fetchUserData();
 
-  // update the user with the data insert in the form
+  //update the user with the data insert in the form
   const handleSubmit = async (formData: FormData) => {
     const res = await updateProfile(formData);
     if (res.status == "error") {
@@ -47,7 +47,6 @@ export default function Form(probs: any) {
       showToast("success", res.message);
     }
   };
-
   return (
     <form action={handleSubmit}>
       <Input name="firstname" type="text" defaultValue={name} ></Input>

@@ -154,13 +154,14 @@ const updateProfile = async (formData: FormData) => {
     };
   }
   // Hash the password
-  const hashedpassword = await bcrypt.hash(password, 5);
+  else
+    password = await bcrypt.hash(password, 5);
 
   // Update everything
   await prisma.user.update({
     where: { email: email },
     data: {
-      password: hashedpassword,
+      password: password,
       firstname: firstname,
       lastname: lastname,
       nationality: nationality,
