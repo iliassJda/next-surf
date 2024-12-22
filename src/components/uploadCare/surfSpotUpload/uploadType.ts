@@ -1,5 +1,5 @@
 import { uploadFile } from "@uploadcare/upload-client";
-import { doToast } from "@/components/toast/toast";
+import {doToast, showToast} from "@/components/toast/toast";
 import { toast } from "react-toastify";
 import error = toast.error;
 
@@ -13,8 +13,10 @@ export async function externalUploader(
   file: File | null,
   userEmail: string | null | undefined
 ): Promise<void> {
-  if (!file) return;
-
+  if (!file) {
+    showToast("error", "please provide an image")
+    return;
+  }
   try {
     const data = new FormData();
     data.append("continent", continent);
