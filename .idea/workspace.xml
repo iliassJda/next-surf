@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90d7b75f-4105-4615-9917-367b53be843a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/prisma/dev.db" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/dev.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/uploadCare/surfSpotUpload/uploadType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +79,8 @@
       <workItem from="1734613557600" duration="11490000" />
       <workItem from="1734783724589" duration="8902000" />
       <workItem from="1734806235553" duration="2914000" />
-      <workItem from="1734893712116" duration="123000" />
+      <workItem from="1734893712116" duration="848000" />
+      <workItem from="1734947316150" duration="161000" />
     </task>
     <servers />
   </component>
