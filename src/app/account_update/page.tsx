@@ -5,9 +5,23 @@ import UpdateButton from "@/components/account/button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { AccountInfo } from "@/types";
+import { getUser } from "@/action/user";
 
 export default function Account(probs: any) {
   const { data: session, status } = useSession();
+  const [sessionUser, setUser] = useState<AccountInfo>();
+  //when updating we want to go back to our account page therefore we need to get username 
+  useEffect(() => {
+      async function fetchData() {
+        const data = await getUser(session.user.email);
+        setUser(data || []); 
+      }
+      if (session) {
+        fetchData();
+      }
+    }, [session]);
   if (status === "loading") {
     return <p>Checking Session</p>
   }
@@ -32,7 +46,7 @@ export default function Account(probs: any) {
             <Form />
           </div>
         </div>
-        <a className={styles.x} href={`/account/${session.user.username}`}> <i className="bi bi-x-circle"></i> </a>
+        <a className={styles.x} href={`/account/${sessionUser?.username}`}> <i className="bi bi-x-circle"></i> </a>
       </div>
     </>
   );

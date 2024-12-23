@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/lib/db";
 
+//function to get the saved place for the logged user
 export async function getSavedPlaces(userMail: string) {
     try {
         if (userMail) {

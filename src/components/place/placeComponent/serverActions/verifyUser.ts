@@ -2,9 +2,8 @@
 
 import prisma from "@/lib/db";
 
-
+//checks if a user is the owner of the surf spot.
 export async function verifyUser(city: string, title: string, userEmail: string) {
-    console.log("verifyUser", city, title, userEmail);
     if (!userEmail) return false;
 
     try {
@@ -23,7 +22,6 @@ export async function verifyUser(city: string, title: string, userEmail: string)
             },
         });
 
-        console.log(existingSurfSpot.userId);
         return user?.id === existingSurfSpot?.userId;
 
     }catch (error) {

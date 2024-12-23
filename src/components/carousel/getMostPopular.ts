@@ -1,8 +1,7 @@
 
 
-
+//return most popular spots.
 export async function getMostPopularSpots(amount: number){
-    // @ts-ignore
     const getSpotsResponse = await fetch(`/api/highestRated?amount=${encodeURIComponent(amount)}`, {
         method: "GET",
     });

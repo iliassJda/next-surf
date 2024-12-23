@@ -1,8 +1,4 @@
 .Image {
-  border-radius: 50%;
-  width: 100%;
-  max-width: 50px;
-  height: auto;
-  aspect-ratio: 1/1;
-  object-fit: cover;
+    border-radius: 50%;
 }
+

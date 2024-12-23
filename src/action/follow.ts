@@ -2,7 +2,7 @@ import prisma from "@/lib/db";
 import { FollowInfo } from "@/types";
 import { redirect } from "next/navigation";
 import { AccountInfo,AccountInfos} from "@/types"
-
+// add function to follow
 const followProfile = async (data: FollowInfo) => {
     const { currentUsername, usernameToFollow } = data;
 
@@ -56,7 +56,7 @@ const unfollowProfile = async (data: FollowInfo) => {
         },
     });
 };
-
+// get all the user current user follows
 const getFollowingList =  async (currentUsername: string): Promise<AccountInfos> => {
     // Find the current user's ID
     const currentUser = await prisma.user.findUnique({
@@ -91,7 +91,7 @@ const getFollowingList =  async (currentUsername: string): Promise<AccountInfos>
     // Map the list to match the AccountInfo structure
     return following.map((follow) => follow.followed as AccountInfo);
   };
-  
+  // all the users that follow current user
   const getFollowersList = async (currentUsername: string): Promise<AccountInfos> => {
     // Find the current user's ID
     const currentUser = await prisma.user.findUnique({
@@ -126,7 +126,7 @@ const getFollowingList =  async (currentUsername: string): Promise<AccountInfos>
     // Map the list to match the AccountInfo structure
     return followers.map((follow) => follow.follower as AccountInfo);
   };
-  
+  //check if current user follows target user
   const getIsFollowing = async (currentUsername: string, targetUsername: string): Promise<boolean> => {
     // Find the current user's ID
     const currentUser = await prisma.user.findUnique({

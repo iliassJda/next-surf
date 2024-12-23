@@ -17,24 +17,27 @@ export default function FloatingActionButton() {
     const [inputValue, setInputValue] = useState('');
     const router = useRouter();
 
-
+    //expand the action button, shows the button to go to the upload place page.
     const handlePlusClick = () => {
         setIsExpanded(!isExpanded);
     };
 
-    const handleInputSubmit = () => {
+    //used router push such that when a user wants to go back to the previous page, it actually goes to the previous one and not to the home page.
+    const handleSubmit = () => {
         router.push('/uploadSurfSpot');
     };
 
     return (
+        /*on mouse enter and onclick to be mobile friendly. Not only hovering*/
+
         <div className={styles.container}>
             {isExpanded && (
-                <div className={styles.inputWrapper}>
+                <div className={styles.submitContainer}>
                     <button
-                        onClick={handleInputSubmit}
+                        onClick={handleSubmit}
                         className={styles.submitButton}
                     >
-                        upload a spot
+                        Upload a spot
                     </button>
 
                 </div>

@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import styles from "@/app/account/[userName]/account.module.css";
+import styles from "@/app/account/account.module.css";
 import { showToast } from "@/components/toast/toast";
 
+// Button to let logged-in user unfollow another user which page we are visiting
 const UnFollow = (probs: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const currentUsername = probs.currentUsername
@@ -31,7 +32,7 @@ const UnFollow = (probs: any) => {
     <button
       onClick={handleUnfollow}
       disabled={isLoading}
-      className={styles.button}
+      className={styles.submit}
     >
       {isLoading ? "Unfollowing..." : "Unfollow"}
     </button>

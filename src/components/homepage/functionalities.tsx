@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 
 export default function Functionalities() {
     const { data: session, status } = useSession();
-
+    //description of some of the main functionalities
     return (
         <>
             <div className={`${styles.functionalities}`}>
@@ -44,6 +44,7 @@ export default function Functionalities() {
                     </div>
                 </div>
                 {!session ? (
+                    // available if not logged
                     <div className={styles.flex}>
                         <Link className={`${styles.place} ${styles.sectionlr} ${styles.nope}`} href={`/login`}>
                             <div className={styles.left_section}>

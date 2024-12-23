@@ -10,20 +10,21 @@ export default async function Form(probs: any) {
   let surname = "";
   let email = "";
   let nationality = "";
-    if (session){
+  //collect the information of the user and insert them in the inputs
+  if (session) {
     const user = session?.user
-    email = user?.email  as string;
+    email = user?.email as string;
     const existinguser = await prisma.user.findUnique({
       where: {
         email: email,
       },
     });
-    if (existinguser){
+    if (existinguser) {
       name = existinguser.firstname;
       surname = existinguser.lastname;
       nationality = existinguser.nationality;
     }
-    }
+  }
 
   return (
     <form action="">

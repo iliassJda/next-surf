@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Styles from "@/components/place/deletePopUp.module.css"
-import {deleteSpot} from "@/components/place/deleteSpot";
+import Styles from "@/components/place/placeComponent/deletePopUp.module.css"
+import {deleteSpot} from "@/components/place/placeComponent/serverActions/deleteSpot";
 import {redirect} from "next/navigation";
 
 
-
+//pop up for deleting a surf spot
 function DeletePopUp({ isOpen, onClose, onConfirm }: any){
     if (!isOpen) return null;
 
@@ -26,21 +26,22 @@ function DeletePopUp({ isOpen, onClose, onConfirm }: any){
 };
 
 export default function SpotDelete({spotCity, spotTitle, longitude, latitude}: {spotCity: string, spotTitle: string, longitude: string, latitude: string}) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isPopUpOpen, setPopUpOpen] = useState(false);
 
     const handleDeleteClick = () => {
-        setIsModalOpen(true);
+        setPopUpOpen(true);
     };
 
     const handleConfirmDelete = async() => {
         console.log(spotCity);
         await deleteSpot(spotCity, spotTitle, parseFloat(longitude), parseFloat(latitude));
-        setIsModalOpen(false);
+        setPopUpOpen(false);
+        //after deletion go back to the home page since the surf spot does not exist anymore.
         redirect("/")
     };
 
     const handleCloseModal = () => {
-        setIsModalOpen(false);
+        setPopUpOpen(false);
     };
 
     return (
@@ -54,7 +55,7 @@ export default function SpotDelete({spotCity, spotTitle, longitude, latitude}: {
             </button>
 
             <DeletePopUp
-                isOpen={isModalOpen}
+                isOpen={isPopUpOpen}
                 onClose={handleCloseModal}
                 onConfirm={async() =>{ await handleConfirmDelete()}}
 

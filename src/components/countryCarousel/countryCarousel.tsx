@@ -7,7 +7,7 @@ import {
   SurfSpots,
   SurfSpot,
 } from "../../types";
-
+//Responsive carousel made to display surfspots 
 export default function ResponsiveCarousel({
   spotCarouselInfos
 }:{
@@ -27,7 +27,7 @@ export default function ResponsiveCarousel({
   };
 
   
-
+  //show 3 spots at time to limit elements on screen
   const getVisibleImages = () => {
     const totalImages = spotCarouselInfos.length;
     return [
@@ -38,7 +38,7 @@ export default function ResponsiveCarousel({
   };
 
   const visibleImages = getVisibleImages();
-
+  //no need to make a carousel if there is 3 or less spots 
   if (spotCarouselInfos.length <= 3) {
     return (
       <div className={styles.Images}>
@@ -68,7 +68,7 @@ export default function ResponsiveCarousel({
         </button>
         <div className={styles.Images}>
           <div className={styles.imagesWrapper}>
-            {visibleImages.map((Sci:SpotCarouselInfo, index:number) => (
+            {visibleImages.map((Sci:SurfSpot, index:number) => (
               <div key={Sci.id} className={styles.imageContainer}>
               <Link href={`/places/${Sci.country}/${Sci.city}/${Sci.title}/${Sci.longitude}/${Sci.latitude}`}>
                 <img

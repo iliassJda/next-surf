@@ -1,5 +1,6 @@
 import prisma from "@/lib/db";
 import {type NextRequest, NextResponse} from "next/server";
+import countriesDATA from "../../../../../public/countries.json"
 
 
 
@@ -57,13 +58,21 @@ export async function POST(request: NextRequest) {
 
 
     try {
-        const spotID = await saveToPrisma(continent, country, city, title, longitude, latitude, userID);
-
-        return NextResponse.json({postMessage: spotID}, {status: 200});
-    } catch (e) {
+        //check if country exists in file that contains all countries, if this is not the case the surf spot may not be saved.
+        const countryExists =  countriesDATA.items.countries.some(
+            countryInJson => countryInJson.name.toLowerCase() === country.trim().toLowerCase()
+        );
+        if(countryExists){
+            const spotID = await saveToPrisma(continent, country, city, title, longitude, latitude, userID);
+            return NextResponse.json({postMessage: spotID}, {status: 200});
+        }
+        else{
+            return NextResponse.json({postMessage: "country does not exist"}, {status: 400});
+            }
+        } catch (e) {
         console.error(e);
         return NextResponse.json(
-            {error: "post request failed"},
+            {error: "can't upload the surf spot"},
 
             {status: 500}
         );

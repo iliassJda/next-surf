@@ -6,9 +6,9 @@
   width: 80%;
   border-radius: 20px;
   height: 630px;
-  filter: brightness(65%);
-  object-fit: cover; /* Ensures image covers entire container */
-  object-position: center; /* Centers the image */
+  filter: brightness(50%);/*changed brightness to have title and city stand out more*/
+  object-fit: cover; /* let image cover entire container */
+  object-position: center; /* center the image */
 }
 
 
@@ -21,10 +21,11 @@
   width: 100%;
 }
 .paragraph{
-  margin-bottom: 0px;
+  margin-bottom: 0;
   color: white;
 }
 
+/*skeleton that shows when the carousel is loading*/
 .skeletonContainer{
   max-width: fit-content;
   margin-left: auto;
@@ -39,21 +40,24 @@
 .paragraphCountry{
   margin-bottom: 0px;
   color: white;
-  font-size: 2rem;
+  font-size: 30px;
 }
+
+
 .title {
   position: absolute;
+  /*have the title at the top left of the image*/
   bottom:70%;
   left: 50%;
   transform: translateX(-70%);
-  background-color: rgba(0, 0, 0, 0.0);
   color: white;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 3rem;
+  font-size: 50px;
   width: 50%;
   height: 20%;
 }
+
+
+
 @media screen and (max-width: 480px){
   .carouselItem{
     height: 30rem;
@@ -73,11 +77,8 @@
     bottom:70%;
     left: 50%;
     transform: translateX(-60%);
-    background-color: rgba(0, 0, 0, 0.0);
     color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 3rem;
+    font-size: 40px;
     margin-left: 30px;
     width: 75%;
     height: 20%;

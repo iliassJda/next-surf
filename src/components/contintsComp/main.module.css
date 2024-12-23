@@ -1,3 +1,5 @@
+
+
 .buttonStyles{
     margin-top: 20px;
     display: flex;
@@ -14,7 +16,7 @@
 
 }
 
-
+/*after testing, only one break is enough for a good responsive design*/
 @media screen and (max-width: 480px){
     .buttonStyles{
         margin-top: 10px;

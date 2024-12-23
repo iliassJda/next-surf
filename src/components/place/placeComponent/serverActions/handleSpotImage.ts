@@ -3,6 +3,8 @@
 
 import prisma from "@/lib/db";
 
+
+//save the experience to the database. The experience needs the id of the user and the spot it belongs to. First get those and if they are valid save the url to the database.
 export async function handleSpotImage(city: string, title: string, userEmail: string, imageURL: string){
 
     try {
@@ -39,7 +41,7 @@ export async function handleSpotImage(city: string, title: string, userEmail: st
 }
 
 
-
+//get all experience images of a specific spot from the database.
 export async function getSpotImages(city: string, title: string){
 
     const existingSurfSpot = await prisma.surfSpot.findUnique({

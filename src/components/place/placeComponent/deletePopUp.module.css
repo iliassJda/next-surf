@@ -1,4 +1,4 @@
-/* modal.module.css */
+
 
 .popUpOverlay {
     position: fixed;
@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 1000;/*have it on top of everything else*/
     color: black;
 }
 
@@ -29,19 +29,21 @@
     margin-top: 20px;
 }
 
-.popUpActions button {
+
+
+.cancelButton {
+    background-color: #f0f0f0;
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
 }
 
-.cancelButton {
-    background-color: #f0f0f0;
-}
-
 .deleteButton {
     background-color: #f5422f;
     color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
 }
 
 

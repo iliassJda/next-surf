@@ -28,13 +28,11 @@
   align-items: center;
   padding: 10px;
   width: 100%;
-  font-family: "Kaushan Script";
 }
 
 .places {
   margin-left: 10%;
   width: 100%;
-  font-family: "Kaushan Script";
 }
 
 .left_section {
@@ -173,4 +171,28 @@
 .nope {
   outline: none;
   text-decoration: none;
+}
+
+@media screen and (max-width: 640px) {
+
+
+  .left_section p {
+    width: 20%;
+    font-size: 0.65rem;
+  }
+
+  .right_section h4 {
+    font-size: 80%;
+  }
+
+  .left_section img {
+    width: 80%;
+    height: 80%;
+  }
+
+  .right_section img {
+    width: 80%;
+    height: 80%;
+  }
+
 }

@@ -1,19 +1,15 @@
 "use client";
-import prisma from "@/lib/db";
-import styles from "@/app/account/account.module.css";
-import {useSession} from "next-auth/react";
+import styles from "./followedUser.module.css";
 import React, {useEffect,useState} from 'react';
 import UserCarousel from "@/components/followedUser/userCarousel";
-import { AccountInfo, AccountInfos, } from "@/types";
-import Link from "next/link";
-import { getFollowingList } from "@/action/follow";
+import { AccountInfos } from "@/types";
 
 
 export default  function Following(probs: any) {
     const username = probs.username;
     const [accountInfos, setaccountInfos] = useState<AccountInfos>([]); // Default image
     const [isLoading, setIsLoading] = useState(true);
-
+    //Fetch all the account the logged-in user follows
     useEffect(() => {
       const fetchFollowing = async () => {
         try {
@@ -38,9 +34,9 @@ export default  function Following(probs: any) {
     if (isLoading) {
         return <div>Loading...</div>;
     }
-
+    // if there are accounts that user follow show user carousel else show "doesn't follow anyone"
     return(
-        <div className={`${styles.scrollable} ${styles.places}`}>
+        <div className={styles.container}>
           {accountInfos.length === 0 ? (
             <p> Doesn't follow anyone</p>
           ) : (        
